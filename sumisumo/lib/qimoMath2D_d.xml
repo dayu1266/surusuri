@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>qimoMath2D_d</name>
+    </assembly>
+    <members>
+        <member name="F:QimOLib.Math2D.PI">
+            定数系 ------------------------------------------------------------------------
+            <summary>
+            円周率
+            </summary>
+        </member>
+        <member name="F:QimOLib.Math2D.kEpsilon">
+            <summary>
+            0に限りなく近い値（floatの計算誤差用）
+            </summary>
+        </member>
+        <member name="F:QimOLib.Math2D.E">
+            <summary>
+            自然対数の底（ネイピアの数）
+            </summary>
+        </member>
+        <member name="F:QimOLib.Math2D.Sqrt2">
+            <summary>
+            ルート2
+            </summary>
+        </member>
+        <member name="M:QimOLib.Math2D.Equals(System.Single,System.Single)">
+            bool系 ------------------------------------------------------------------------
+            <summary>
+            2つの値が限りなく等しいか判別する
+            </summary>
+            <param name="value1">値1</param>
+            <param name="value2">値2</param>
+            <returns>等しかったらTrueを返す</returns>
+        </member>
+        <member name="F:QimOLib.Math2D.Deg2Rad">
+            変換系 ------------------------------------------------------------------------
+            <summary>
+            度数法にかけることで弧度法に変換する  deg→rad
+            </summary>
+        </member>
+        <member name="F:QimOLib.Math2D.Rad2Deg">
+            <summary>
+            弧度法にかけることで度数法に変換する rad→deg
+            </summary>
+        </member>
+        <member name="M:QimOLib.Math2D.Distance(System.Single,System.Single)">
+            数値系 ------------------------------------------------------------------------
+            <summary>
+            2つの値の絶対値を求めます
+            </summary>
+            <param name="value1">値1</param>
+            <param name="value2">値2</param>
+            <returns></returns>
+        </member>
+        <member name="M:QimOLib.Math2D.Sing(System.Single)">
+            <summary>
+            引数の値が正の数のら1、負の数なら-1を返します
+            </summary>
+            <param name="value">値</param>
+            <returns>正の数：1、負の数：-1、0：</returns>
+        </member>
+        <member name="M:QimOLib.Math2D.clamp(System.Single,System.Single,System.Single)">
+            <summary>
+            値を指定された範囲内に制限します
+            </summary>
+            <param name="value">値</param>
+            <param name="min">最低値</param>
+            <param name="max">最大値</param>
+            <returns>クランプした範囲内（min～max）で値を返します</returns>
+        </member>
+        <member name="M:QimOLib.Math2D.Lerp(System.Single,System.Single,System.Single)">
+            補完系 ------------------------------------------------------------------------
+            <summary>
+            線形補完
+            </summary>
+            <param name="value1">開始値</param>
+            <param name="value2">終了値</param>
+            <param name="amount">進捗率（%）</param>
+            <returns></returns>
+        </member>
+        <member name="M:QimOLib.Math2D.SphereSphereIntersection(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            コリジョン系 ------------------------------------------------------------------------
+            <summary>
+            円と円の衝突判定
+            </summary>
+            <param name="x1">円1の中心x</param>
+            <param name="y1">円1の中心y</param>
+            <param name="radius1">円1の半径</param>
+            <param name="x2">円2の中心x</param>
+            <param name="y2">円2の中心y</param>
+            <param name="radius2">円2の半径</param>
+            <returns>当たっているとTrueを返します</returns>
+        </member>
+        <member name="M:QimOLib.Math2D.SquareSquareIntersection(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            四角形と四角形の当たり判定(サイズ使用)
+            </summary>
+            <param name="x1">四角1の左上のx</param>
+            <param name="x2">四角2の左上のx</param>
+            <param name="size1">四角1の大きさ</param>
+            <param name="y1">四角1の左上のy</param>
+            <param name="y2">四角2の左上のy</param>
+            <param name="size2">四角2の大きさ</param>
+            <returns>当たっているとTrueを返します</returns>
+        </member>
+        <member name="M:QimOLib.Math2D.RectRectIntersect(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            四角形と四角形の当たり判定(サイズ不使用)
+            </summary>
+            <param name="aLeft">四角1の左端</param>
+            <param name="aTop">四角1の上端</param>
+            <param name="aRight">四角1の右端</param>
+            <param name="aBottom">四角1の下端</param>
+            <param name="bLeft">四角2の左端</param>
+            <param name="bTop">四角2の上端</param>
+            <param name="bRight">四角2の右端</param>
+            <param name="bBottom">四角2の下端</param>
+            <returns>当たっているとTrueを返します</returns>
+        </member>
+        <member name="M:QimOLib.Math2D.sin(System.Single)">
+            三角関数   ------------------------------------------------------------------------
+            <summary>
+            サインの値を返します
+            </summary>
+            <param name="degree">theta(degree)</param>
+            <returns></returns>
+        </member>
+        <member name="M:QimOLib.Math2D.cos(System.Single)">
+            <summary>
+            コサインの値を返します
+            </summary>
+            <param name="degree">theta(degree)</param>
+            <returns></returns>
+        </member>
+        <member name="M:QimOLib.Math2D.tan(System.Single)">
+            <summary>
+            タンジェントの値を返します
+            </summary>
+            <param name="degree">theta(degree)</param>
+            <returns></returns>
+        </member>
+        <member name="M:QimOLib.Math2D.Asin(System.Single)">
+            逆三角関数 ------------------------------------------------------------------------
+            <summary>
+            アークサインをdegで返します
+            </summary>
+            <param name="cos"></param>
+            <returns>degree</returns>
+        </member>
+        <member name="M:QimOLib.Math2D.Acos(System.Single)">
+            <summary>
+            アークコサインをdegで返します
+            </summary>
+            <param name="cos"></param>
+            <returns>degree</returns>
+        </member>
+        <member name="M:QimOLib.Math2D.Atan(System.Single,System.Single)">
+            <summary>
+            アークタンジェントをdegで返します
+            </summary>
+            <param name="y">y</param>
+            <param name="x">x</param>
+            <returns>degree</returns>
+        </member>
+        <member name="M:QimOLib.Math2D.PointToPointAngle(System.Single,System.Single,System.Single,System.Single)">
+            三角関数系 ------------------------------------------------------------------------
+            <summary>
+            点から点への角度（ラジアン）を求める。
+            </summary>
+            <param name="fromX">始点x</param>
+            <param name="fromY">始点y</param>
+            <param name="toX">終点x</param>
+            <param name="toY">終点y</param>
+            <returns>radで角度を返します</returns>
+        </member>
+    </members>
+</doc>
