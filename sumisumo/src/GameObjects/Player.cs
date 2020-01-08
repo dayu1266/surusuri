@@ -50,6 +50,8 @@ namespace sumisumo
 
             hp = initialHp;
             surinukeLock = initSurinukeLock;
+
+            playScene.gameObjects.Add(new Sight(playScene, this, pos));
         }
 
         public override void Update()

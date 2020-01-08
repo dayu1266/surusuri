@@ -79,6 +79,7 @@
     <Compile Include="src\GameObjects\Enemy\People.cs" />
     <Compile Include="src\GameObjects\Gimmick\DownStairs.cs" />
     <Compile Include="src\GameObjects\Gimmick\UpStairs.cs" />
+    <Compile Include="src\GameObjects\Others\Sight.cs" />
     <Compile Include="src\GameObjects\Player.cs" />
     <Compile Include="src\GameObjects\Others\ResultCursor.cs" />
     <Compile Include="src\Scenes\GameClearScene.cs" />
