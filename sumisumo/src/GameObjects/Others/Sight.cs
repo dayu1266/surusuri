@@ -11,11 +11,14 @@ namespace sumisumo
     {
         GameObject oya;
         Direction direction;
+        PlayScene playScene;
+        Player player;
 
         public Sight(PlayScene playScene, GameObject gameObject, Vector2 pos) : base(playScene)
         {
             this.pos = pos;
             oya = gameObject;
+            this.playScene = playScene;
 
             imageWidth = 60;
             imageHeight = 140;
@@ -47,6 +50,14 @@ namespace sumisumo
 
         public override void OnCollision(GameObject other)
         {
+            if(oya ==  playScene.gameObjects.Find(n => n is Player) && other is People)
+            {
+                oya.suri = true;
+            }
+            else
+            {
+                oya.suri = false;
+            }
         }
     }
 }

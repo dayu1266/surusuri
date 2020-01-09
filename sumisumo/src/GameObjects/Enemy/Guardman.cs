@@ -11,13 +11,13 @@ namespace sumisumo
 {
     public class Guardman : GameObject
     {
-        const float WalkSpeed = 3f;      // 歩きの速度
-        const float RunSpeed = 9f;
-        const float MaxFallSpeed = 12f;  // 最大落下速度
-        const int initialHp = 1;         // 一般人のHP
-        const int initialAmount = 200;   // 移動量のベース
+        const float WalkSpeed = 3f;                 // 歩く速度
+        const float RunSpeed = 9f;                  // 走るスピード
+        const float MaxFallSpeed = 12f;             // 最大落下速度
+        const int initialHp = 1;                    // 一般人のHP
+        const int initialAmount = 200;              // 移動量のベース
         const int initialdontMoveFream = 3 * 60;    // 停止フレーム
-        const int View = 130;            // 視野
+        const int View = 130;                       // 視野
 
         float Amount;
         float dontMoveFream;
@@ -74,7 +74,6 @@ namespace sumisumo
                 {
                     float prePosX = velocity.X;
                     velocity.X = -RunSpeed;
-                    
                 }
             }
 

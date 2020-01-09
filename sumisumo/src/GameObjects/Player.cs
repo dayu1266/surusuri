@@ -25,7 +25,7 @@ namespace sumisumo
         State state = State.Walk;        // 現在の状態
         
         public int curMoney;                // 所持金
-        int surinukeLock;
+        int surinukeLock;                   // すり抜けができるかできないか
         Direction tmp = Direction.Right;
 
         int floor = 1;      // 今いる階層
@@ -58,6 +58,9 @@ namespace sumisumo
 
         public override void Update()
         {
+            // すり抜け中ではない
+            surinuke_now = false;
+
             // 入力を受けての処理
             HandleInput();
 
@@ -70,12 +73,11 @@ namespace sumisumo
             // 次に縦に動かす
             MoveY();
 
+            // すり抜けができない時間
             surinukeLock--;
 
-            
             if(direction != tmp)
             {
-                
                 tmp = direction;
             }
         }
@@ -199,6 +201,14 @@ namespace sumisumo
 
         void frontSurinuke()
         {
+            // スリができる状態なら
+            if (suri == true)
+            {
+                surinuke_now = true;
+                curMoney += Random.Range(1, 5) * 100;
+            }
+
+            // プレイヤーの向きに応じてワープ座標を決める
             if(direction == Direction.Right)
             {
                 pos.X += 180;
@@ -240,6 +250,9 @@ namespace sumisumo
             {
                 hp--;
             }
+
+
+
             //if (other is Goal) //ゴールにぶつかったときの処理
             //{
             //    IsGoal(); //ゴール処理

@@ -8,9 +8,11 @@ namespace sumisumo
     // プレイヤーや敵、アイテムなどはこのクラスを継承して作る。
     public abstract class GameObject
     {   
-        public Vector2 pos = new Vector2(); // プレイヤーのポジション
-        public bool isDead = false;         // 死んだ（削除対象）フラグ
-        public bool Surizumi = false;
+        public Vector2 pos = new Vector2();         // プレイヤーのポジション
+        public bool isDead = false;                 // 死んだ（削除対象）フラグ
+        public bool Surizumi = false;               // スリをされたかどうか
+        public bool suri = false;                   // スリができるかどうか（一般人が視界にいるかどうか）
+        public bool surinuke_now = false;           // すり抜けの途中かどうか
         public Direction direction;
 
         protected PlayScene playScene;  // PlaySceneの参照
