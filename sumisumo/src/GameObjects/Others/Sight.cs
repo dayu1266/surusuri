@@ -10,6 +10,7 @@ namespace sumisumo
     public class Sight : GameObject
     {
         GameObject oya;
+        Direction direction;
 
         public Sight(PlayScene playScene, GameObject gameObject, Vector2 pos) : base(playScene)
         {
@@ -18,15 +19,25 @@ namespace sumisumo
 
             imageWidth = 60;
             imageHeight = 140;
-            hitboxOffsetLeft = 17;
-            hitboxOffsetRight = 17;
+            hitboxOffsetLeft = 0;
+            hitboxOffsetRight = 0;
             hitboxOffsetTop = 9;
             hitboxOffsetBottom = 10;
         }
 
         public override void Update()
         {
-            pos = oya.pos;
+            direction = oya.direction;
+            if (direction == Direction.Right)
+            {
+                pos = oya.pos;
+                pos.X += 45;
+            }
+            if(direction == Direction.Left)
+            {
+                pos = oya.pos;
+                pos.X -= 45;
+            }
         }
 
         public override void Draw()

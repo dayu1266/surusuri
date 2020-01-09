@@ -27,7 +27,7 @@ namespace sumisumo
         bool findPlayer; // プレイヤーを見つけたかどうかのフラグ
 
         Vector2 velocity;        // 移動速度
-        Direction MoveDirection; // 移動方向
+        Direction Direction; // 移動方向
 
         public Guardman(PlayScene playScene, Vector2 pos) : base(playScene)
         {
@@ -46,6 +46,8 @@ namespace sumisumo
             Amount = initialAmount;
             dontMoveFream = 0;
             findPlayer = false;
+
+            playScene.gameObjects.Add(new Sight(playScene, this, pos));
         }
 
         public override void Update()
@@ -95,6 +97,16 @@ namespace sumisumo
                     {
                         
                     }
+
+                    if(randMove == 1)
+                    {
+                        direction = Direction.Left;
+                    }
+                    else
+                    {
+                        direction = Direction.Right;
+                    }
+
 
                     // 移動量を決定
                     int randAmount = QimOLib.Random.Range(1, 4);

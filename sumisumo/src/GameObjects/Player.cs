@@ -23,7 +23,7 @@ namespace sumisumo
 
         Vector2 velocity = Vector2.Zero; // 移動速度
         State state = State.Walk;        // 現在の状態
-        Direction direction = Direction.Right; // 向いている方向
+        
         public int curMoney;                // 所持金
         int surinukeLock;
         Direction tmp = Direction.Right;
@@ -38,6 +38,8 @@ namespace sumisumo
         {
             this.pos.X = pos.X;
             this.pos.Y = pos.Y;
+
+            direction = Direction.Right; // 向いている方向
 
             imageWidth = 60;
             imageHeight = 140;

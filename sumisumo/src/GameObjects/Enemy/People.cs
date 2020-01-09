@@ -29,7 +29,7 @@ namespace sumisumo
         int turn = 0;
 
         Vector2 velocity;        // 移動速度
-        Direction MoveDirection; // 移動方向
+        Direction Direction; // 移動方向
 
         public People(PlayScene playScene, Vector2 pos) : base(playScene)
         {
@@ -48,6 +48,8 @@ namespace sumisumo
             Amount = initialAmount;
             dontMoveFream = 0;
             turnFream = 0;
+
+            playScene.gameObjects.Add(new Sight(playScene, this, pos));
         }
 
         public override void Update()
@@ -64,7 +66,7 @@ namespace sumisumo
         {
             if (turnFream > turnInterval)
             {
-                TurnAround(); 
+                //TurnAround(); 
             }
             else
             {
@@ -83,7 +85,15 @@ namespace sumisumo
                     }
                     if (tmp != randMove && changecount != 0)
                     {
-                        
+                    }
+
+                    if (randMove == 1)
+                    {
+                        direction = Direction.Left;
+                    }
+                    else
+                    {
+                        direction = Direction.Right;
                     }
 
                     // 移動量を決定
@@ -112,7 +122,6 @@ namespace sumisumo
                 // 横に移動する
                 pos.X += velocity.X;
             }
-           
 
             // 当たり判定の四隅の座標を取得
             float left = GetLeft();

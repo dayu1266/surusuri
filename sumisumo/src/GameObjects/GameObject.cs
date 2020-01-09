@@ -11,6 +11,7 @@ namespace sumisumo
         public Vector2 pos = new Vector2(); // プレイヤーのポジション
         public bool isDead = false;         // 死んだ（削除対象）フラグ
         public bool Surizumi = false;
+        public Direction direction;
 
         protected PlayScene playScene;  // PlaySceneの参照
         protected int imageWidth;       // 画像の横ピクセル数
