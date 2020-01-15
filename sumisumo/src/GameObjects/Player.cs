@@ -242,6 +242,9 @@ namespace sumisumo
                 // Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[14], flip);
                 Camera.DrawGraph(pos.X, pos.Y, Image.player, flip); // 仮リソース
             }
+
+            // クールタイムゲージ描画
+            GaugeDrawer();
         }
 
         public override void OnCollision(GameObject other)
@@ -288,6 +291,11 @@ namespace sumisumo
         {
             pos.Y += 180;
             floor--;
+        }
+
+        public void GaugeDrawer()
+        {
+            Camera.DrawGraph(Camera.cameraPos.X + 198, Camera.cameraPos.Y + 11, Image.cooltimeGauge[30]);
         }
     }
 }
