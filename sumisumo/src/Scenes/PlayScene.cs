@@ -36,7 +36,11 @@ namespace sumisumo
         {
             // インスタンス生成
             map = new Map(this, "stage1");
+            player = new Player(this, new Vector2(0, 800));
+            gameObjects.Add(player);
+            player = player;
             Camera.LookAt(player.pos.X, player.pos.Y);
+
         }
 
 
@@ -60,7 +64,7 @@ namespace sumisumo
 
             if (Input.GetButtonDown(DX.PAD_INPUT_3))
             {
-                if(state == State.Active)
+                if (state == State.Active)
                 {
                     state = State.OnAlert;
                 }
@@ -101,7 +105,7 @@ namespace sumisumo
                         b.OnCollision(a);
                     }
                 }
-            }       
+            }
 
             // 不要となったオブジェクトを除去する
             gameObjects.RemoveAll(go => go.isDead);
@@ -138,11 +142,11 @@ namespace sumisumo
 
             // マップの描画
             map.DrawTerrain();
-            
+
             // プレイヤーのHPのUI
             for (int i = 0; i < player.hp; i++)
             {
-                DX.DrawRotaGraph(32 + (i * 48), 20, 2, 0, Image.heart, 1);
+                DX.DrawRotaGraph(32 + (i * 48), 20, 4, 0, Image.heart, 1);
             }
 
             // 全オブジェクトの描画
@@ -176,13 +180,13 @@ namespace sumisumo
                 DX.SetDrawBlendMode(DX.DX_BLENDMODE_ALPHA, 255);
             }
 
-            #if DEBUG // Debugのみ実行される
+#if DEBUG // Debugのみ実行される
             // 当たり判定のデバッグ表示
             foreach (GameObject go in gameObjects)
             {
                 go.DrawHitBox();
             }
-            #endif
+#endif
         }
     }
 }
