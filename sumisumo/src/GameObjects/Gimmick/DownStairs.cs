@@ -14,11 +14,11 @@ namespace sumisumo
             this.pos.X = pos.X;
             this.pos.Y = pos.Y;
 
-            imageWidth = 100;
-            imageHeight = 36;
-            hitboxOffsetLeft = 0;
-            hitboxOffsetRight = 0;
-            hitboxOffsetTop = 0;
+            imageWidth = 92;
+            imageHeight = 192;
+            hitboxOffsetLeft = 30;
+            hitboxOffsetRight = -48;
+            hitboxOffsetTop = 26;
             hitboxOffsetBottom = 0;
 
         }

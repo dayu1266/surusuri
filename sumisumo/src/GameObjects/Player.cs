@@ -250,7 +250,7 @@ namespace sumisumo
             {
                 hp--;
             }
-
+            
 
 
             //if (other is Goal) //ゴールにぶつかったときの処理

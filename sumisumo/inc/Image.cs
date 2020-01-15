@@ -22,7 +22,7 @@ namespace sumisumo
         public static int upStairs;                      // 上り階段
         public static int stage1_buck;                   // ステージ１の背景
         public static int fireHydrant;
-
+        public static int gimmicksign;
         public static void Load()
         {
             player = DX.LoadGraph("res/Image/player.png");
@@ -39,13 +39,13 @@ namespace sumisumo
             cursor = DX.LoadGraph("res/Image/cursor.png");
             DX.LoadDivGraph("res/Image/suuji16x32_02.png", number.Length, 12, 1, 16, 32, number);
             heart = DX.LoadGraph("res/Image/heart.png");
-            fireHydrant = DX.LoadGraph("res/Image/fireHydrant.png");
+            fireHydrant = DX.LoadGraph("res/Image/gimmick_hydrant.png");
 
             downStairs = DX.LoadGraph("res/Image/downstairs.png");
             upStairs = DX.LoadGraph("res/Image/upstairs.png");
 
             stage1_buck = DX.LoadGraph("res/Image/stage1_buck.png");
-
+            gimmicksign = DX.LoadGraph("res/Image/gimmicksign.png");
         }
     }
 }

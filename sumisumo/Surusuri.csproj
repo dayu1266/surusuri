@@ -78,6 +78,7 @@
     <Compile Include="src\GameObjects\GameObject.cs" />
     <Compile Include="src\GameObjects\Enemy\People.cs" />
     <Compile Include="src\GameObjects\Gimmick\DownStairs.cs" />
+    <Compile Include="src\GameObjects\Gimmick\FireHydrant.cs" />
     <Compile Include="src\GameObjects\Gimmick\UpStairs.cs" />
     <Compile Include="src\GameObjects\Others\Sight.cs" />
     <Compile Include="src\GameObjects\Player.cs" />
@@ -132,6 +133,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="res\Image\fireHydrant.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\Image\gimmick_hydrant.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\Image\gimmicksign.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="res\Image\goMain.png">
