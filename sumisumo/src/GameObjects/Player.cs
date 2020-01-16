@@ -17,7 +17,7 @@ namespace sumisumo
         const float WalkSpeed = 6f;   // 歩きの速度
         const float Gravity = 0.6f; // 重力
         const float MaxFallSpeed = 12f;  // 最大落下速度
-        const int initSurinukeLock = 90;  // 最大落下速度
+        const int initSurinukeLock = 90;  // クールタイム(フレーム)
 
         const int initialHp = 3;
 
@@ -28,15 +28,13 @@ namespace sumisumo
         int surinukeLock;                   // すり抜けができるかできないか
         Direction tmp = Direction.Right;
 
-        int floor = 1;      // 今いる階層
+        public int floor = 1;      // 今いる階層
         int floorMax = 3;   // 最上層
         int fllorMin = 1;   // 最下層
 
         public int hp = 3;
 
         int surinuke_hold = 0;
-
-
 
         public Player(PlayScene playScene, Vector2 pos) : base(playScene)
         {
@@ -93,7 +91,10 @@ namespace sumisumo
             MoveY();
 
             // すり抜けができない時間
-            surinukeLock--;
+            if (surinukeLock > 0)
+            {
+                surinukeLock--;
+            }
 
             if (direction != tmp)
             {
@@ -263,6 +264,9 @@ namespace sumisumo
                 // Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[14], flip);
                 Camera.DrawGraph(pos.X, pos.Y, Image.player, flip); // 仮リソース
             }
+
+            // クールタイムゲージ描画
+            GaugeDrawer();
         }
 
         public override void OnCollision(GameObject other)
@@ -309,6 +313,15 @@ namespace sumisumo
         {
             pos.Y += 180;
             floor--;
+        }
+
+        public void GaugeDrawer()
+        {
+            int counter = 90 - surinukeLock;
+
+            counter /= 3;
+
+            Camera.DrawGraph(Camera.cameraPos.X + 198, Camera.cameraPos.Y + 11, Image.cooltimeGauge[counter]);
         }
     }
 }

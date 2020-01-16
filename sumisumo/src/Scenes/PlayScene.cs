@@ -29,14 +29,17 @@ namespace sumisumo
         public State state = State.Active;// PlaySceneの状態
         int timeToGameOver = 120; // ゲームオーバーになるまでの時間（フレーム）
         public bool isGoal = false; // ゴールしたかどうか
-        bool isPausing = false; // ポーズ中かどうか
         int targetAmout = 1000; // 目標金額
 
         public PlayScene()
         {
             // インスタンス生成
             map = new Map(this, "stage1");
+            player = new Player(this, new Vector2(0, 800));
+            gameObjects.Add(player);
+            player = player;
             Camera.LookAt(player.pos.X, player.pos.Y);
+
         }
 
 
@@ -47,22 +50,6 @@ namespace sumisumo
 
         public override void Update()
         {
-            // ポーズ中の場合
-            if (isPausing)
-            {
-                // STARTボタン（Wキー）が押されたら再開
-                if (Input.GetButtonDown(DX.PAD_INPUT_2))
-                {
-                    isPausing = false;
-                }
-                return; // Update()を抜ける
-            }
-            // STARTボタン（Wキー）が押されたらポーズ
-            if (Input.GetButtonDown(DX.PAD_INPUT_2))
-            {
-                isPausing = true;
-            }
-
             // 全オブジェクトの更新
             int gameObjectsCount = gameObjects.Count; // ループ前の個数を取得しておく
             for (int i = 0; i < gameObjectsCount; i++)
@@ -94,7 +81,7 @@ namespace sumisumo
                         b.OnCollision(a);
                     }
                 }
-            }       
+            }
 
             // 不要となったオブジェクトを除去する
             gameObjects.RemoveAll(go => go.isDead);
@@ -125,18 +112,19 @@ namespace sumisumo
 
             // マップの描画
             map.DrawTerrain();
-            
-            // プレイヤーのHPのUI
-            for (int i = 0; i < player.hp; i++)
-            {
-                DX.DrawRotaGraph(32 + (i * 48), 20, 2, 0, Image.heart, 1);
-            }
 
+            
             // 全オブジェクトの描画
             foreach (GameObject go in gameObjects)
             {
                 go.Draw();
             }
+            // プレイヤーのHPのUI
+            for (int i = 0; i < player.hp; i++)
+            {
+                DX.DrawRotaGraph(48 + (i * 54), 36, 4, 0, Image.heart, 1);
+            }
+
 
             // プレイヤーの所持金表示
             string money = player.curMoney.ToString("000000");
@@ -144,6 +132,7 @@ namespace sumisumo
             {
                 DX.DrawRotaGraph(1140 + (16 * i), 32, 1.0f, 0, Image.number[money[i] - '0'], 1);
             }
+            DX.DrawStringF(Screen.Size.X/2, 330, player.pos.X.ToString() + "," + player.pos.Y.ToString(), DX.GetColor(255, 255, 255));
 
             //DX.DrawString(1060, 26, "/", DX.GetColor(0, 0, 0));
             //for (int i = 0; i < targetAmout.ToString().Length; i++)
@@ -151,25 +140,13 @@ namespace sumisumo
             //    DX.DrawRotaGraph(1080 + (16 * i), 32, 0.3f, 0, Image.number[targetAmout.ToString()[i] - '0'], 1);
             //}
 
-            // ポーズ中の半透明のスクリーンの描画
-            if (isPausing)
-            {
-                // 半透明の指定。第2引数で0～255でアルファ値（不透明度）を指定する。
-                // 不透明度を変えたら、明示的に元に戻すまでは継続されるので注意
-                DX.SetDrawBlendMode(DX.DX_BLENDMODE_ALPHA, 80);
-                // 画面全体を黒で塗りつぶす
-                DX.DrawBox(0, 0, (int)Screen.Size.X, (int)Screen.Size.Y, DX.GetColor(0, 0, 0), DX.TRUE);
-                // 不透明度を元に戻す
-                DX.SetDrawBlendMode(DX.DX_BLENDMODE_ALPHA, 255);
-            }
-
-            #if DEBUG // Debugのみ実行される
+#if DEBUG // Debugのみ実行される
             // 当たり判定のデバッグ表示
             foreach (GameObject go in gameObjects)
             {
                 go.DrawHitBox();
             }
-            #endif
+#endif
         }
     }
 }
