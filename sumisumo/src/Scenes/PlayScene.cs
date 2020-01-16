@@ -152,7 +152,7 @@ namespace sumisumo
             // プレイヤーのHPのUI
             for (int i = 0; i < player.hp; i++)
             {
-                DX.DrawRotaGraph(32 + (i * 48), 20, 4, 0, Image.heart, 1);
+                DX.DrawRotaGraph(48 + (i * 54), 36, 4, 0, Image.heart, 1);
             }
 
 

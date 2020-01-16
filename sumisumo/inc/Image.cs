@@ -21,8 +21,10 @@ namespace sumisumo
         public static int downStairs;                    // 下り階段
         public static int upStairs;                      // 上り階段
         public static int stage1_buck;                   // ステージ１の背景
-        public static int fireHydrant;
-        public static int gimmicksign;
+        public static int fireHydrant;                   // 消火栓
+        public static int gimmicksign;                   // ギミック発見マーク
+        public static int[] cooltimeGauge = new int[31]; // クールタイムゲージ
+
         public static void Load()
         {
             player = DX.LoadGraph("res/Image/player.png");
@@ -46,6 +48,8 @@ namespace sumisumo
 
             stage1_buck = DX.LoadGraph("res/Image/stage1_buck.png");
             gimmicksign = DX.LoadGraph("res/Image/gimmicksign.png");
+
+            DX.LoadDivGraph("res/Image/surinukeCooltime.png", cooltimeGauge.Length, 5, 7, 48, 48, cooltimeGauge);
         }
     }
 }
