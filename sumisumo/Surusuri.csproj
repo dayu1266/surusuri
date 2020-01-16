@@ -78,6 +78,7 @@
     <Compile Include="src\GameObjects\GameObject.cs" />
     <Compile Include="src\GameObjects\Enemy\People.cs" />
     <Compile Include="src\GameObjects\Gimmick\DownStairs.cs" />
+    <Compile Include="src\GameObjects\Gimmick\DressingRoom.cs" />
     <Compile Include="src\GameObjects\Gimmick\FireHydrant.cs" />
     <Compile Include="src\GameObjects\Gimmick\UpStairs.cs" />
     <Compile Include="src\GameObjects\Others\Sight.cs" />
@@ -117,6 +118,12 @@
     <Content Include="lib\DxLibW.dll" />
     <Content Include="lib\DxLibW_x64.dll" />
     <Content Include="lib\DxLibWDotNet.dll" />
+    <Content Include="res\Image\dressingRoom_close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="res\Image\dressingRoom_open.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="res\Image\surinukeCooltime.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

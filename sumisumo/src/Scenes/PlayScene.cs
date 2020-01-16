@@ -36,17 +36,19 @@ namespace sumisumo
         {
             // インスタンス生成
             map = new Map(this, "stage1");
+
+            gameObjects.Add(new DressingRoom(this, new Vector2(100, 800)));
+
             player = new Player(this, new Vector2(0, 800));
             gameObjects.Add(player);
             player = player;
             Camera.LookAt(player.pos.X, player.pos.Y);
-
         }
 
 
         public override void Init()
         {
-
+            
         }
 
         public override void Update()

@@ -23,10 +23,15 @@ namespace sumisumo
 
         Vector2 velocity = Vector2.Zero; // 移動速度
         State state = State.Walk;        // 現在の状態
+        private bool isHiding;
 
         public int curMoney;                // 所持金
         int surinukeLock;                   // すり抜けができるかできないか
         Direction tmp = Direction.Right;
+
+        private float offsetLogLeft;
+        private float offsetLogRight;
+        private float offsetLogTop;
 
         int floor = 1;      // 今いる階層
         int floorMax = 3;   // 最上層
@@ -52,6 +57,7 @@ namespace sumisumo
 
             hp = initialHp;
             surinukeLock = initSurinukeLock;
+            isHiding = false;
 
             playScene.gameObjects.Add(new Sight(playScene, this, pos));
         }
@@ -61,12 +67,16 @@ namespace sumisumo
             // すり抜け中ではない
             surinuke_now = false;
 
-            // 入力を受けての処理
-            HandleInput();
+            if (!isHiding)
+            {
+                // 入力を受けての処理
+                HandleInput();
 
-            // 重力による落下
-            velocity.Y += Gravity;
-            if (velocity.Y > MaxFallSpeed) velocity.Y = MaxFallSpeed;
+                // 重力による落下
+                velocity.Y += Gravity;
+                if (velocity.Y > MaxFallSpeed) velocity.Y = MaxFallSpeed;
+            }
+
 
             // まず横に動かす
             MoveX();
@@ -202,48 +212,31 @@ namespace sumisumo
             }
         }
 
-        void frontSurinuke()
-        {
-            // スリができる状態なら
-            if (suri == true)
-            {
-                surinuke_now = true;
-                curMoney += Random.Range(1, 5) * 100;
-            }
-
-            // プレイヤーの向きに応じてワープ座標を決める
-            if (direction == Direction.Right)
-            {
-                pos.X += 180;
-            }
-            if (direction == Direction.Left)
-            {
-                pos.X -= 180;
-            }
-        }
-
         public override void Draw()
         {
-            // 左右反転するか？（左向きなら反転する）
-            bool flip = direction == Direction.Left;
+            if (!isHiding)
+            {
+                // 左右反転するか？（左向きなら反転する）
+                bool flip = direction == Direction.Left;
 
-            if (state == State.Walk) // 歩き・立ち状態の場合
-            {
-                if (velocity.X == 0) // 移動していない場合
+                if (state == State.Walk) // 歩き・立ち状態の場合
                 {
-                    // Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[0], flip);
+                    if (velocity.X == 0) // 移動していない場合
+                    {
+                        // Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[0], flip);
+                        Camera.DrawGraph(pos.X, pos.Y, Image.player, flip); // 仮リソース
+                    }
+                    else // 移動している場合
+                    {
+                        //Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[5], flip);
+                        Camera.DrawGraph(pos.X, pos.Y, Image.player, flip); // 仮リソース
+                    }
+                }
+                else if (state == State.Jump) // ジャンプ中の場合
+                {
+                    // Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[14], flip);
                     Camera.DrawGraph(pos.X, pos.Y, Image.player, flip); // 仮リソース
                 }
-                else // 移動している場合
-                {
-                    //Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[5], flip);
-                    Camera.DrawGraph(pos.X, pos.Y, Image.player, flip); // 仮リソース
-                }
-            }
-            else if (state == State.Jump) // ジャンプ中の場合
-            {
-                // Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[14], flip);
-                Camera.DrawGraph(pos.X, pos.Y, Image.player, flip); // 仮リソース
             }
 
             // クールタイムゲージ描画
@@ -296,7 +289,36 @@ namespace sumisumo
             floor--;
         }
 
-        public void GaugeDrawer()
+        void frontSurinuke()
+        {
+            // スリができる状態なら
+            if (suri == true)
+            {
+                surinuke_now = true;
+                curMoney += Random.Range(1, 5) * 100;
+            }
+
+            // プレイヤーの向きに応じてワープ座標を決める
+            if (direction == Direction.Right)
+            {
+                pos.X += 180;
+            }
+            if (direction == Direction.Left)
+            {
+                pos.X -= 180;
+            }
+        }
+
+        public void BeHidden()
+        {
+            isHiding = true;
+        }
+        public void Apeear()
+        {
+            isHiding = false;
+        }
+
+        private void GaugeDrawer()
         {
             int counter = 90 - surinukeLock;
 
