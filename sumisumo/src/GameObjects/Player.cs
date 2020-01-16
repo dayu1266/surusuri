@@ -17,13 +17,13 @@ namespace sumisumo
         const float WalkSpeed = 6f;   // 歩きの速度
         const float Gravity = 0.6f; // 重力
         const float MaxFallSpeed = 12f;  // 最大落下速度
-        const int initSurinukeLock = 90;  // 最大落下速度
+        const int initSurinukeLock = 90;  // クールタイム(フレーム)
 
         const int initialHp = 3;
 
         Vector2 velocity = Vector2.Zero; // 移動速度
         State state = State.Walk;        // 現在の状態
-        
+
         public int curMoney;                // 所持金
         int surinukeLock;                   // すり抜けができるかできないか
         Direction tmp = Direction.Right;
@@ -33,7 +33,7 @@ namespace sumisumo
         int fllorMin = 1;   // 最下層
 
         public int hp = 3;
-        
+
         public Player(PlayScene playScene, Vector2 pos) : base(playScene)
         {
             this.pos.X = pos.X;
@@ -74,9 +74,12 @@ namespace sumisumo
             MoveY();
 
             // すり抜けができない時間
-            surinukeLock--;
+            if (surinukeLock > 0)
+            {
+                surinukeLock--;
+            }
 
-            if(direction != tmp)
+            if (direction != tmp)
             {
                 tmp = direction;
             }
@@ -209,7 +212,7 @@ namespace sumisumo
             }
 
             // プレイヤーの向きに応じてワープ座標を決める
-            if(direction == Direction.Right)
+            if (direction == Direction.Right)
             {
                 pos.X += 180;
             }
@@ -249,11 +252,11 @@ namespace sumisumo
 
         public override void OnCollision(GameObject other)
         {
-            if(other is Guardman && playScene.state == PlayScene.State.OnAlert )
+            if (other is Guardman && playScene.state == PlayScene.State.OnAlert)
             {
                 hp--;
             }
-            
+
 
 
             //if (other is Goal) //ゴールにぶつかったときの処理
@@ -295,7 +298,11 @@ namespace sumisumo
 
         public void GaugeDrawer()
         {
-            Camera.DrawGraph(Camera.cameraPos.X + 198, Camera.cameraPos.Y + 11, Image.cooltimeGauge[30]);
+            int counter = 90 - surinukeLock;
+
+            counter /= 3;
+
+            Camera.DrawGraph(Camera.cameraPos.X + 198, Camera.cameraPos.Y + 11, Image.cooltimeGauge[counter]);
         }
     }
 }
