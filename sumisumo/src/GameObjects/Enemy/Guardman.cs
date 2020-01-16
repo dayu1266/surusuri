@@ -11,6 +11,8 @@ namespace sumisumo
 {
     public class Guardman : GameObject
     {
+        EnemyId EnemyId = EnemyId.Guardman;
+
         const float WalkSpeed = 3f;                 // 歩く速度
         const float RunSpeed = 9f;                  // 走るスピード
         const float MaxFallSpeed = 12f;             // 最大落下速度
@@ -29,8 +31,12 @@ namespace sumisumo
         Vector2 velocity;        // 移動速度
         Direction Direction; // 移動方向
 
+        PlayScene playScene;
+
         public Guardman(PlayScene playScene, Vector2 pos) : base(playScene)
         {
+            this.playScene = playScene;
+
             this.pos.X = pos.X;
             this.pos.Y = pos.Y;
 
@@ -58,8 +64,8 @@ namespace sumisumo
 
         void MoveX()
         {
-            if (playScene.state == PlayScene.State.OnAlert && findPlayer)
-            {              
+            if (playScene.state == PlayScene.State.OnAlert)
+            {
                 if (Math.Pow(playScene.player.pos.X - pos.X, 2) < 8) velocity.X = 0;
                 else if (playScene.player.pos.X > pos.X)
 
@@ -68,7 +74,7 @@ namespace sumisumo
                     velocity.X = RunSpeed;
                     // 1フレーム前の速度より今の速度がのほうが速い
                     // つまり振り向いた
-                    
+
                 }
                 else
                 {
@@ -94,10 +100,10 @@ namespace sumisumo
                     }
                     if (tmp != randMove && changecount != 0)
                     {
-                        
+
                     }
 
-                    if(randMove == 1)
+                    if (randMove == 1)
                     {
                         direction = Direction.Left;
                     }
@@ -201,18 +207,6 @@ namespace sumisumo
 
         public override void OnCollision(GameObject other)
         {
-            if (other is Player)
-            {
-                if (playScene.state == PlayScene.State.Active)
-                {
-                    // プレイヤーが掏り状態だったら、警戒モードにする
-                }
-                if (playScene.state == PlayScene.State.OnAlert)
-                {
-                    findPlayer = true;
-                    Sound.SePlay(Sound.se_alarm);
-                }
-            }
         }
 
         public void Die()

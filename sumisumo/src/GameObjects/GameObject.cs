@@ -8,11 +8,14 @@ namespace sumisumo
     // プレイヤーや敵、アイテムなどはこのクラスを継承して作る。
     public abstract class GameObject
     {   
+        public EnemyId EnemyId = EnemyId.Node;
+
         public Vector2 pos = new Vector2();         // プレイヤーのポジション
         public bool isDead = false;                 // 死んだ（削除対象）フラグ
         public bool Surizumi = false;               // スリをされたかどうか
         public bool suri = false;                   // スリができるかどうか（一般人が視界にいるかどうか）
         public bool surinuke_now = false;           // すり抜けの途中かどうか
+        public bool surinuke_old = false;           // 1フレーム前のすり抜け情報
         public Direction direction;
 
         protected PlayScene playScene;  // PlaySceneの参照
@@ -99,6 +102,11 @@ namespace sumisumo
             return Math2D.RectRectIntersect(
                 pos.X, pos.Y, pos.X + imageWidth, pos.Y + imageHeight,
                 Camera.cameraPos.X, Camera.cameraPos.Y, Camera.cameraPos.X + Screen.Size.X, Camera.cameraPos.Y + Screen.Size.Y);
+        }
+
+        public void ChangeOnAlert()
+        {
+            playScene.state = PlayScene.State.OnAlert;
         }
     }
 }

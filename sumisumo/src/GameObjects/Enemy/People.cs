@@ -11,6 +11,8 @@ namespace sumisumo
 {
     public class People : GameObject
     {
+        EnemyId EnemyId = EnemyId.People;
+
         const float WalkSpeed = 2f;      // 歩きの速度
         const float MaxFallSpeed = 12f;  // 最大落下速度
         const int initialHp = 1;         // 一般人のHP
@@ -28,7 +30,7 @@ namespace sumisumo
         int turnCounter;
         int turn = 0;
 
-        Vector2 velocity;        // 移動速度
+        Vector2 velocity;    // 移動速度
         Direction Direction; // 移動方向
 
         public People(PlayScene playScene, Vector2 pos) : base(playScene)

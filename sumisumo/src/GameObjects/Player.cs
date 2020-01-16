@@ -23,7 +23,7 @@ namespace sumisumo
 
         Vector2 velocity = Vector2.Zero; // 移動速度
         State state = State.Walk;        // 現在の状態
-        
+
         public int curMoney;                // 所持金
         int surinukeLock;                   // すり抜けができるかできないか
         Direction tmp = Direction.Right;
@@ -33,7 +33,11 @@ namespace sumisumo
         int fllorMin = 1;   // 最下層
 
         public int hp = 3;
-        
+
+        int surinuke_hold = 0;
+
+
+
         public Player(PlayScene playScene, Vector2 pos) : base(playScene)
         {
             this.pos.X = pos.X;
@@ -58,7 +62,22 @@ namespace sumisumo
 
         public override void Update()
         {
-            // すり抜け中ではない
+            // すり抜けの状態の保持
+            if (surinuke_now && !surinuke_old)
+            {
+                surinuke_old = true;
+            }
+            if (surinuke_old && surinuke_hold < 5)
+            {
+                surinuke_hold++;
+            }
+            else
+            {
+                surinuke_old = false;
+                surinuke_hold = 0;
+            }
+
+            // すり抜けの更新
             surinuke_now = false;
 
             // 入力を受けての処理
@@ -76,10 +95,12 @@ namespace sumisumo
             // すり抜けができない時間
             surinukeLock--;
 
-            if(direction != tmp)
+            if (direction != tmp)
             {
                 tmp = direction;
             }
+
+
         }
 
         // 入力を受けての処理
@@ -201,15 +222,15 @@ namespace sumisumo
 
         void frontSurinuke()
         {
+            surinuke_now = true;
             // スリができる状態なら
             if (suri == true)
             {
-                surinuke_now = true;
                 curMoney += Random.Range(1, 5) * 100;
             }
 
             // プレイヤーの向きに応じてワープ座標を決める
-            if(direction == Direction.Right)
+            if (direction == Direction.Right)
             {
                 pos.X += 180;
             }
@@ -246,7 +267,7 @@ namespace sumisumo
 
         public override void OnCollision(GameObject other)
         {
-            if(other is Guardman && playScene.state == PlayScene.State.OnAlert )
+            if (other is Guardman && playScene.state == PlayScene.State.OnAlert)
             {
                 hp--;
             }

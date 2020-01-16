@@ -51,23 +51,16 @@ namespace sumisumo
             if (isPausing)
             {
                 // STARTボタン（Wキー）が押されたら再開
-                if (Input.GetButtonDown(DX.PAD_INPUT_W))
+                if (Input.GetButtonDown(DX.PAD_INPUT_2))
                 {
                     isPausing = false;
                 }
                 return; // Update()を抜ける
             }
-
-            if (Input.GetButtonDown(DX.PAD_INPUT_3))
+            // STARTボタン（Wキー）が押されたらポーズ
+            if (Input.GetButtonDown(DX.PAD_INPUT_2))
             {
-                if(state == State.Active)
-                {
-                    state = State.OnAlert;
-                }
-                if (state == State.OnAlert)
-                {
-                    state = State.Active;
-                }
+                isPausing = true;
             }
 
             // 全オブジェクトの更新
@@ -123,12 +116,6 @@ namespace sumisumo
                 {
                     Game.ChangeScene(new GameOverScene()); // GameOverSceneにする
                 }
-            }
-
-            // STARTボタン（Wキー）が押されたらポーズ
-            if (Input.GetButtonDown(DX.PAD_INPUT_W))
-            {
-                isPausing = true;
             }
         }
 
