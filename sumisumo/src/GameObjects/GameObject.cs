@@ -7,7 +7,7 @@ namespace sumisumo
     // ゲーム上に表示される物体の基底クラス。
     // プレイヤーや敵、アイテムなどはこのクラスを継承して作る。
     public abstract class GameObject
-    {   
+    {
         public Vector2 pos = new Vector2();         // プレイヤーのポジション
         public bool isDead = false;                 // 死んだ（削除対象）フラグ
         public bool Surizumi = false;               // スリをされたかどうか
@@ -18,9 +18,9 @@ namespace sumisumo
         protected PlayScene playScene;  // PlaySceneの参照
         protected int imageWidth;       // 画像の横ピクセル数
         protected int imageHeight;      // 画像の縦ピクセル数
-        protected int hitboxOffsetLeft   = 0; // 当たり判定の左端のオフセット
-        protected int hitboxOffsetRight  = 0; // 当たり判定の右端のオフセット
-        protected int hitboxOffsetTop    = 0; // 当たり判定の上端のオフセット
+        protected int hitboxOffsetLeft = 0; // 当たり判定の左端のオフセット
+        protected int hitboxOffsetRight = 0; // 当たり判定の右端のオフセット
+        protected int hitboxOffsetTop = 0; // 当たり判定の上端のオフセット
         protected int hitboxOffsetBottom = 0; // 当たり判定の下端のオフセット
 
         // コンストラクタ
@@ -100,5 +100,8 @@ namespace sumisumo
                 pos.X, pos.Y, pos.X + imageWidth, pos.Y + imageHeight,
                 Camera.cameraPos.X, Camera.cameraPos.Y, Camera.cameraPos.X + Screen.Size.X, Camera.cameraPos.Y + Screen.Size.Y);
         }
+
+        // 消火栓が押された時のアクション
+        public virtual void Buzzer(float playerPosY) { }
     }
 }

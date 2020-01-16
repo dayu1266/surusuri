@@ -143,17 +143,18 @@ namespace sumisumo
             // マップの描画
             map.DrawTerrain();
 
+            
+            // 全オブジェクトの描画
+            foreach (GameObject go in gameObjects)
+            {
+                go.Draw();
+            }
             // プレイヤーのHPのUI
             for (int i = 0; i < player.hp; i++)
             {
                 DX.DrawRotaGraph(32 + (i * 48), 20, 4, 0, Image.heart, 1);
             }
 
-            // 全オブジェクトの描画
-            foreach (GameObject go in gameObjects)
-            {
-                go.Draw();
-            }
 
             // プレイヤーの所持金表示
             string money = player.curMoney.ToString("000000");
@@ -161,6 +162,7 @@ namespace sumisumo
             {
                 DX.DrawRotaGraph(1140 + (16 * i), 32, 1.0f, 0, Image.number[money[i] - '0'], 1);
             }
+            DX.DrawStringF(Screen.Size.X/2, 330, player.pos.X.ToString() + "," + player.pos.Y.ToString(), DX.GetColor(255, 255, 255));
 
             //DX.DrawString(1060, 26, "/", DX.GetColor(0, 0, 0));
             //for (int i = 0; i < targetAmout.ToString().Length; i++)

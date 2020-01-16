@@ -28,7 +28,7 @@ namespace sumisumo
         int surinukeLock;                   // すり抜けができるかできないか
         Direction tmp = Direction.Right;
 
-        int floor = 1;      // 今いる階層
+        public int floor = 1;      // 今いる階層
         int floorMax = 3;   // 最上層
         int fllorMin = 1;   // 最下層
 

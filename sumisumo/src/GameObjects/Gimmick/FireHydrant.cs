@@ -5,14 +5,14 @@ using QimOLib;
 
 namespace sumisumo
 {
-    enum State
+    enum UseState
     {
         Before,
         After,
     }
     public class FireHydrant : GameObject
     {
-        State state;
+        UseState state;
         private bool discovery;
         public FireHydrant(PlayScene playScene, Vector2 pos) : base(playScene)
         {
@@ -25,7 +25,7 @@ namespace sumisumo
             hitboxOffsetRight = 36;
             hitboxOffsetTop = 0;
             hitboxOffsetBottom = 32;
-            state = State.Before;
+            state = UseState.Before;
             discovery = false;
         }
         public override void Update()
@@ -36,7 +36,7 @@ namespace sumisumo
         public override void Draw()
         {
             Camera.DrawGraph(pos.X, pos.Y, Image.fireHydrant);
-            if (discovery && state == State.Before)
+            if (discovery && state == UseState.Before)
             {
                 Camera.DrawGraph(pos.X + 64, pos.Y - 32, Image.gimmicksign);
             }
@@ -45,7 +45,7 @@ namespace sumisumo
 
         public override void OnCollision(GameObject other)
         {
-            if (other is Player && state == State.Before)
+            if (other is Player && state == UseState.Before)
             {
                 discovery = true;
                 if (Input.GetButtonDown(DX.PAD_INPUT_2))
@@ -53,9 +53,15 @@ namespace sumisumo
                     if (playScene.state == PlayScene.State.Active)
                     {
                         playScene.state = PlayScene.State.OnAlert;
-                        discovery = false;
                     }
-                    state = State.After;
+
+                    float playerposy = playScene.player.pos.Y;
+                    int gameObjectsCount = playScene.gameObjects.Count;
+                    for (int i = 0; i < gameObjectsCount; i++)
+                    {
+                        playScene.gameObjects[i].Buzzer(playerposy);
+                    }
+                    state = UseState.After;
                 }
             }
         }
