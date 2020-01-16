@@ -9,8 +9,15 @@ using System.Numerics;
 
 namespace sumisumo
 {
+    enum PeopleState
+    {
+        Normal,
+        Escape,
+    }
     public class People : GameObject
     {
+        EnemyId EnemyId = EnemyId.People;
+
         const float WalkSpeed = 2f;      // 歩きの速度
         const float MaxFallSpeed = 12f;  // 最大落下速度
         const int initialHp = 1;         // 一般人のHP
@@ -27,8 +34,10 @@ namespace sumisumo
         int changecount;
         int turnCounter;
         int turn = 0;
+        int floor;
+        PeopleState state;
 
-        Vector2 velocity;        // 移動速度
+        Vector2 velocity;    // 移動速度
         Direction Direction; // 移動方向
 
         public People(PlayScene playScene, Vector2 pos) : base(playScene)
@@ -48,6 +57,7 @@ namespace sumisumo
             Amount = initialAmount;
             dontMoveFream = 0;
             turnFream = 0;
+            state = PeopleState.Normal;
 
             playScene.gameObjects.Add(new Sight(playScene, this, pos));
         }
@@ -64,65 +74,73 @@ namespace sumisumo
 
         void MoveX()
         {
-            if (turnFream > turnInterval)
+            if (state == PeopleState.Escape)
             {
-                //TurnAround(); 
+                velocity.X = WalkSpeed;
             }
             else
             {
-                if (dontMoveFream <= 0)
+                if (turnFream > turnInterval)
                 {
-                    // 初期値代入
-                    Amount = initialAmount;
-                    dontMoveFream = initialdontMoveFream;
-
-                    // ランダムで移動方向を決定
-                    int tmp = randMove;
-                    randMove = QimOLib.Random.Range(1, 3);
-                    if (changecount == 0)
-                    {
-                        randMove = 2;
-                    }
-                    if (tmp != randMove && changecount != 0)
-                    {
-                    }
-
-                    if (randMove == 1)
-                    {
-                        direction = Direction.Left;
-                    }
-                    else
-                    {
-                        direction = Direction.Right;
-                    }
-
-                    // 移動量を決定
-                    int randAmount = QimOLib.Random.Range(1, 4);
-                    Amount = initialAmount * randAmount;
-                }
-
-                changecount++;
-
-                // Amount が0以上なら動く
-                if (Amount > 0)
-                {
-                    velocity.X = WalkSpeed;
-                    Amount -= velocity.X;
-                    if (randMove == 1)
-                    {
-                        velocity.X *= -1;
-                    }
+                    //TurnAround(); 
                 }
                 else
                 {
-                    velocity.X = 0;
-                    dontMoveFream--;
+                    if (dontMoveFream <= 0)
+                    {
+                        // 初期値代入
+                        Amount = initialAmount;
+                        dontMoveFream = initialdontMoveFream;
+
+                        // ランダムで移動方向を決定
+                        int tmp = randMove;
+                        randMove = QimOLib.Random.Range(1, 3);
+                        if (changecount == 0)
+                        {
+                            randMove = 2;
+                        }
+                        if (tmp != randMove && changecount != 0)
+                        {
+                        }
+
+                        if (randMove == 1)
+                        {
+                            direction = Direction.Left;
+                        }
+                        else
+                        {
+                            direction = Direction.Right;
+                        }
+
+                        // 移動量を決定
+                        int randAmount = QimOLib.Random.Range(1, 4);
+                        Amount = initialAmount * randAmount;
+                    }
+
+                    changecount++;
+
+                    // Amount が0以上なら動く
+                    if (Amount > 0)
+                    {
+                        velocity.X = WalkSpeed;
+                        Amount -= velocity.X;
+                        if (randMove == 1)
+                        {
+                            velocity.X *= -1;
+                        }
+                    }
+                    else
+                    {
+                        velocity.X = 0;
+                        dontMoveFream--;
+                    }
                 }
 
-                // 横に移動する
-                pos.X += velocity.X;
-            }
 
+
+            }
+            // 横に移動する
+            pos.X += velocity.X;
             // 当たり判定の四隅の座標を取得
             float left = GetLeft();
             float right = GetRight() - 0.01f;
@@ -137,6 +155,7 @@ namespace sumisumo
             {
                 float wallRight = left - left % Map.CellSize + Map.CellSize; // 壁の右端
                 SetLeft(wallRight); // 一般人の左端を壁の右端に沿わす
+                velocity.X *= -1;
             }
             // 右端が壁にめりこんでいるか？
             else if (
@@ -146,6 +165,7 @@ namespace sumisumo
             {
                 float wallLeft = right - right % Map.CellSize; // 壁の左端
                 SetRight(wallLeft); // 一般人の右端を壁の左端に沿わす
+                velocity.X *= -1;
             }
         }
 
@@ -193,7 +213,7 @@ namespace sumisumo
             turnCounter++;
             if (turnCounter > 20)
             {
-                
+
                 turn++;
                 turnCounter = 0;
             }
@@ -206,11 +226,20 @@ namespace sumisumo
 
         public override void OnCollision(GameObject other)
         {
+            if (state == PeopleState.Escape && (other is UpStairs || other is DownStairs)) isDead = true;
         }
 
         public override void Draw()
         {
             Camera.DrawGraph(pos.X, pos.Y, Image.people);
+            DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示
+        }
+        public override void Buzzer(float playerPosY)
+        {
+            if (pos.Y - playerPosY == -7) // プレイヤーと同じ高さにいたら
+            {
+                state = PeopleState.Escape; // 逃げる
+            }
         }
     }
 }

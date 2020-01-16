@@ -29,15 +29,14 @@ namespace sumisumo
         int surinukeLock;                   // すり抜けができるかできないか
         Direction tmp = Direction.Right;
 
-        private float offsetLogLeft;
-        private float offsetLogRight;
-        private float offsetLogTop;
+        public int floor = 1;      // 今いる階層
 
-        int floor = 1;      // 今いる階層
         int floorMax = 3;   // 最上層
         int fllorMin = 1;   // 最下層
 
         public int hp = 3;
+
+        int surinuke_hold = 0;
 
         public Player(PlayScene playScene, Vector2 pos) : base(playScene)
         {
@@ -64,7 +63,22 @@ namespace sumisumo
 
         public override void Update()
         {
-            // すり抜け中ではない
+            // すり抜けの状態の保持
+            if (surinuke_now && !surinuke_old)
+            {
+                surinuke_old = true;
+            }
+            if (surinuke_old && surinuke_hold < 5)
+            {
+                surinuke_hold++;
+            }
+            else
+            {
+                surinuke_old = false;
+                surinuke_hold = 0;
+            }
+
+            // すり抜けの更新
             surinuke_now = false;
 
             if (!isHiding)
@@ -93,6 +107,8 @@ namespace sumisumo
             {
                 tmp = direction;
             }
+
+
         }
 
         // 入力を受けての処理
