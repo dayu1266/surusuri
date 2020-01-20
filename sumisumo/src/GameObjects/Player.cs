@@ -28,13 +28,12 @@ namespace sumisumo
         public int curMoney;                // 所持金
         int surinukeLock;                   // すり抜けができるかできないか
         Direction tmp = Direction.Right;
-
+        public int hp = 3;
         public int floor = 1;      // 今いる階層
-
         int floorMax = 3;   // 最上層
         int fllorMin = 1;   // 最下層
 
-        public int hp = 3;
+        float stairInterval = 0.0f;
 
         int surinuke_hold = 0;
 
@@ -52,7 +51,7 @@ namespace sumisumo
             hitboxOffsetTop = 9;
             hitboxOffsetBottom = 10;
 
-            curMoney = 0;
+            curMoney = 1000;
 
             hp = initialHp;
             surinukeLock = initSurinukeLock;
@@ -108,7 +107,7 @@ namespace sumisumo
                 tmp = direction;
             }
 
-
+            stairInterval--;
         }
 
         // 入力を受けての処理
@@ -265,13 +264,23 @@ namespace sumisumo
             {
                 hp--;
             }
+            if (Input.GetButtonDown(DX.PAD_INPUT_2))
+            {
+                if (other is UpStairs && stairInterval < 0.0f)
+                {
+                    StairUp();
+                }
+                else if (other is DownStairs && stairInterval < 0.0f)
+                {
+                    StairDown();
+                }
+            }
 
 
-
-            //if (other is Goal) //ゴールにぶつかったときの処理
-            //{
-            //    IsGoal(); //ゴール処理
-            //}
+            if (other is Goal) //ゴールにぶつかったときの処理
+            {
+                IsGoal(); //ゴール処理
+            }
         }
 
         // 死亡処理
@@ -341,6 +350,20 @@ namespace sumisumo
             counter /= 3;
 
             Camera.DrawGraph(Camera.cameraPos.X + 198, Camera.cameraPos.Y + 11, Image.cooltimeGauge[counter]);
+        }
+        void StairUp()
+        {
+            pos.X += 160;
+            pos.Y -= 224;
+            floor++;
+            stairInterval = 10.0f;
+        }
+        void StairDown()
+        {
+            pos.X -= 160;
+            pos.Y += 224;
+            floor--;
+            stairInterval = 10.0f;
         }
     }
 }

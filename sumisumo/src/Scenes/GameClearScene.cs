@@ -23,20 +23,18 @@ namespace sumisumo
 
             if (Input.GetButtonDown(DX.PAD_INPUT_1) && !flag)
             {
-                Game.ChangeScene(new TitleScene());
+                Game.ChangeScene(new PlayScene());
             }
             else if (Input.GetButtonDown(DX.PAD_INPUT_1) && flag)
             {
-                Game.ChangeScene(new PlayScene());
+                Game.ChangeScene(new TitleScene());
             }
         }
 
         public override void Draw()
-        {
+        {          
+            DX.DrawGraph(0, 0, Image.gameclear, 0);
             resultCursor.Draw();
-            DX.DrawString(0, 0, "GameClearSceneです。ボタン押下でTitleSceneへ。", DX.GetColor(255, 255, 255));
-            DX.DrawGraph(120, 300, Image.goMenu, 0);
-            DX.DrawGraph(120, 450, Image.nextStage, 0);
         }
     }
 }

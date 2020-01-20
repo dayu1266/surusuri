@@ -26,6 +26,7 @@ namespace sumisumo
         public static int dressingRoom_close;            // 試着室(閉)
         public static int gimmicksign;                   // ギミック発見マーク
         public static int[] cooltimeGauge = new int[31]; // クールタイムゲージ
+        public static int gameclear;
 
         public static void Load()
         {
@@ -40,8 +41,6 @@ namespace sumisumo
 
             play_bg     = DX.LoadGraph("res/Image/background.png");
             goMenu      = DX.LoadGraph("res/Image/goMain.png");
-            nextStage   = DX.LoadGraph("res/Image/nextStage.png");
-            retry       = DX.LoadGraph("res/Image/retry.png");
             cursor      = DX.LoadGraph("res/Image/cursor.png");
             DX.LoadDivGraph("res/Image/suuji16x32_02.png", number.Length, 12, 1, 16, 32, number);
 
@@ -57,6 +56,7 @@ namespace sumisumo
             upStairs    = DX.LoadGraph("res/Image/upstairs.png");
 
             stage1_buck = DX.LoadGraph("res/Image/stage1_buck.png");
+            gameclear = DX.LoadGraph("res/Image/gameclear.png");
         }
     }
 }

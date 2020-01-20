@@ -38,7 +38,7 @@ namespace sumisumo
 
             gameObjects.Add(new DressingRoom(this, new Vector2(100, 800)));
 
-            player = new Player(this, new Vector2(0, 800));
+            player = new Player(this, new Vector2(100, 800));
             gameObjects.Add(player);
             player = player;
             Camera.LookAt(player.pos.X, player.pos.Y);
