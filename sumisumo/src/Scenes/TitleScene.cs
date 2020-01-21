@@ -25,7 +25,8 @@ namespace sumisumo
 
         public override void Draw()
         {
-            DX.DrawString(0, 0, "TitleSceneです。ボタン押下でPlaySceneへ。", DX.GetColor(255, 255, 255));
+            DX.DrawGraph(0, 0, Image.play_bg,1);
+            DX.DrawRotaGraph((int)Screen.Size.X/2, 250, 6, 0, Image.titlelogo, 1);
         }
     }
 }

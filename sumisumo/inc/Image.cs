@@ -26,7 +26,8 @@ namespace sumisumo
         public static int dressingRoom_close;            // 試着室(閉)
         public static int gimmicksign;                   // ギミック発見マーク
         public static int[] cooltimeGauge = new int[31]; // クールタイムゲージ
-        public static int gameclear;
+        public static int gameclear;                     // ゲームクリア画面の背景
+        public static int titlelogo;                     // タイトルのロゴ
 
         public static void Load()
         {
@@ -57,6 +58,7 @@ namespace sumisumo
 
             stage1_buck = DX.LoadGraph("res/Image/stage1_buck.png");
             gameclear = DX.LoadGraph("res/Image/gameclear.png");
+            titlelogo = DX.LoadGraph("res/Image/titlelogo.png");
         }
     }
 }
