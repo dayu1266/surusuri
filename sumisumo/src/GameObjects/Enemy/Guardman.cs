@@ -59,28 +59,21 @@ namespace sumisumo
             MoveX();
             MoveY();
 
-            // 警戒モードへの猶予時間
-            if (alert)
-            {
-                count++;
-            }
-            else if (count < 5)
-            {
-                count = 0;
-            }
-            else
-            {
-                count = 0;
-            }
-
+            if (alert) count = 0;
+            else if (!alert) count++;
+            
             // 警戒モードへの移行
-            if (count >= 1)
+            if (alert || count <= 2)
             {
                 player = playScene.player;
                 if (player.surinuke)
                 {
-                    if (alert) playScene.state = PlayScene.State.OnAlert;
-                    count = 0;
+                    playScene.state = PlayScene.State.OnAlert;
+                    alert = false;
+                }
+                else
+                {
+                    alert = false;
                 }
             }
         }
@@ -240,9 +233,9 @@ namespace sumisumo
         public override void Draw()
         {
             Camera.DrawGraph(pos.X, pos.Y, Image.guardman);
-            #if DEBUG
+#if DEBUG
             DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示
-            #endif
+#endif
         }
     }
 }
