@@ -92,30 +92,29 @@ namespace sumisumo
             }
 
             stairInterval--;
+
+            suri = false;
         }
 
         // 入力を受けての処理
         void HandleInput()
         {
-            if (Input.GetButton(DX.PAD_INPUT_LEFT) && Input.GetButton(DX.PAD_INPUT_RIGHT))
-            { // 左が押されてたら、速度を左へ
-                velocity.X = 0;
-            }
-            else if (Input.GetButton(DX.PAD_INPUT_LEFT))
-            { // 左が押されてたら、速度を左へ
-                velocity.X = -WalkSpeed;
-                direction = Direction.Left; // 左向きにする
+            if (Input.GetButton(DX.PAD_INPUT_LEFT) && !(Input.GetButton(DX.PAD_INPUT_RIGHT)))
+            { 
+                velocity.X = -WalkSpeed;        // 左が押されてたら、速度を左へ
+                direction = Direction.Left;     // 左向きにする
             }
             else if (Input.GetButton(DX.PAD_INPUT_RIGHT))
-            { // 右が押されてたら、速度を右へ
-                velocity.X = WalkSpeed;
-                direction = Direction.Right; // 右向きにする
+            { 
+                velocity.X = WalkSpeed;         // 右が押されてたら、速度を右へ
+                direction = Direction.Right;    // 右向きにする
             }
-            else
-            { // 左も右も押されてなければ、速度は0にする
-                velocity.X = 0;
+            else if (!(Input.GetButton(DX.PAD_INPUT_LEFT) && Input.GetButton(DX.PAD_INPUT_RIGHT)))
+            {
+                velocity.X = 0; // 左右両方入力、両方無入力のとき速度を0にする
             }
 
+            // 上下すり抜け
             if (Input.GetButtonDown(DX.PAD_INPUT_UP) && floor < 3 && surinukeLock <= 0)
             {
                 FloorUp();
@@ -127,7 +126,8 @@ namespace sumisumo
                 FloorDown();
                 surinukeLock = initSurinukeLock;
             }
-
+            
+            // 正面すり抜け
             if (Input.GetButtonDown(DX.PAD_INPUT_1) && surinukeLock <= 0)
             {
                 frontSurinuke();
@@ -303,10 +303,7 @@ namespace sumisumo
             surinuke = true;
 
             // スリができる状態なら
-            if (suri == true)
-            {         
-                curMoney += Random.Range(1, 5) * 100;
-            }
+            if (suri == true) curMoney += Random.Range(1, 5) * 100;
 
             // プレイヤーの向きに応じてワープ座標を決める
             if (direction == Direction.Right)

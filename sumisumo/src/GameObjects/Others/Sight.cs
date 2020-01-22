@@ -62,10 +62,7 @@ namespace sumisumo
             {
                 obj.suri = true;
             }
-            else
-            {
-                obj.suri = false;
-            }
+
 
             // 親が警備員で相手がプレイヤーなら
             if ((typeof(Guardman) == obj.GetType()) && other is Player)
