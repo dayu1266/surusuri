@@ -35,7 +35,7 @@ namespace sumisumo
             DX.SetWaitVSyncFlag(DX.GetRefreshRate() == TargetFPS ? DX.TRUE : DX.FALSE);
 
             // ウィンドウのタイトル
-#if DEBUG
+            #if DEBUG
             DX.SetWindowText("Surusuri（デバッグ）");
             #else
             DX.SetWindowText("Surusuri");
@@ -50,7 +50,7 @@ namespace sumisumo
             }
             else
             {
-                DX.ChangeWindowMode(DX.TRUE); // ノーフルスクリーン
+                DX.ChangeWindowMode(DX.TRUE); // ウインドモード
             }
 
             DX.SetAlwaysRunFlag(DX.TRUE);                                   // ウィンドウが非アクティブでも動作させる

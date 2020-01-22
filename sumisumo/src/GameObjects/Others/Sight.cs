@@ -11,13 +11,12 @@ namespace sumisumo
 {
     public class Sight : GameObject
     {
+        // 各オブジェクトの参照（主にコリジョンで使用）
         GameObject obj;
         Direction direction;
         PlayScene playScene;
         Player player;
         Guardman guardman;
-
-        bool ChangeOnAlert;
 
         public Sight(PlayScene playScene, GameObject gameObject, Vector2 pos) : base(playScene)
         {
@@ -35,7 +34,10 @@ namespace sumisumo
 
         public override void Update()
         {
+            // 親の向いている方向を取得
             direction = obj.direction;
+
+            // 向いている方向により視界のポジションを変える
             if (direction == Direction.Right)
             {
                 pos = obj.pos;
@@ -54,10 +56,11 @@ namespace sumisumo
 
         public override void OnCollision(GameObject other)
         {
+            // 警備員のリストを生成しplayScene.gameObjectsから警備員のみを取り出す
             List<GameObject> guardman = new List<GameObject>();
             guardman = playScene.gameObjects.FindAll(n => n is Guardman);
 
-            // もし親がプレイヤーで相手が一般ピーポーなら
+            // 親がプレイヤーで相手が一般ピーポーなら
             if (obj == playScene.gameObjects.Find(n => n is Player) && other is People)
             {
                 obj.suri = true;
@@ -72,14 +75,9 @@ namespace sumisumo
             {
                 if (obj == guardman[i] && other is Player)
                 {
-                    obj.ChangeOnAlert();
+                    obj.alert = true;
                 }
             }
-        }
-
-        public void GameStateChange(PlayScene.State changestate)
-        {
-            playScene.state = changestate;
         }
     }
 }

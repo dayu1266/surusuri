@@ -121,6 +121,10 @@ namespace sumisumo
             {
                 playScene.gameObjects.Add(new FireHydrant(playScene, new Vector2(spawnX, spawnY)));
             }
+            else if (objectID == 6)
+            {
+                playScene.gameObjects.Add(new Goal(playScene, new Vector2(spawnX, spawnY)));
+            }
             else if (objectID == 16)
             {
                 playScene.gameObjects.Add(new People(playScene, new Vector2(spawnX, spawnY)));

@@ -14,29 +14,28 @@ namespace sumisumo
             Jump, // ジャンプ中
         }
 
-        const float WalkSpeed = 6f;   // 歩きの速度
-        const float Gravity = 0.6f; // 重力
-        const float MaxFallSpeed = 12f;  // 最大落下速度
-        const int initSurinukeLock = 90;  // クールタイム(フレーム)
+        const float WalkSpeed      = 6f;    // 歩きの速度
+        const float Gravity        = 0.6f;  // 重力
+        const float MaxFallSpeed   = 12f;   // 最大落下速度
+        const int initSurinukeLock = 90;    // クールタイム(フレーム)
 
-        const int initialHp = 3;
+        const int initialHp = 3;         // 初期HP
 
         Vector2 velocity = Vector2.Zero; // 移動速度
         State state = State.Walk;        // 現在の状態
         private bool isHiding;
 
-        public int curMoney;                // 所持金
-        int surinukeLock;                   // すり抜けができるかできないか
-        Direction tmp = Direction.Right;
+        public int curMoney;            // 所持金
+        int surinukeLock;               // すり抜けができるかできないか
 
-        public int floor = 1;      // 今いる階層
+        Direction tmp = Direction.Right;    // なんだったか忘れた
+        public int hp;                      // HP
 
-        int floorMax = 3;   // 最上層
-        int fllorMin = 1;   // 最下層
+        public int floor = 1;   // 今いる階層
+        int floorMax     = 3;   // 最上層
+        int fllorMin     = 1;   // 最下層
 
-        public int hp = 3;
-
-        int surinuke_hold = 0;
+        float stairInterval = 0.0f;     // 
 
         public Player(PlayScene playScene, Vector2 pos) : base(playScene)
         {
@@ -52,7 +51,7 @@ namespace sumisumo
             hitboxOffsetTop = 9;
             hitboxOffsetBottom = 10;
 
-            curMoney = 0;
+            curMoney = 1000;
 
             hp = initialHp;
             surinukeLock = initSurinukeLock;
@@ -63,23 +62,8 @@ namespace sumisumo
 
         public override void Update()
         {
-            // すり抜けの状態の保持
-            if (surinuke_now && !surinuke_old)
-            {
-                surinuke_old = true;
-            }
-            if (surinuke_old && surinuke_hold < 5)
-            {
-                surinuke_hold++;
-            }
-            else
-            {
-                surinuke_old = false;
-                surinuke_hold = 0;
-            }
-
             // すり抜けの更新
-            surinuke_now = false;
+            surinuke = false;
 
             if (!isHiding)
             {
@@ -90,7 +74,6 @@ namespace sumisumo
                 velocity.Y += Gravity;
                 if (velocity.Y > MaxFallSpeed) velocity.Y = MaxFallSpeed;
             }
-
 
             // まず横に動かす
             MoveX();
@@ -108,7 +91,7 @@ namespace sumisumo
                 tmp = direction;
             }
 
-
+            stairInterval--;
         }
 
         // 入力を受けての処理
@@ -265,13 +248,22 @@ namespace sumisumo
             {
                 hp--;
             }
+            if (Input.GetButtonDown(DX.PAD_INPUT_2))
+            {
+                if (other is UpStairs && stairInterval < 0.0f)
+                {
+                    StairUp();
+                }
+                else if (other is DownStairs && stairInterval < 0.0f)
+                {
+                    StairDown();
+                }
+            }
 
-
-
-            //if (other is Goal) //ゴールにぶつかったときの処理
-            //{
-            //    IsGoal(); //ゴール処理
-            //}
+            if (other is Goal) //ゴールにぶつかったときの処理
+            {
+                IsGoal(); //ゴール処理
+            }
         }
 
         // 死亡処理
@@ -307,10 +299,12 @@ namespace sumisumo
 
         void frontSurinuke()
         {
+            // すり抜けが行われた
+            surinuke = true;
+
             // スリができる状態なら
             if (suri == true)
-            {
-                surinuke_now = true;
+            {         
                 curMoney += Random.Range(1, 5) * 100;
             }
 
@@ -341,6 +335,20 @@ namespace sumisumo
             counter /= 3;
 
             Camera.DrawGraph(Camera.cameraPos.X + 198, Camera.cameraPos.Y + 11, Image.cooltimeGauge[counter]);
+        }
+        void StairUp()
+        {
+            pos.X += 160;
+            pos.Y -= 224;
+            floor++;
+            stairInterval = 10.0f;
+        }
+        void StairDown()
+        {
+            pos.X -= 160;
+            pos.Y += 224;
+            floor--;
+            stairInterval = 10.0f;
         }
     }
 }
