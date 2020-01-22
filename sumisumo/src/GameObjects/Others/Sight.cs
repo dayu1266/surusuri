@@ -68,6 +68,10 @@ namespace sumisumo
             if ((typeof(Guardman) == obj.GetType()) && other is Player)
             {
                 obj.alert = true;
+                if (playScene.state == PlayScene.State.OnAlert)
+                {
+                    obj.find = true;
+                }
             }
         }
     }

@@ -54,12 +54,10 @@ namespace sumisumo
                     {
                         playScene.state = PlayScene.State.OnAlert;
                     }
-
-                    float playerposy = playScene.player.pos.Y;
                     int gameObjectsCount = playScene.gameObjects.Count;
                     for (int i = 0; i < gameObjectsCount; i++)
                     {
-                        playScene.gameObjects[i].Buzzer(playerposy); // ゲームオブジェクトのbuzzer処理を呼び出す
+                        playScene.gameObjects[i].Buzzer(); // ゲームオブジェクトのbuzzer処理を呼び出す
                     }
                     state = UseState.After;
                 }

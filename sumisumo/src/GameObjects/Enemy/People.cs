@@ -236,6 +236,7 @@ namespace sumisumo
 
         public override void OnCollision(GameObject other)
         {
+            // 逃げ状態で階段に当たったら死ぬ
             if (state == PeopleState.Escape && (other is UpStairs || other is DownStairs)) isDead = true;
         }
 
@@ -246,9 +247,9 @@ namespace sumisumo
             DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示
             #endif
         }
-        public override void Buzzer(float playerPosY)
+        public override void Buzzer()
         {
-            if (pos.Y - playerPosY == -7) // プレイヤーと同じ高さにいたら
+            if (pos.Y - playScene.player.pos.Y == -7) // プレイヤーと同じ高さにいたら
             {
                 state = PeopleState.Escape; // 逃げる
             }

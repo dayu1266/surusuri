@@ -25,8 +25,8 @@ namespace sumisumo
         public int hp;          // HP
         int randMove;           // 動く方向（ランダムで決定）
         int changecount;        // 動いている時間のカウント（歩くか止まるかをチェンジするためのカウント）
-        bool floorUp;
-        bool floorDown;
+        bool floorUp;           // 上の階に行くか
+        bool floorDown;         // 下の階に行くか
 
 
         Vector2 velocity;       // 移動速度
@@ -64,7 +64,7 @@ namespace sumisumo
 
             if (alert) count = 0;
             else if (!alert) count++;
-            
+
             // 警戒モードへの移行
             if (alert || count <= 3)
             {
@@ -83,14 +83,45 @@ namespace sumisumo
 
         void MoveX()
         {
-            if (floorUp || floorDown)
+            if (floorUp) // 階段を上りたかったら
             {
-                if(pos.X < 1280)
+                if (pos.X < 430)                // 左側の階段より左
                 {
-                    velocity.X *= 1;
+                    velocity.X = WalkSpeed;     // 右に進む
+                }
+                else if (pos.X < 1500)          // 真ん中より左
+                {
+                    velocity.X = -WalkSpeed;    // 左に進む
+                }
+                else if (pos.X < 2100)          // 右側の階段より左側にいるかつ真ん中より右
+                {
+                    velocity.X = WalkSpeed;     // 右に進む
+                }
+                else                            // 右側の階段より右
+                {
+                    velocity.X = -WalkSpeed;    // 左に進む
                 }
             }
-            if (playScene.state == PlayScene.State.OnAlert)
+            else if (floorDown)
+            {
+                if (pos.X < 600)              // 左側の階段より左
+                {
+                    velocity.X = WalkSpeed;   // 右に進む
+                }
+                else if (pos.X < 1500)        // 真ん中より左
+                {
+                    velocity.X = -WalkSpeed;  // 左に進む
+                }
+                else if (pos.X < 2300)        // 右側の階段より左側にいるかつ真ん中より右
+                {
+                    velocity.X = WalkSpeed;   // 右に進む
+                }
+                else                          // 右側の階段より右
+                {
+                    velocity.X = -WalkSpeed;  // 左に進む
+                }
+            }
+            else if (find && playScene.state == PlayScene.State.OnAlert)
             {
                 if (Math.Pow(playScene.player.pos.X - pos.X, 2) < 8) velocity.X = 0;
                 else if (playScene.player.pos.X > pos.X)
@@ -213,6 +244,14 @@ namespace sumisumo
 
         public override void OnCollision(GameObject other)
         {
+            if (floorUp && other is UpStairs) // 上の階に行きたくて、上り階段に当たったら
+            {
+                StairUp(); // 上る
+            }
+            if (floorDown && other is DownStairs) // 下の階に行きたくて、下り階段に当たったら
+            {
+                StairDown(); // 下る
+            }
         }
 
         public void Die()
@@ -223,17 +262,33 @@ namespace sumisumo
         public override void Draw()
         {
             Camera.DrawGraph(pos.X, pos.Y, Image.guardman);
-            #if DEBUG
+#if DEBUG
             DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示
-            #endif
+#endif
         }
 
-        public override void Buzzer(float playerPosY)
+        public override void Buzzer()
         {
-            if(pos.Y + 1 < playerPosY)
+            if (pos.Y + 225 == player.pos.Y) // プレイヤーが1つ下の階にいたら
             {
-                
+                floorDown = true;
             }
+            else if (pos.Y - 223 == player.pos.Y) // 1つ上の階にいたら
+            {
+                floorUp = true;
+            }
+        }
+        void StairUp() // 階段を上る
+        {
+            pos.X += 160;
+            pos.Y -= 224;
+            floorUp = false;
+        }
+        void StairDown() // 階段を降りる
+        {
+            pos.X -= 160;
+            pos.Y += 224;
+            floorDown = false;
         }
     }
 }

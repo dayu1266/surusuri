@@ -14,6 +14,7 @@ namespace sumisumo
         public bool suri     = false;           // スリができるかどうか（一般人が視界にいるかどうか）
         public bool surinuke = false;           // すり抜けの途中かどうか
         public bool alert    = false;           // OnAlertを反映させるかどうか
+        public bool find = false;               // プレイヤーを見つけたか
 
         public Direction direction;             // 向いている方向
         protected PlayScene playScene;          // PlaySceneの参照
@@ -103,6 +104,6 @@ namespace sumisumo
         }
 
         // 消火栓が押された時のアクション
-        public virtual void Buzzer(float playerPosY) { }
+        public virtual void Buzzer() { }
     }
 }
