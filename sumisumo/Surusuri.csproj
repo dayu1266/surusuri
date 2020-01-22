@@ -91,6 +91,7 @@
     <Compile Include="src\Scenes\PlayScene.cs" />
     <Compile Include="src\Scenes\ResultScene.cs" />
     <Compile Include="src\Scenes\Scene.cs" />
+    <Compile Include="src\Scenes\StageSelectScene.cs" />
     <Compile Include="src\Scenes\TitleScene.cs" />
   </ItemGroup>
   <ItemGroup>

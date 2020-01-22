@@ -6,6 +6,7 @@ namespace sumisumo
     public class Game
     {
         static Scene scene;
+        static int stageLv;
 
         public void Init()
         {
@@ -35,6 +36,16 @@ namespace sumisumo
         public static void ChangeScene(Scene newScene)
         {
             scene = newScene;
+        }
+
+        public static void SetStageLevel(int Level)
+        {
+            stageLv = Level;
+        }
+
+        public static int GetStageLevel()
+        {
+            return stageLv;
         }
     }
 }

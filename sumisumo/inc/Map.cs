@@ -9,13 +9,14 @@ namespace sumisumo
     // 地形データの読み込みや描画、敵データの読み込み、敵生成などを行う。
     public class Map
     {
-        public const int None = -1;   // 何も無いマス
-        public const int Wall = 0;    // 壁
-        public const int Needle = 1;    // 針、トゲ
-        public const int Brick = 2;    // レンガ
-        public const int Floor = 3;    // 下から抜けられる床
+        public const int None           = -1;   // 何も無いマス
+        public const int Wall           = 0;    // 壁
+        public const int UpStairs       = 1;    // 上り階段
+        public const int DownStairs     = 2;    // 下り階段
+        public const int FireHydrant    = 3;    // 消火栓
+        public const int DressingRoom   = 4;    // 試着室
 
-        public const int Width = 80;  // マップデータの横のマス数
+        public const int Width = 120;  // マップデータの横のマス数
         public const int Height = 40;   // マップデータの縦のマス数
         public const int CellSize = 32; // マップの1マスのピクセル数
 
@@ -105,23 +106,15 @@ namespace sumisumo
             {
                 playScene.gameObjects.Add(new DownStairs(playScene, new Vector2(spawnX, spawnY)));
             }
-            else if (objectID == 1) // しいたけ
-            {
-                playScene.gameObjects.Add(new Shiitake(playScene, new Vector2(spawnX, spawnY)));
-            }
-            else if (objectID == 3)
-            {
-                playScene.gameObjects.Add(new UpStairs(playScene, new Vector2(spawnX, spawnY)));
-            }
-            else if (objectID == 4)
-            {
-                playScene.gameObjects.Add(new DownStairs(playScene, new Vector2(spawnX, spawnY)));
-            }
             else if (objectID == 5)
             {
                 playScene.gameObjects.Add(new FireHydrant(playScene, new Vector2(spawnX, spawnY)));
             }
             else if (objectID == 6)
+            {
+                playScene.gameObjects.Add(new DressingRoom(playScene, new Vector2(spawnX, spawnY)));
+            }
+            else if (objectID == 7)
             {
                 playScene.gameObjects.Add(new Goal(playScene, new Vector2(spawnX, spawnY)));
             }
@@ -144,7 +137,7 @@ namespace sumisumo
         public void DrawTerrain()
         {
             // ステージ背景の描画
-            Camera.DrawGraph(96, 320, Image.stage1_buck);
+            Camera.DrawGraph(736, 320, Image.stage1_buck);
 
             // 画面内のマップのみ描画するようにする
             int left = (int)(Camera.cameraPos.X / CellSize);
