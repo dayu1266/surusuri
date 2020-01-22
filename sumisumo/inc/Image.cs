@@ -14,13 +14,16 @@ namespace sumisumo
         public static int play_bg;                       // プレイ画面の背景
         public static int goMenu;                        // メインメニューに戻る
         public static int retry;                         // リトライ
+        public static int stageselect_bg;                //ステージ選択画面の背景
         public static int nextStage;                     // 次のステージへ
         public static int cursor;                        // カーソル
         public static int[] number = new int[12];        // 数字のフォント
         public static int heart;                         // ハート
         public static int downStairs;                    // 下り階段
         public static int upStairs;                      // 上り階段
-        public static int stage1_buck;                   // ステージ１の背景
+        public static int stage1_buck;                   // ステージ1の背景
+        public static int stage2_buck;                   // ステージ2の背景
+        public static int stage3_buck;                   // ステージ3の背景
         public static int fireHydrant;                   // 消火栓
         public static int dressingRoom_open;             // 試着室(開)
         public static int dressingRoom_close;            // 試着室(閉)
@@ -43,6 +46,7 @@ namespace sumisumo
             play_bg = DX.LoadGraph("res/Image/background.png");
             goMenu = DX.LoadGraph("res/Image/goMain.png");
             cursor = DX.LoadGraph("res/Image/cursor.png");
+            stageselect_bg = DX.LoadGraph("res/Image/stageselect_bg.png");
             DX.LoadDivGraph("res/Image/suuji16x32_02.png", number.Length, 12, 1, 16, 32, number);
 
             heart = DX.LoadGraph("res/Image/heart.png");
@@ -56,7 +60,9 @@ namespace sumisumo
             downStairs = DX.LoadGraph("res/Image/downstairs.png");
             upStairs = DX.LoadGraph("res/Image/upstairs.png");
 
-            stage1_buck = DX.LoadGraph("res/Image/stage1_buck.png");
+            stage1_buck = DX.LoadGraph("res/Image/stage1_back.png");
+            stage2_buck = DX.LoadGraph("res/Image/stage2_back.png");
+            stage3_buck = DX.LoadGraph("res/Image/stage3_back.png");
             gameclear = DX.LoadGraph("res/Image/gameclear.png");
             titlelogo = DX.LoadGraph("res/Image/titlelogo.png");
             gamestart = DX.LoadGraph("res/Image/gamestart.png");

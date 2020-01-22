@@ -56,7 +56,7 @@ namespace sumisumo
                 flashInterval++;
                 if (flashInterval >= 80)
                 {
-                    Game.ChangeScene(new PlayScene());
+                    Game.ChangeScene(new StageSelectScene());
                 }
             }
         }

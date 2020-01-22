@@ -32,8 +32,8 @@ namespace sumisumo
         public int hp;                      // HP
 
         public int floor = 1;   // 今いる階層
-        int floorMax     = 3;   // 最上層
-        int fllorMin     = 1;   // 最下層
+        int floorMax;       // 最上層
+        int floorMin = 1;   // 最下層
 
         float stairInterval = 0.0f;     // 
 
@@ -56,6 +56,21 @@ namespace sumisumo
             hp = initialHp;
             surinukeLock = initSurinukeLock;
             isHiding = false;
+
+            int stageLv = Game.GetStageLevel();
+            // プレイヤーの生成
+            if (stageLv == 1)
+            {
+                floorMax = 3;
+            }
+            else if (stageLv == 2)
+            {
+                floorMax = 5;
+            }
+            else if (stageLv == 3)
+            {
+                floorMax = 7;
+            }
 
             playScene.gameObjects.Add(new Sight(playScene, this, pos));
         }
@@ -115,13 +130,13 @@ namespace sumisumo
             }
 
             // 上下すり抜け
-            if (Input.GetButtonDown(DX.PAD_INPUT_UP) && floor < 3 && surinukeLock <= 0)
+            if (Input.GetButtonDown(DX.PAD_INPUT_UP) && floor < floorMax && surinukeLock <= 0)
             {
                 FloorUp();
                 surinukeLock = initSurinukeLock;
             }
 
-            if (Input.GetButtonDown(DX.PAD_INPUT_DOWN) && floor > 1 && surinukeLock <= 0)
+            if (Input.GetButtonDown(DX.PAD_INPUT_DOWN) && floor > floorMin && surinukeLock <= 0)
             {
                 FloorDown();
                 surinukeLock = initSurinukeLock;

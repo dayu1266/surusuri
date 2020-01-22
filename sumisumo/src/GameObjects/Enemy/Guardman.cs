@@ -25,8 +25,9 @@ namespace sumisumo
         public int hp;          // HP
         int randMove;           // 動く方向（ランダムで決定）
         int changecount;        // 動いている時間のカウント（歩くか止まるかをチェンジするためのカウント）
-        bool floorUp;           // 上の階に行くか
-        bool floorDown;         // 下の階に行くか
+
+        bool floorUp;           // 上の階への移動
+        bool floorDown;         // 下の階への移動
 
 
         Vector2 velocity;       // 移動速度

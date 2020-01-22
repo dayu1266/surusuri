@@ -25,7 +25,7 @@ namespace sumisumo
 
         // 全GameObjectを一括管理するリスト
         public List<GameObject> gameObjects = new List<GameObject>();
-
+        private string stageName;
         public State state = State.Active;// PlaySceneの状態
         int timeToGameOver = 120; // ゲームオーバーになるまでの時間（フレーム）
         public bool isGoal = false; // ゴールしたかどうか
@@ -33,12 +33,26 @@ namespace sumisumo
 
         public PlayScene()
         {
+            int stageLv = Game.GetStageLevel();
+            stageName = "stage" + stageLv.ToString();
+
             // インスタンス生成
-            map = new Map(this, "stage1");
+            map = new Map(this, stageName);
 
-            gameObjects.Add(new DressingRoom(this, new Vector2(100, 800)));
+            // プレイヤーの生成
+            if (stageLv == 1)
+            {
+                player = new Player(this, new Vector2(920, 800));
+            }
+            else if (stageLv == 2)
+            {
+                player = new Player(this, new Vector2(920, 1248));
+            }
+            else if (stageLv == 3)
+            {
+                player = new Player(this, new Vector2(920, 1696));
+            }
 
-            player = new Player(this, new Vector2(100, 800));
             gameObjects.Insert(gameObjects.Count,player);
             player = player;
             Camera.LookAt(player.pos.X, player.pos.Y);
