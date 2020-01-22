@@ -25,9 +25,8 @@ namespace sumisumo
         public int hp;          // HP
         int randMove;           // 動く方向（ランダムで決定）
         int changecount;        // 動いている時間のカウント（歩くか止まるかをチェンジするためのカウント）
-        bool floorUp;
-        bool floorDown;
-
+        bool floorUp;           // 上の階への移動
+        bool floorDown;         // 下の階への移動
 
         Vector2 velocity;       // 移動速度
         Direction Direction;    // 移動方向
@@ -64,7 +63,7 @@ namespace sumisumo
 
             if (alert) count = 0;
             else if (!alert) count++;
-            
+
             // 警戒モードへの移行
             if (alert || count <= 3)
             {
@@ -83,13 +82,8 @@ namespace sumisumo
 
         void MoveX()
         {
-            if (floorUp || floorDown)
-            {
-                if(pos.X < 1280)
-                {
-                    velocity.X *= 1;
-                }
-            }
+            if (floorUp || floorDown) { if (pos.X < 1280) velocity.X *= 1; };
+
             if (playScene.state == PlayScene.State.OnAlert)
             {
                 if (Math.Pow(playScene.player.pos.X - pos.X, 2) < 8) velocity.X = 0;
@@ -223,16 +217,15 @@ namespace sumisumo
         public override void Draw()
         {
             Camera.DrawGraph(pos.X, pos.Y, Image.guardman);
-            #if DEBUG
+#if DEBUG
             DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示
-            #endif
+#endif
         }
 
         public override void Buzzer(float playerPosY)
         {
-            if(pos.Y + 1 < playerPosY)
+            if (pos.Y + 1 < playerPosY)
             {
-                
             }
         }
     }
