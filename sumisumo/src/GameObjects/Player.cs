@@ -321,6 +321,7 @@ namespace sumisumo
 
         public void BeHidden()
         {
+            velocity.X = 0;
             isHiding = true;
         }
         public void Apeear()

@@ -11,12 +11,9 @@ namespace sumisumo
 {
     public class Sight : GameObject
     {
-        // 各オブジェクトの参照（主にコリジョンで使用）
+        // 各オブジェクトの参照
         GameObject obj;
         Direction direction;
-        PlayScene playScene;
-        Player player;
-        Guardman guardman;
 
         public Sight(PlayScene playScene, GameObject gameObject, Vector2 pos) : base(playScene)
         {
@@ -24,8 +21,12 @@ namespace sumisumo
             obj = gameObject;
             this.playScene = playScene;
 
-            imageWidth = 60;
             imageHeight = 140;
+            
+            // 親により視野の広さを変える（）
+            if (typeof(Player) == obj.GetType())  imageWidth = 100;
+            else imageWidth = 60;
+
             hitboxOffsetLeft = 0;
             hitboxOffsetRight = 0;
             hitboxOffsetTop = 9;
@@ -56,12 +57,8 @@ namespace sumisumo
 
         public override void OnCollision(GameObject other)
         {
-            // 警備員のリストを生成しplayScene.gameObjectsから警備員のみを取り出す
-            List<GameObject> guardman = new List<GameObject>();
-            guardman = playScene.gameObjects.FindAll(n => n is Guardman);
-
             // 親がプレイヤーで相手が一般ピーポーなら
-            if (obj == playScene.gameObjects.Find(n => n is Player) && other is People)
+            if ((typeof(Player) == obj.GetType()) && other is People)
             {
                 obj.suri = true;
             }
@@ -70,13 +67,10 @@ namespace sumisumo
                 obj.suri = false;
             }
 
-            // もし親が警備員で相手がプレイヤーなら
-            for (int i = 0; i < guardman.Count; i++)
+            // 親が警備員で相手がプレイヤーなら
+            if ((typeof(Guardman) == obj.GetType()) && other is Player)
             {
-                if (obj == guardman[i] && other is Player)
-                {
-                    obj.alert = true;
-                }
+                obj.alert = true;
             }
         }
     }

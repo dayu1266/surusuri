@@ -9,6 +9,7 @@ namespace sumisumo
 {
     public class DownStairs : GameObject
     {
+        bool use;
         public DownStairs(PlayScene playScene, Vector2 pos) : base(playScene)
         {
             this.pos.X = pos.X;
@@ -25,15 +26,24 @@ namespace sumisumo
 
         public override void Update()
         {
+            use = false;
         }
 
         public override void Draw()
         {
             Camera.DrawGraph(pos.X, pos.Y, Image.downStairs);
+            if (use)
+            {
+                Camera.DrawGraph(pos.X + 128, pos.Y - 16, Image.gimmicksign);
+            }
         }
 
         public override void OnCollision(GameObject other)
         {
+            if (other is Player)
+            {
+                use = true;
+            }
         }
 
 
