@@ -9,7 +9,7 @@ namespace sumisumo
 {
     public class UpStairs : GameObject
     {
-        bool use;
+        bool use; // プレイヤーが使えるかどうかの判定
         public UpStairs(PlayScene playScene, Vector2 pos) : base(playScene)
         {
             this.pos.X = pos.X;
@@ -33,7 +33,7 @@ namespace sumisumo
         public override void Draw()
         {
             Camera.DrawGraph(pos.X, pos.Y, Image.upStairs);
-            if (use)
+            if (use) // 使える状態ならビックリマークを表示する
             {
                 Camera.DrawGraph(pos.X + 128, pos.Y - 16, Image.gimmicksign);
             }
@@ -41,9 +41,9 @@ namespace sumisumo
 
         public override void OnCollision(GameObject other)
         {
-            if(other is Player)
+            if(other is Player) // プレイヤーにぶつかっていたら
             {
-                use = true;
+                use = true; // 使える状態にする
             }
         }
     }

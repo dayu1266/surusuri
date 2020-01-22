@@ -319,12 +319,12 @@ namespace sumisumo
             }
         }
 
-        public void BeHidden()
+        public void BeHidden() // 隠れる
         {
             velocity.X = 0;
             isHiding = true;
         }
-        public void Apeear()
+        public void Apeear() // 出てくる
         {
             isHiding = false;
         }

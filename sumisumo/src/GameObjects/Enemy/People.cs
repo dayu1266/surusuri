@@ -73,9 +73,18 @@ namespace sumisumo
 
         void MoveX()
         {
-            if (state == PeopleState.Escape)
+            if (state == PeopleState.Escape) // 逃げモードなら
             {
-                velocity.X = WalkSpeed;
+                if(pos.X > 2100) //　右側のの階段より右にいるなら左に進む
+                {
+                    velocity.X = -WalkSpeed;
+                    direction = Direction.Left;
+                }
+                else // それ以外は右に進む
+                {
+                    velocity.X = WalkSpeed;
+                    direction = Direction.Right;
+                }       
             }
             else
             {
@@ -153,6 +162,7 @@ namespace sumisumo
                 float wallRight = left - left % Map.CellSize + Map.CellSize; // 壁の右端
                 SetLeft(wallRight); // 一般人の左端を壁の右端に沿わす
                 velocity.X *= -1;
+                direction = Direction.Right;
             }
             // 右端が壁にめりこんでいるか？
             else if (
@@ -163,6 +173,7 @@ namespace sumisumo
                 float wallLeft = right - right % Map.CellSize; // 壁の左端
                 SetRight(wallLeft); // 一般人の右端を壁の左端に沿わす
                 velocity.X *= -1;
+                direction = Direction.Left;
             }
         }
 

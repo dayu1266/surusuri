@@ -36,18 +36,18 @@ namespace sumisumo
         public override void Draw()
         {
             Camera.DrawGraph(pos.X, pos.Y, Image.fireHydrant);
-            if (discovery && state == UseState.Before)
+            if (state == UseState.Before && discovery) // 使用前かつ発見されているなら
             {
-                Camera.DrawGraph(pos.X + 64, pos.Y - 32, Image.gimmicksign);
+                Camera.DrawGraph(pos.X + 64, pos.Y - 32, Image.gimmicksign); // ビックリマークを表示する
             }
              
         }
 
         public override void OnCollision(GameObject other)
         {
-            if (other is Player && state == UseState.Before)
+            if (other is Player && state == UseState.Before) //使用前だったら
             {
-                discovery = true;
+                discovery = true; // 発見された状態にする
                 if (Input.GetButtonDown(DX.PAD_INPUT_2))
                 {
                     if (playScene.state == PlayScene.State.Active)
@@ -59,7 +59,7 @@ namespace sumisumo
                     int gameObjectsCount = playScene.gameObjects.Count;
                     for (int i = 0; i < gameObjectsCount; i++)
                     {
-                        playScene.gameObjects[i].Buzzer(playerposy);
+                        playScene.gameObjects[i].Buzzer(playerposy); // ゲームオブジェクトのbuzzer処理を呼び出す
                     }
                     state = UseState.After;
                 }
