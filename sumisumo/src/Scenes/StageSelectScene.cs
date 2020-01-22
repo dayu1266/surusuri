@@ -30,14 +30,14 @@ namespace sumisumo
             {
                 if (Input.GetButtonDown(DX.PAD_INPUT_LEFT))
                 {
-                    stageLevel++;
+                    stageLevel--;
                 }
                 else if (Input.GetButtonDown(DX.PAD_INPUT_RIGHT))
                 {
-                    stageLevel--;
+                    stageLevel++;
                 }
             }
-            if (stageLevel == 3)
+            else if (stageLevel == 3)
             {
                 if (Input.GetButtonDown(DX.PAD_INPUT_LEFT))
                 {
@@ -45,7 +45,7 @@ namespace sumisumo
                 }
             }
 
-            if (Input.GetButtonDown(DX.DX_INPUT_PAD1))
+            if (Input.GetButtonDown(DX.PAD_INPUT_1))
             {
                 Game.SetStageLevel(stageLevel);
                 Game.ChangeScene(new PlayScene());

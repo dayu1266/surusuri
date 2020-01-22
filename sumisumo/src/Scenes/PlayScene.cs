@@ -25,15 +25,17 @@ namespace sumisumo
 
         // 全GameObjectを一括管理するリスト
         public List<GameObject> gameObjects = new List<GameObject>();
-
+        private string stageName;
         public State state = State.Active;// PlaySceneの状態
-        private string stageName = "stage1";
         int timeToGameOver = 120; // ゲームオーバーになるまでの時間（フレーム）
         public bool isGoal = false; // ゴールしたかどうか
         int targetAmout = 1000; // 目標金額
 
         public PlayScene()
         {
+            int stageLv = Game.GetStageLevel();
+            stageName = "stage" + stageLv.ToString();
+
             // インスタンス生成
             map = new Map(this, stageName);
 

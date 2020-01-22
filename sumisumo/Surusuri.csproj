@@ -96,7 +96,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="res\Map\stage1_object.csv">
+    <None Include="res\Map\stage1_kineticObject.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\Map\stage1_staticObject.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="res\Map\stage1_terrain.csv">
