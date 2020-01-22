@@ -42,15 +42,10 @@ namespace sumisumo
             gameObjects.Insert(gameObjects.Count,player);
             player = player;
             Camera.LookAt(player.pos.X, player.pos.Y);
-
-            
-
         }
 
-
         public override void Init()
-        {
-            
+        {        
         }
 
         public override void Update()
@@ -118,7 +113,6 @@ namespace sumisumo
             // マップの描画
             map.DrawTerrain();
 
-            
             // 全オブジェクトの描画
             foreach (GameObject go in gameObjects)
             {
@@ -129,7 +123,6 @@ namespace sumisumo
             {
                 DX.DrawRotaGraph(48 + (i * 54), 36, 4, 0, Image.heart, 1);
             }
-
 
             // プレイヤーの所持金表示
             string money = player.curMoney.ToString("000000");

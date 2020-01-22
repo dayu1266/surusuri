@@ -14,28 +14,28 @@ namespace sumisumo
             Jump, // ジャンプ中
         }
 
-        const float WalkSpeed = 6f;   // 歩きの速度
-        const float Gravity = 0.6f; // 重力
-        const float MaxFallSpeed = 12f;  // 最大落下速度
-        const int initSurinukeLock = 90;  // クールタイム(フレーム)
+        const float WalkSpeed      = 6f;    // 歩きの速度
+        const float Gravity        = 0.6f;  // 重力
+        const float MaxFallSpeed   = 12f;   // 最大落下速度
+        const int initSurinukeLock = 90;    // クールタイム(フレーム)
 
-        const int initialHp = 3;
+        const int initialHp = 3;         // 初期HP
 
         Vector2 velocity = Vector2.Zero; // 移動速度
         State state = State.Walk;        // 現在の状態
         private bool isHiding;
 
-        public int curMoney;                // 所持金
-        int surinukeLock;                   // すり抜けができるかできないか
-        Direction tmp = Direction.Right;
-        public int hp = 3;
-        public int floor = 1;      // 今いる階層
-        int floorMax = 3;   // 最上層
-        int fllorMin = 1;   // 最下層
+        public int curMoney;            // 所持金
+        int surinukeLock;               // すり抜けができるかできないか
 
-        float stairInterval = 0.0f;
+        Direction tmp = Direction.Right;    // なんだったか忘れた
+        public int hp;                      // HP
 
-        int surinuke_hold = 0;
+        public int floor = 1;   // 今いる階層
+        int floorMax     = 3;   // 最上層
+        int fllorMin     = 1;   // 最下層
+
+        float stairInterval = 0.0f;     // 
 
         public Player(PlayScene playScene, Vector2 pos) : base(playScene)
         {
@@ -62,23 +62,8 @@ namespace sumisumo
 
         public override void Update()
         {
-            // すり抜けの状態の保持
-            if (surinuke_now && !surinuke_old)
-            {
-                surinuke_old = true;
-            }
-            if (surinuke_old && surinuke_hold < 5)
-            {
-                surinuke_hold++;
-            }
-            else
-            {
-                surinuke_old = false;
-                surinuke_hold = 0;
-            }
-
             // すり抜けの更新
-            surinuke_now = false;
+            surinuke = false;
 
             if (!isHiding)
             {
@@ -89,7 +74,6 @@ namespace sumisumo
                 velocity.Y += Gravity;
                 if (velocity.Y > MaxFallSpeed) velocity.Y = MaxFallSpeed;
             }
-
 
             // まず横に動かす
             MoveX();
@@ -276,7 +260,6 @@ namespace sumisumo
                 }
             }
 
-
             if (other is Goal) //ゴールにぶつかったときの処理
             {
                 IsGoal(); //ゴール処理
@@ -317,7 +300,7 @@ namespace sumisumo
         void frontSurinuke()
         {
             // すり抜けが行われた
-            surinuke_now = true;
+            surinuke = true;
 
             // スリができる状態なら
             if (suri == true)

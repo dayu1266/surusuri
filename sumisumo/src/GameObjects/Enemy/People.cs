@@ -16,26 +16,24 @@ namespace sumisumo
     }
     public class People : GameObject
     {
-        EnemyId EnemyId = EnemyId.People;
-
-        const float WalkSpeed = 2f;      // 歩きの速度
-        const float MaxFallSpeed = 12f;  // 最大落下速度
-        const int initialHp = 1;         // 一般人のHP
-        const int initialAmount = 200;    // 移動量のベース
+        const float WalkSpeed = 2f;                 // 歩きの速度
+        const float MaxFallSpeed = 12f;             // 最大落下速度
+        const int initialHp = 1;                    // 一般人のHP
+        const int initialAmount = 200;              // 移動量のベース
         const int initialdontMoveFream = 3 * 60;    // 停止フレーム
-        const int View = 130;            // 視野
-        const int turnInterval = 90;
+        const int View = 130;                       // 視野
+        const int turnInterval = 90;                // 回転するまでのインターバル（単位：）
 
-        float Amount;
-        float dontMoveFream;
-        float turnFream;
-        public int hp;
-        int randMove;
-        int changecount;
-        int turnCounter;
-        int turn = 0;
-        int floor;
-        PeopleState state;
+        float Amount;           // 移動量
+        float dontMoveFream;    // 動いてはいけない時間（単位：フレーム）
+        float turnFream;        // ターンするまでの時間（単位：フレーム）
+        public int hp;          // HP
+        int randMove;           // 動く方向
+        int changecount;        // 動いている時間のカウント（歩くか止まるかをチェンジするためのカウント）
+        int turnCounter;        // 
+        int turn = 0;           // 
+        int floor;              // 今何階にいるか
+        PeopleState state;      // 一般人のステート
 
         Vector2 velocity;    // 移動速度
         Direction Direction; // 移動方向
@@ -69,6 +67,7 @@ namespace sumisumo
             // 次に縦に動かす
             MoveY();
 
+            // OnAlertだと
             if (playScene.state == PlayScene.State.OnAlert) turnFream++;
         }
 
@@ -135,10 +134,8 @@ namespace sumisumo
                         dontMoveFream--;
                     }
                 }
-
-
-
             }
+
             // 横に移動する
             pos.X += velocity.X;
             // 当たり判定の四隅の座標を取得
