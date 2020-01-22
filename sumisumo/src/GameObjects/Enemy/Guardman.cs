@@ -57,7 +57,6 @@ namespace sumisumo
 
             playScene.gameObjects.Add(new Sight(playScene, this, pos));
         }
-
         public override void Update()
         {
             MoveX();
@@ -81,20 +80,19 @@ namespace sumisumo
                 }
             }
         }
-
         void MoveX()
         {
             if (floorUp) // 階段を上りたかったら
             {
-                if (pos.X < 430)                // 左側の階段より左
+                if (pos.X < 1070)                // 左側の階段より左
                 {
                     velocity.X = WalkSpeed;     // 右に進む
                 }
-                else if (pos.X < 1500)          // 真ん中より左
+                else if (pos.X < 2000)          // 真ん中より左
                 {
                     velocity.X = -WalkSpeed;    // 左に進む
                 }
-                else if (pos.X < 2100)          // 右側の階段より左側にいるかつ真ん中より右
+                else if (pos.X < 2750)          // 右側の階段より左側にいるかつ真ん中より右
                 {
                     velocity.X = WalkSpeed;     // 右に進む
                 }
@@ -105,15 +103,15 @@ namespace sumisumo
             }
             else if (floorDown)
             {
-                if (pos.X < 600)              // 左側の階段より左
+                if (pos.X < 1250)              // 左側の階段より左
                 {
                     velocity.X = WalkSpeed;   // 右に進む
                 }
-                else if (pos.X < 1500)        // 真ん中より左
+                else if (pos.X < 2000)        // 真ん中より左
                 {
                     velocity.X = -WalkSpeed;  // 左に進む
                 }
-                else if (pos.X < 2300)        // 右側の階段より左側にいるかつ真ん中より右
+                else if (pos.X < 2950)        // 右側の階段より左側にいるかつ真ん中より右
                 {
                     velocity.X = WalkSpeed;   // 右に進む
                 }
@@ -124,6 +122,14 @@ namespace sumisumo
             }
             else if (find && playScene.state == PlayScene.State.OnAlert)
             {
+                if (pos.Y + 225 == player.pos.Y) // プレイヤーが1つ下の階にいたら
+                {
+                    floorDown = true;
+                }
+                else if (pos.Y - 223 == player.pos.Y) // 1つ上の階にいたら
+                {
+                    floorUp = true;
+                }
                 if (Math.Pow(playScene.player.pos.X - pos.X, 2) < 8) velocity.X = 0;
                 else if (playScene.player.pos.X > pos.X)
                 {

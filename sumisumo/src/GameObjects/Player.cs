@@ -14,10 +14,11 @@ namespace sumisumo
             Jump, // ジャンプ中
         }
 
-        const float WalkSpeed      = 6f;    // 歩きの速度
-        const float Gravity        = 0.6f;  // 重力
-        const float MaxFallSpeed   = 12f;   // 最大落下速度
-        const int initSurinukeLock = 90;    // クールタイム(フレーム)
+        const float WalkSpeed = 6f;    // 歩きの速度
+        const float Gravity = 0.6f;  // 重力
+        const float MaxFallSpeed = 12f;   // 最大落下速度
+        const int initSurinukeLock = 90;
+        const int mutekijikan = 120;// クールタイム(フレーム)
 
         const int initialHp = 3;         // 初期HP
 
@@ -34,6 +35,7 @@ namespace sumisumo
         public int floor = 1;   // 今いる階層
         int floorMax;       // 最上層
         int floorMin = 1;   // 最下層
+        int mutekiTimer = 0;
 
         float stairInterval = 0.0f;     // 
 
@@ -109,18 +111,20 @@ namespace sumisumo
             stairInterval--;
 
             suri = false;
+
+            mutekiTimer--;
         }
 
         // 入力を受けての処理
         void HandleInput()
         {
             if (Input.GetButton(DX.PAD_INPUT_LEFT) && !(Input.GetButton(DX.PAD_INPUT_RIGHT)))
-            { 
+            {
                 velocity.X = -WalkSpeed;        // 左が押されてたら、速度を左へ
                 direction = Direction.Left;     // 左向きにする
             }
             else if (Input.GetButton(DX.PAD_INPUT_RIGHT))
-            { 
+            {
                 velocity.X = WalkSpeed;         // 右が押されてたら、速度を右へ
                 direction = Direction.Right;    // 右向きにする
             }
@@ -141,7 +145,7 @@ namespace sumisumo
                 FloorDown();
                 surinukeLock = initSurinukeLock;
             }
-            
+
             // 正面すり抜け
             if (Input.GetButtonDown(DX.PAD_INPUT_1) && surinukeLock <= 0)
             {
@@ -233,7 +237,7 @@ namespace sumisumo
                 // 左右反転するか？（左向きなら反転する）
                 bool flip = direction == Direction.Left;
 
-                if (state == State.Walk) // 歩き・立ち状態の場合
+                if (state == State.Walk && mutekiTimer <= 0 || mutekiTimer % 2 == 0) // 歩き・立ち状態の場合
                 {
                     if (velocity.X == 0) // 移動していない場合
                     {
@@ -261,7 +265,11 @@ namespace sumisumo
         {
             if (other is Guardman && playScene.state == PlayScene.State.OnAlert)
             {
-                hp--;
+                //無敵じゃなければダメージを受ける
+                if (mutekiTimer <= 0)
+                {
+                    Damage();
+                }
             }
             if (Input.GetButtonDown(DX.PAD_INPUT_2))
             {
@@ -362,6 +370,13 @@ namespace sumisumo
             pos.Y += 224;
             floor--;
             stairInterval = 10.0f;
+        }
+        void Damage()
+        {
+            hp--;
+
+            //無敵時間発動
+            mutekiTimer = mutekijikan;
         }
     }
 }

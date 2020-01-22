@@ -23,6 +23,7 @@ namespace sumisumo
 
             if (Input.GetButtonDown(DX.PAD_INPUT_1) && !flag)
             {
+                Game.SetStageLevel(Game.GetStageLevel() + 1);
                 Game.ChangeScene(new PlayScene());
             }
             else if (Input.GetButtonDown(DX.PAD_INPUT_1) && flag)
@@ -33,7 +34,14 @@ namespace sumisumo
 
         public override void Draw()
         {          
-            DX.DrawGraph(0, 0, Image.gameclear, 0);
+            if (Game.GetStageLevel() == 3)
+            {
+                DX.DrawGraph(0, 0, Image.laststageclear, 0);
+            }
+            else
+            {
+                DX.DrawGraph(0, 0, Image.gameclear, 0);
+            }
             resultCursor.Draw();
         }
     }
