@@ -50,23 +50,24 @@ namespace sumisumo
 
         public override void OnCollision(GameObject other)
         {
-            if (other is Player && !inUse)
+            if (other is Player)
             {
                 discovery = true;
 
-                if (Input.GetButtonDown(DX.PAD_INPUT_2))
+                if (!inUse && Input.GetButtonDown(DX.PAD_INPUT_2))
                 {
                     inUse = true;
                     playScene.player.BeHidden();
                     discovery = false;
                 }
+                else if (inUse && Input.GetButtonDown(DX.PAD_INPUT_2))
+                {
+                    inUse = false;
+                    playScene.player.Apeear();
+                }
             }
 
-            if (inUse && Input.GetButtonDown(DX.PAD_INPUT_2))
-            {
-                inUse = false;
-                playScene.player.Apeear();
-            }
+           
         }
     }
 }
