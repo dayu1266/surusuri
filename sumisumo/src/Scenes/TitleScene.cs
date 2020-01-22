@@ -16,6 +16,7 @@ namespace sumisumo
             Ready,  // 開始準備完了
             Flash,  // スタートボタン点滅状態
         }
+
         int logoPosY; // ロゴのY座標
         State state;
         int flashTimer; // 点滅のカウンター

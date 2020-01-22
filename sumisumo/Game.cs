@@ -7,6 +7,7 @@ namespace sumisumo
     {
         static Scene scene;
         static int stageLv;
+        bool init = false;
 
         public void Init()
         {
@@ -18,6 +19,13 @@ namespace sumisumo
 
         public void Update()
         {
+            // initはUpdateの最初に１回だけ実行する
+            if (!init)
+            {
+                scene.Init();
+                init = true;
+            }
+
             Input.Update();
 
             if (Input.GetButtonDown(DX.PAD_INPUT_9))
