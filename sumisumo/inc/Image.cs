@@ -14,6 +14,7 @@ namespace sumisumo
         public static int play_bg;                       // プレイ画面の背景
         public static int goMenu;                        // メインメニューに戻る
         public static int retry;                         // リトライ
+        public static int stageselect_bg;                //ステージ選択画面の背景
         public static int nextStage;                     // 次のステージへ
         public static int cursor;                        // カーソル
         public static int[] number = new int[12];        // 数字のフォント
@@ -43,6 +44,7 @@ namespace sumisumo
             play_bg = DX.LoadGraph("res/Image/background.png");
             goMenu = DX.LoadGraph("res/Image/goMain.png");
             cursor = DX.LoadGraph("res/Image/cursor.png");
+            stageselect_bg = DX.LoadGraph("res/Image/stageselect_bg.png");
             DX.LoadDivGraph("res/Image/suuji16x32_02.png", number.Length, 12, 1, 16, 32, number);
 
             heart = DX.LoadGraph("res/Image/heart.png");
