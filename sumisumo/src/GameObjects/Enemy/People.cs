@@ -24,6 +24,7 @@ namespace sumisumo
         const int View = 130;                       // 視野
         const int turnInterval = 90;                // 回転するまでのインターバル（単位：）
 
+        float Speed;            // スピード
         float Amount;           // 移動量
         float dontMoveFream;    // 動いてはいけない時間（単位：フレーム）
         float turnFream;        // ターンするまでの時間（単位：フレーム）
@@ -33,10 +34,15 @@ namespace sumisumo
         int turnCounter;        // 
         int turn = 0;           // 
         int floor;              // 今何階にいるか
-        PeopleState state;      // 一般人のステート
 
-        Vector2 velocity;    // 移動速度
-        Direction Direction; // 移動方向
+        public bool see_player = false; // 視界内にプレイヤーがいるかどうか
+        int count = 0;
+
+        PeopleState state;      // 一般人のステート
+        Vector2     velocity;   // 移動速度
+        Direction   Direction;  // 移動方向
+
+        Player player;
 
         public People(PlayScene playScene, Vector2 pos) : base(playScene)
         {
@@ -51,6 +57,7 @@ namespace sumisumo
             hitboxOffsetTop = 9;
             hitboxOffsetBottom = 3;
 
+            Speed = WalkSpeed;
             hp = initialHp;
             Amount = initialAmount;
             dontMoveFream = 0;
@@ -62,6 +69,25 @@ namespace sumisumo
 
         public override void Update()
         {
+            if (see_player) count = 0;
+            else if (!see_player) count++;
+
+            // 警戒モードへの移行
+            if (see_player || count <= 3)
+            {
+                player = playScene.player;
+                if (player.surinuke)
+                {
+                    playScene.StateChange(PlayScene.State.OnAlert);
+                    Suri_toSee();
+                    see_player = false;
+                }
+                else
+                {
+                    see_player = false;
+                }
+            }
+
             // まず横に動かす
             MoveX();
             // 次に縦に動かす
@@ -69,8 +95,6 @@ namespace sumisumo
 
             // OnAlertだと
             if (playScene.state == PlayScene.State.OnAlert) turnFream++;
-
-            
         }
 
         void MoveX()
@@ -79,12 +103,12 @@ namespace sumisumo
             {
                 if(pos.X > 2100) //　右側のの階段より右にいるなら左に進む
                 {
-                    velocity.X = -WalkSpeed;
+                    velocity.X = -Speed;
                     direction = Direction.Left;
                 }
                 else // それ以外は右に進む
                 {
-                    velocity.X = WalkSpeed;
+                    velocity.X = Speed;
                     direction = Direction.Right;
                 }       
             }
@@ -132,7 +156,7 @@ namespace sumisumo
                     // Amount が0以上なら動く
                     if (Amount > 0)
                     {
-                        velocity.X = WalkSpeed;
+                        velocity.X = Speed;
                         Amount -= velocity.X;
                         if (randMove == 1)
                         {
@@ -253,6 +277,13 @@ namespace sumisumo
             {
                 state = PeopleState.Escape; // 逃げる
             }
+        }
+
+        public void Suri_toSee()
+        {           
+            state = PeopleState.Escape;
+            Speed = 6.0f;
+            Sound.SePlay(Sound.se_scream_woman);
         }
     }
 }

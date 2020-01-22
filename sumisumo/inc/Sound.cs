@@ -41,7 +41,7 @@ namespace sumisumo
             se_gameclear      = DX.LoadSoundMem("res/Sound/SE/gameclear_se.mp3");
             se_scream_men     = DX.LoadSoundMem("res/Sound/SE/scream_men.mp3");
             se_scream_woman   = DX.LoadSoundMem("res/Sound/SE/scream_woman.mp3");
-            se_surinuke       = DX.LoadSoundMem("res/Sound/SE/surusuri.mp3");
+            se_surinuke       = DX.LoadSoundMem("res/Sound/SE/surinuke.mp3");
             se_switch         = DX.LoadSoundMem("res/Sound/SE/swtch.mp3");
             se_whistle        = DX.LoadSoundMem("res/Sound/SE/whistle.mp3");
 

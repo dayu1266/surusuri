@@ -74,6 +74,7 @@
     <Compile Include="src\Enums\Direction.cs" />
     <Compile Include="src\Enums\GameDifficult.cs" />
     <Compile Include="src\GameObjects\Enemy\Guardman.cs" />
+    <Compile Include="src\GameObjects\Enemy\Police.cs" />
     <Compile Include="src\GameObjects\Enemy\Shiitakecs.cs" />
     <Compile Include="src\GameObjects\GameObject.cs" />
     <Compile Include="src\GameObjects\Enemy\People.cs" />

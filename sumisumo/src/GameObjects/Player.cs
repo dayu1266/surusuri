@@ -138,12 +138,14 @@ namespace sumisumo
             {
                 FloorUp();
                 surinukeLock = initSurinukeLock;
+                Sound.SePlay(Sound.se_surinuke);
             }
 
             if (Input.GetButtonDown(DX.PAD_INPUT_DOWN) && floor > floorMin && surinukeLock <= 0)
             {
                 FloorDown();
                 surinukeLock = initSurinukeLock;
+                Sound.SePlay(Sound.se_surinuke);
             }
 
             // 正面すり抜け
@@ -151,6 +153,7 @@ namespace sumisumo
             {
                 frontSurinuke();
                 surinukeLock = initSurinukeLock;
+                Sound.SePlay(Sound.se_surinuke);
             }
         }
 
@@ -299,7 +302,7 @@ namespace sumisumo
         // ゴール処理
         public void IsGoal()
         {
-            if (curMoney > 1000)// 所持金が目標金額を超えていたら
+            if (curMoney > playScene.targetAmout)// 所持金が目標金額を超えていたら
             {
                 playScene.isGoal = true;
             }
@@ -326,7 +329,11 @@ namespace sumisumo
             surinuke = true;
 
             // スリができる状態なら
-            if (suri == true) curMoney += Random.Range(1, 5) * 100;
+            if (suri == true)
+            {
+                SurinukeBoolChange(Sight.getTarget());
+                curMoney += Random.Range(1, 5) * 100;
+            }
 
             // プレイヤーの向きに応じてワープ座標を決める
             if (direction == Direction.Right)
@@ -377,6 +384,11 @@ namespace sumisumo
 
             //無敵時間発動
             mutekiTimer = mutekijikan;
+        }
+
+        public void SurinukeBoolChange(GameObject go)
+        {
+            go.Surizumi = true;
         }
     }
 }

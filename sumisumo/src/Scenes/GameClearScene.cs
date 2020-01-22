@@ -14,6 +14,7 @@ namespace sumisumo
         bool flag; // カーソルの位置のフラグ
         public override void Init()
         {
+            Sound.BgmPlay(Sound.bgm_gameclearBGM);
         }
 
         public override void Update()
@@ -24,10 +25,12 @@ namespace sumisumo
             if (Input.GetButtonDown(DX.PAD_INPUT_1) && !flag)
             {
                 Game.SetStageLevel(Game.GetStageLevel() + 1);
+                Sound.SePlay(Sound.se_decision);
                 Game.ChangeScene(new PlayScene());
             }
             else if (Input.GetButtonDown(DX.PAD_INPUT_1) && flag)
             {
+                Sound.SePlay(Sound.se_decision);
                 Game.ChangeScene(new TitleScene());
             }
         }

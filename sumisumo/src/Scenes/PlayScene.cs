@@ -25,11 +25,16 @@ namespace sumisumo
 
         // 全GameObjectを一括管理するリスト
         public List<GameObject> gameObjects = new List<GameObject>();
-        private string stageName;
-        public State state = State.Active;// PlaySceneの状態
-        int timeToGameOver = 120; // ゲームオーバーになるまでの時間（フレーム）
-        public bool isGoal = false; // ゴールしたかどうか
-        int targetAmout = 1000; // 目標金額
+
+        private string stageName;                   // ステージの名前
+        public State state        = State.Active;  // PlaySceneの状態
+        int timeToGameOver        = 120;           // ゲームオーバーになるまでの時間（フレーム）
+
+        public bool isGoal        = false;         // ゴールしたかどうか
+        bool clearSE              = false;         // クリア可能SEを流すとTRUEになる
+        public int targetAmout    = 1000;          // 目標金額
+
+        bool OnAlertOnce = false;
 
         public PlayScene()
         {
@@ -59,11 +64,19 @@ namespace sumisumo
         }
 
         public override void Init()
-        {        
+        {
+            Sound.BgmPlay(Sound.bgm_nomalBGM);
         }
 
         public override void Update()
         {
+            // OnAlertになったとき１度だけ呼ばれる
+            if(state == State.OnAlert && !OnAlertOnce)
+            {
+                Sound.BgmPlay(Sound.bgm_warningBGM);
+                OnAlertOnce = true;
+            }
+
             // 全オブジェクトの更新
             int gameObjectsCount = gameObjects.Count; // ループ前の個数を取得しておく
             for (int i = 0; i < gameObjectsCount; i++)
@@ -101,6 +114,13 @@ namespace sumisumo
             gameObjects.RemoveAll(go => go.isDead);
 
             Camera.LookAt(player.pos.X, player.pos.Y);
+
+            // isGoalがTrueになったらSEを流す
+            if(player.curMoney > targetAmout && clearSE == false)
+            {
+                Sound.SePlay(Sound.se_gameclear);
+                clearSE = true;
+            }
 
             // プレイヤーがゴールしたときの処理
             if (state != State.PlayerDied && isGoal)
@@ -152,13 +172,18 @@ namespace sumisumo
             //    DX.DrawRotaGraph(1080 + (16 * i), 32, 0.3f, 0, Image.number[targetAmout.ToString()[i] - '0'], 1);
             //}
 
-#if DEBUG // Debugのみ実行される
+            #if DEBUG // Debugのみ実行される
             // 当たり判定のデバッグ表示
             foreach (GameObject go in gameObjects)
             {
                 go.DrawHitBox();
             }
-#endif
+            #endif
+        }
+
+        public void StateChange(State state)
+        {
+            this.state = state;
         }
     }
 }

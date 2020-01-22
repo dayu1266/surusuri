@@ -52,7 +52,7 @@ namespace sumisumo
                 {
                     if (playScene.state == PlayScene.State.Active)
                     {
-                        playScene.state = PlayScene.State.OnAlert;
+                        playScene.StateChange(PlayScene.State.OnAlert);
                     }
                     int gameObjectsCount = playScene.gameObjects.Count;
                     for (int i = 0; i < gameObjectsCount; i++)

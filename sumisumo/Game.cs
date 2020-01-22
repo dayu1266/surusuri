@@ -7,7 +7,7 @@ namespace sumisumo
     {
         static Scene scene;
         static int stageLv;
-        bool init = false;
+        static bool init = false;
 
         public void Init()
         {
@@ -44,6 +44,7 @@ namespace sumisumo
         public static void ChangeScene(Scene newScene)
         {
             scene = newScene;
+            init = false;
         }
 
         public static void SetStageLevel(int Level)

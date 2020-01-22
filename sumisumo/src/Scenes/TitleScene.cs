@@ -27,6 +27,8 @@ namespace sumisumo
             logoPosY = -64;
             flashTimer = 0;
             flashInterval = 0;
+
+            Sound.BgmPlay(Sound.bgm_titleBGM);
         }
 
         public override void Update()
@@ -48,6 +50,7 @@ namespace sumisumo
                 flashTimer++;
                 if (Input.GetButtonDown(DX.PAD_INPUT_1))
                 {
+                    Sound.SePlay(Sound.se_decision);
                     state = State.Flash;
                 }
             }

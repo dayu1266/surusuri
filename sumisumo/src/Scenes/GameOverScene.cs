@@ -23,10 +23,12 @@ namespace sumisumo
             
             if (Input.GetButtonDown(DX.PAD_INPUT_1) && !flag)
             {
+                Sound.SePlay(Sound.se_decision);
                 Game.ChangeScene(new TitleScene());
             }
             else if (Input.GetButtonDown(DX.PAD_INPUT_1) && flag)
             {
+                Sound.SePlay(Sound.se_decision);
                 Game.ChangeScene(new PlayScene());
             }
         }

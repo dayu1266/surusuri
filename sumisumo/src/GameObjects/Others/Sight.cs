@@ -13,6 +13,7 @@ namespace sumisumo
     {
         // 各オブジェクトの参照
         GameObject obj;
+        static GameObject target;
         Direction direction;
 
         public Sight(PlayScene playScene, GameObject gameObject, Vector2 pos) : base(playScene)
@@ -22,9 +23,9 @@ namespace sumisumo
             this.playScene = playScene;
 
             imageHeight = 140;
-            
+
             // 親により視野の広さを変える（）
-            if (typeof(Player) == obj.GetType())  imageWidth = 100;
+            if (typeof(Player) == obj.GetType()) imageWidth = 100;
             else imageWidth = 60;
 
             hitboxOffsetLeft = 0;
@@ -60,7 +61,15 @@ namespace sumisumo
             // 親がプレイヤーで相手が一般ピーポーなら
             if ((typeof(Player) == obj.GetType()) && other is People)
             {
-                obj.suri = true;
+                target = other;
+                if (other.Surizumi == false)
+                {
+                    obj.suri = true;
+                }
+                else
+                {
+                    obj.suri = false;
+                }
             }
 
 
@@ -73,6 +82,20 @@ namespace sumisumo
                     obj.find = true;
                 }
             }
+
+            // 親が一般ピーポーで相手がプレイヤーなら
+            if ((typeof(People) == obj.GetType()) && other is Player)
+            {
+                    target = other;
+                    People people = obj as People;
+                    people.see_player = true;            
+            }
+        }
+
+        // 親のSight中に入ったGameObjectを取得する
+        static public GameObject getTarget()
+        {
+            return target;
         }
     }
 }

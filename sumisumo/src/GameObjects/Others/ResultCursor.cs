@@ -29,6 +29,7 @@ namespace sumisumo
                 flashTimar = 0;
                 moveflag = true;
                 posX = 700;
+                Sound.SePlay(Sound.se_switch);
             }
             // 左ボタン入力でカーソルを上に移動
             else if(Input.GetButtonDown(DX.PAD_INPUT_LEFT) && moveflag)
@@ -36,6 +37,7 @@ namespace sumisumo
                 flashTimar = 0;
                 moveflag = false;
                 posX = 210;
+                Sound.SePlay(Sound.se_switch);
             }
         }
         public void Draw()
