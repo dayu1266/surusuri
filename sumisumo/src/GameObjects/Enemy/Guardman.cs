@@ -11,8 +11,6 @@ namespace sumisumo
 {
     public class Guardman : GameObject
     {
-        EnemyId EnemyId = EnemyId.Guardman;
-
         const float WalkSpeed = 3f;                 // 歩く速度
         const float RunSpeed = 9f;                  // 走るスピード
         const float MaxFallSpeed = 12f;             // 最大落下速度
@@ -21,17 +19,18 @@ namespace sumisumo
         const int initialdontMoveFream = 3 * 60;    // 停止フレーム
         const int View = 130;                       // 視野
 
-        float Amount;
-        float dontMoveFream;
-        public int hp;
-        int randMove;
-        int changecount;
-        bool findPlayer; // プレイヤーを見つけたかどうかのフラグ
+        int count;              // 猶予時間のカウント
+        float Amount;           // 移動量
+        float dontMoveFream;    // 動いてはいけない時間（単位：フレーム）
+        public int hp;          // HP
+        int randMove;           // 動く方向（ランダムで決定）
+        int changecount;        // 動いている時間のカウント（歩くか止まるかをチェンジするためのカウント）
 
-        Vector2 velocity;        // 移動速度
-        Direction Direction; // 移動方向
+        Vector2 velocity;       // 移動速度
+        Direction Direction;    // 移動方向
 
         PlayScene playScene;
+        Player player;
 
         public Guardman(PlayScene playScene, Vector2 pos) : base(playScene)
         {
@@ -51,7 +50,6 @@ namespace sumisumo
             hp = initialHp;
             Amount = initialAmount;
             dontMoveFream = 0;
-            findPlayer = false;
 
             playScene.gameObjects.Add(new Sight(playScene, this, pos));
         }
@@ -60,6 +58,31 @@ namespace sumisumo
         {
             MoveX();
             MoveY();
+
+            // 警戒モードへの猶予時間
+            if (alert)
+            {
+                count++;
+            }
+            else if (count < 5)
+            {
+                count = 0;
+            }
+            else
+            {
+                count = 0;
+            }
+
+            // 警戒モードへの移行
+            if (count >= 1)
+            {
+                player = playScene.player;
+                if (player.surinuke)
+                {
+                    if (alert) playScene.state = PlayScene.State.OnAlert;
+                    count = 0;
+                }
+            }
         }
 
         void MoveX()
@@ -217,7 +240,9 @@ namespace sumisumo
         public override void Draw()
         {
             Camera.DrawGraph(pos.X, pos.Y, Image.guardman);
+            #if DEBUG
             DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示
+            #endif
         }
     }
 }
