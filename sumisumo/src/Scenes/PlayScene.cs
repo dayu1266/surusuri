@@ -39,7 +39,20 @@ namespace sumisumo
             // インスタンス生成
             map = new Map(this, stageName);
 
-            player = new Player(this, new Vector2(920, 800));
+            // プレイヤーの生成
+            if (stageLv == 1)
+            {
+                player = new Player(this, new Vector2(920, 800));
+            }
+            else if (stageLv == 2)
+            {
+                player = new Player(this, new Vector2(920, 1248));
+            }
+            else if (stageLv == 3)
+            {
+                player = new Player(this, new Vector2(920, 1696));
+            }
+
             gameObjects.Insert(gameObjects.Count,player);
             player = player;
             Camera.LookAt(player.pos.X, player.pos.Y);

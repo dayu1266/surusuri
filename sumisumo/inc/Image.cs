@@ -21,7 +21,9 @@ namespace sumisumo
         public static int heart;                         // ハート
         public static int downStairs;                    // 下り階段
         public static int upStairs;                      // 上り階段
-        public static int stage1_buck;                   // ステージ１の背景
+        public static int stage1_buck;                   // ステージ1の背景
+        public static int stage2_buck;                   // ステージ2の背景
+        public static int stage3_buck;                   // ステージ3の背景
         public static int fireHydrant;                   // 消火栓
         public static int dressingRoom_open;             // 試着室(開)
         public static int dressingRoom_close;            // 試着室(閉)
@@ -58,7 +60,9 @@ namespace sumisumo
             downStairs = DX.LoadGraph("res/Image/downstairs.png");
             upStairs = DX.LoadGraph("res/Image/upstairs.png");
 
-            stage1_buck = DX.LoadGraph("res/Image/stage1_buck.png");
+            stage1_buck = DX.LoadGraph("res/Image/stage1_back.png");
+            stage2_buck = DX.LoadGraph("res/Image/stage2_back.png");
+            stage3_buck = DX.LoadGraph("res/Image/stage3_back.png");
             gameclear = DX.LoadGraph("res/Image/gameclear.png");
             titlelogo = DX.LoadGraph("res/Image/titlelogo.png");
             gamestart = DX.LoadGraph("res/Image/gamestart.png");

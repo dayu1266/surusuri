@@ -30,11 +30,11 @@ namespace sumisumo
             }
             else if (stageName == "stage2")
             {
-                Height = 40;
+                Height = 54;
             }
             else if (stageName == "stage3")
             {
-                Height = 40;
+                Height = 68;
             }
 
             LoadTerrain("res/Map/" + stageName + "_terrain.csv");
@@ -188,7 +188,19 @@ namespace sumisumo
         public void DrawTerrain()
         {
             // ステージ背景の描画
-            Camera.DrawGraph(736, 320, Image.stage1_buck);
+            int stageLv= Game.GetStageLevel();
+            if (stageLv == 1)
+            {
+                Camera.DrawGraph(736, 320, Image.stage1_buck);
+            }
+            else if (stageLv == 2)
+            {
+                Camera.DrawGraph(736, 320, Image.stage2_buck);
+            }
+            else if (stageLv == 3)
+            {
+                Camera.DrawGraph(736, 320, Image.stage3_buck);
+            }
 
             // 画面内のマップのみ描画するようにする
             int left = (int)(Camera.cameraPos.X / CellSize);
