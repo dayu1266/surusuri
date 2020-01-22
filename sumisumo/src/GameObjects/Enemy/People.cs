@@ -69,6 +69,8 @@ namespace sumisumo
 
             // OnAlertだと
             if (playScene.state == PlayScene.State.OnAlert) turnFream++;
+
+            
         }
 
         void MoveX()
