@@ -29,8 +29,8 @@ namespace sumisumo
         Vector2 velocity;       // 移動速度
         Direction Direction;    // 移動方向
 
-        PlayScene playScene;
-        Player player;
+        PlayScene playScene;    // playSceneの参照
+        Player player;          // playerの参照
 
         public Guardman(PlayScene playScene, Vector2 pos) : base(playScene)
         {
@@ -63,7 +63,7 @@ namespace sumisumo
             else if (!alert) count++;
             
             // 警戒モードへの移行
-            if (alert || count <= 2)
+            if (alert || count <= 3)
             {
                 player = playScene.player;
                 if (player.surinuke)
@@ -84,13 +84,9 @@ namespace sumisumo
             {
                 if (Math.Pow(playScene.player.pos.X - pos.X, 2) < 8) velocity.X = 0;
                 else if (playScene.player.pos.X > pos.X)
-
                 {
                     float prePosX = velocity.X; // 1フレーム前の速度を保存
-                    velocity.X = RunSpeed;
-                    // 1フレーム前の速度より今の速度がのほうが速い
-                    // つまり振り向いた
-
+                    velocity.X = RunSpeed;// 1フレーム前の速度より今の速度がのほうが速い、つまり振り向いた
                 }
                 else
                 {
@@ -110,24 +106,11 @@ namespace sumisumo
                     // ランダムで移動方向を決定
                     int tmp = randMove;
                     randMove = QimOLib.Random.Range(1, 3);
-                    if (changecount == 0)
-                    {
-                        randMove = 2;
-                    }
-                    if (tmp != randMove && changecount != 0)
-                    {
+                    if (changecount == 0) randMove = 2;
 
-                    }
-
-                    if (randMove == 1)
-                    {
-                        direction = Direction.Left;
-                    }
-                    else
-                    {
-                        direction = Direction.Right;
-                    }
-
+                    // 移動方向によりキャラの向きを変える
+                    if (randMove == 1) direction = Direction.Left;
+                    else direction = Direction.Right;
 
                     // 移動量を決定
                     int randAmount = QimOLib.Random.Range(1, 4);
@@ -141,10 +124,7 @@ namespace sumisumo
                 {
                     velocity.X = WalkSpeed;
                     Amount -= velocity.X;
-                    if (randMove == 1)
-                    {
-                        velocity.X *= -1;
-                    }
+                    if (randMove == 1) velocity.X *= -1;
                 }
                 else
                 {
@@ -233,9 +213,9 @@ namespace sumisumo
         public override void Draw()
         {
             Camera.DrawGraph(pos.X, pos.Y, Image.guardman);
-#if DEBUG
+            #if DEBUG
             DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示
-#endif
+            #endif
         }
     }
 }
