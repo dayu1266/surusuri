@@ -32,7 +32,7 @@ namespace sumisumo
         {
             if (state == State.Scroll)
             {
-                logoPosY += 1;
+                logoPosY += 2;
                 if (logoPosY >= 250)
                 {
                     state = State.Ready;
@@ -54,7 +54,7 @@ namespace sumisumo
             {
                 flashTimer++;
                 flashInterval++;
-                if (flashInterval >= 200)
+                if (flashInterval >= 80)
                 {
                     Game.ChangeScene(new PlayScene());
                 }
@@ -69,7 +69,7 @@ namespace sumisumo
             {
                 DX.DrawRotaGraph((int)Screen.Size.X / 2, 600, 4, 0, Image.gamestart, 1);
             }
-            if(state == State.Flash && flashTimer / 2 % 4 == 0)
+            if(state == State.Flash && flashTimer / 2 % 6 == 0)
             {
                 DX.DrawRotaGraph((int)Screen.Size.X / 2, 600, 4, 0, Image.gamestart, 1);
             }
