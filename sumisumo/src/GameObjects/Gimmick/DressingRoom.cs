@@ -21,9 +21,11 @@ namespace sumisumo
             hitboxOffsetRight = 36;
             hitboxOffsetTop = 0;
             hitboxOffsetBottom = 32;
+
             discovery = false;
             inUse = false;
         }
+
         public override void Update()
         {
             discovery = false;
