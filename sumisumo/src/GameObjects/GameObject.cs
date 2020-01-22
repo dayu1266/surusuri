@@ -15,6 +15,7 @@ namespace sumisumo
         public bool suri = false;                   // スリができるかどうか（一般人が視界にいるかどうか）
         public bool surinuke_now = false;           // すり抜けの途中かどうか
         public bool surinuke_old = false;           // 1フレーム前のすり抜け情報
+        public bool alert = false;
         public Direction direction;
 
         protected PlayScene playScene;  // PlaySceneの参照

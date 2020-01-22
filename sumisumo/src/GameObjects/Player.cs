@@ -316,10 +316,12 @@ namespace sumisumo
 
         void frontSurinuke()
         {
+            // すり抜けが行われた
+            surinuke_now = true;
+
             // スリができる状態なら
             if (suri == true)
-            {
-                surinuke_now = true;
+            {         
                 curMoney += Random.Range(1, 5) * 100;
             }
 

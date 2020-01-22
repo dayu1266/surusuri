@@ -72,7 +72,7 @@ namespace sumisumo
             {
                 if (obj == guardman[i] && other is Player)
                 {
-                    obj.ChangeOnAlert();
+                    obj.alert = true;
                 }
             }
         }

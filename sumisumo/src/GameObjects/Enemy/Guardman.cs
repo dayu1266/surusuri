@@ -21,6 +21,7 @@ namespace sumisumo
         const int initialdontMoveFream = 3 * 60;    // 停止フレーム
         const int View = 130;                       // 視野
 
+        int count;
         float Amount;
         float dontMoveFream;
         public int hp;
@@ -32,6 +33,7 @@ namespace sumisumo
         Direction Direction; // 移動方向
 
         PlayScene playScene;
+        Player player;
 
         public Guardman(PlayScene playScene, Vector2 pos) : base(playScene)
         {
@@ -60,6 +62,32 @@ namespace sumisumo
         {
             MoveX();
             MoveY();
+
+            // 警戒モードへの猶予時間
+            if (alert)
+            {
+                count++;
+            }
+            else if (count < 5)
+            {
+                count = 0;
+            }
+            else
+            {
+                count = 0;
+            }
+
+            // 警戒モードへの移行
+            if (count >= 1)
+            {
+                player = playScene.player;
+                if (player.surinuke_now)
+                {
+                    if (alert) playScene.state = PlayScene.State.OnAlert;
+                    count = 0;
+                }
+            }
+
         }
 
         void MoveX()
