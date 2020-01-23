@@ -48,7 +48,8 @@ namespace sumisumo
             if (direction == Direction.Left)
             {
                 pos = obj.pos;
-                pos.X -= 45;
+                if (typeof(Player) == obj.GetType()) pos.X -= 115;
+                else pos.X -= 45;
             }
         }
 
