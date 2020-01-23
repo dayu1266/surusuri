@@ -381,7 +381,10 @@ namespace sumisumo
         void Damage()
         {
             hp--;
-
+            if (hp <= 0)
+            {
+                Die();
+            }
             //無敵時間発動
             mutekiTimer = mutekijikan;
         }

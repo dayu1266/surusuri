@@ -101,7 +101,7 @@ namespace sumisumo
         {
             if (state == PeopleState.Escape) // 逃げモードなら
             {
-                if(pos.X > 2100) //　右側のの階段より右にいるなら左に進む
+                if(pos.X > 3000) //　右側のの階段より右にいるなら左に進む
                 {
                     velocity.X = -Speed;
                     direction = Direction.Left;
