@@ -17,8 +17,8 @@ namespace sumisumo
 
             imageWidth = 100;
             imageHeight = 128;
-            hitboxOffsetLeft = 0;
-            hitboxOffsetRight = 36;
+            hitboxOffsetLeft = 1;
+            hitboxOffsetRight = 6;
             hitboxOffsetTop = 0;
             hitboxOffsetBottom = 32;
 
