@@ -59,7 +59,6 @@ namespace sumisumo
             }
 
             gameObjects.Insert(gameObjects.Count,player);
-            player = player;
             Camera.LookAt(player.pos.X, player.pos.Y);
         }
 
@@ -73,6 +72,9 @@ namespace sumisumo
             // OnAlertになったとき１度だけ呼ばれる
             if(state == State.OnAlert && !OnAlertOnce)
             {
+                GameObject goal;
+                goal = gameObjects.Find(n => n is Goal);
+                gameObjects.Add(new Police(this, new Vector2(goal.pos.X + 100.0f, goal.pos.Y + 80.0f)));
                 Sound.BgmPlay(Sound.bgm_warningBGM);
                 OnAlertOnce = true;
             }

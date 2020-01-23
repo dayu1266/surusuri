@@ -247,7 +247,6 @@ namespace sumisumo
             turnCounter++;
             if (turnCounter > 20)
             {
-
                 turn++;
                 turnCounter = 0;
             }
@@ -261,7 +260,11 @@ namespace sumisumo
         public override void OnCollision(GameObject other)
         {
             // 逃げ状態で階段に当たったら死ぬ
-            if (state == PeopleState.Escape && (other is UpStairs || other is DownStairs)) isDead = true;
+            if (state == PeopleState.Escape && (other is UpStairs || other is DownStairs))
+            {
+                isDead = true;
+
+            } 
         }
 
         public override void Draw()

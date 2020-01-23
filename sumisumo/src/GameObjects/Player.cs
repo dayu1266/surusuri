@@ -364,6 +364,7 @@ namespace sumisumo
 
             Camera.DrawGraph(Camera.cameraPos.X + 198, Camera.cameraPos.Y + 11, Image.cooltimeGauge[counter]);
         }
+
         void StairUp()
         {
             pos.X += 160;

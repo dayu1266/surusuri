@@ -6,6 +6,7 @@ namespace sumisumo
     {
         public static int player;                        // プレイヤー
         public static int guardman;                      // 警備員
+        public static int[] police = new int[4];         // 警察官
         public static int people;                        // 一般人
         public static int test_shiitake;                 // しいたけ
         public static int test_playerShot;               // プレイヤーの弾
@@ -37,6 +38,7 @@ namespace sumisumo
         {
             player = DX.LoadGraph("res/Image/player.png");
             guardman = DX.LoadGraph("res/Image/guardman.png");
+            DX.LoadDivGraph("res/Image/policeanim.png", police.Length, 4, 1, 100, 140, police);
             people = DX.LoadGraph("res/Image/people.png");
 
             DX.LoadDivGraph("res/Image/test_zentaman.png", test_zentaman.Length, 4, 6, 60, 70, test_zentaman);
