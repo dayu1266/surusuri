@@ -266,7 +266,7 @@ namespace sumisumo
 
         public override void OnCollision(GameObject other)
         {
-            if (other is Guardman && playScene.state == PlayScene.State.OnAlert)
+            if (playScene.state == PlayScene.State.OnAlert && (other is Guardman || other is Police))
             {
                 //無敵じゃなければダメージを受ける
                 if (mutekiTimer <= 0)
