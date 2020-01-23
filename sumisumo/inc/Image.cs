@@ -34,6 +34,7 @@ namespace sumisumo
         public static int gimmicksign;                   // ギミック発見マーク
         public static int[] cooltimeGauge = new int[31]; // クールタイムゲージ
         public static int gameclear;                     // ゲームクリア画面の背景
+        public static int gameover;                     // ゲームクリア画面の背景
         public static int laststageclear;                // 全クリ画面
         public static int titlelogo;                     // タイトルのロゴ
         public static int gamestart;                     // ゲームスタートボタン   
@@ -74,6 +75,7 @@ namespace sumisumo
             stage3_back = DX.LoadGraph("res/Image/stage3_back.png");
 
             gameclear = DX.LoadGraph("res/Image/gameclear.png");
+            gameover = DX.LoadGraph("res/Image/gameover_bg.png");
             laststageclear = DX.LoadGraph("res/Image/laststageclear.png");
             titlelogo = DX.LoadGraph("res/Image/titlelogo.png");
             gamestart = DX.LoadGraph("res/Image/gamestart.png");
