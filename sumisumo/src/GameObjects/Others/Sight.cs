@@ -26,7 +26,7 @@ namespace sumisumo
 
             // 親により視野の広さを変える（）
             if (typeof(Player) == obj.GetType()) imageWidth = 130;
-            else imageWidth = 100;
+            else imageWidth = 70;
 
             hitboxOffsetLeft = 0;
             hitboxOffsetRight = 0;
@@ -49,7 +49,7 @@ namespace sumisumo
             {
                 pos = obj.pos;
                 if (typeof(Player) == obj.GetType()) pos.X -= 115;
-                else pos.X -= 45;
+                else pos.X -= 90;
             }
         }
 

@@ -24,7 +24,7 @@ namespace sumisumo
 
         Vector2 velocity = Vector2.Zero; // 移動速度
         State state = State.Walk;        // 現在の状態
-        private bool isHiding;
+        public bool isHiding;
 
         public int curMoney;            // 所持金
         int surinukeLock;               // すり抜けができるかできないか
@@ -266,10 +266,10 @@ namespace sumisumo
 
         public override void OnCollision(GameObject other)
         {
-            if (other is Guardman && playScene.state == PlayScene.State.OnAlert)
-            {
+            if (playScene.state == PlayScene.State.OnAlert && (other is Guardman || other is Police) && !isHiding)
+            {     
                 //無敵じゃなければダメージを受ける
-                if (mutekiTimer <= 0)
+                if (mutekiTimer <= 0 && other.find)
                 {
                     Damage();
                 }

@@ -43,6 +43,7 @@ namespace sumisumo
                 {
                     stageLevel++;
                     moveTarget -= 1200;
+                    Sound.SePlay(Sound.se_switch);
                 }
             }
             else if (stageLevel == 2)
@@ -51,11 +52,13 @@ namespace sumisumo
                 {
                     stageLevel--;
                     moveTarget += 1200;
+                    Sound.SePlay(Sound.se_switch);
                 }
                 else if (Input.GetButtonDown(DX.PAD_INPUT_RIGHT))
                 {
                     stageLevel++;
                     moveTarget -= 1200;
+                    Sound.SePlay(Sound.se_switch);
                 }
             }
             else if (stageLevel == 3)
@@ -64,6 +67,7 @@ namespace sumisumo
                 {
                     stageLevel--;
                     moveTarget += 1200;
+                    Sound.SePlay(Sound.se_switch);
                 }
             }
 
@@ -90,6 +94,7 @@ namespace sumisumo
             {
                 Game.SetStageLevel(stageLevel);
                 Game.ChangeScene(new PlayScene());
+                Sound.SePlay(Sound.se_decision);
             }
         }
 

@@ -51,6 +51,7 @@ namespace sumisumo
             hitboxOffsetBottom = 9;
 
             hp = initialHp;
+            find = true;
 
             playScene.gameObjects.Add(new Sight(playScene, this, pos));
         }
@@ -58,6 +59,10 @@ namespace sumisumo
         {
             MoveX();
             MoveY();
+            if (player.isHiding)
+            {
+                find = false;
+            }
         }
         void MoveX()
         {
@@ -99,7 +104,7 @@ namespace sumisumo
                     velocity.X = -WalkSpeed;  // 左に進む
                 }
             }
-            else
+            else if (find)
             {
                 if (pos.Y + 225 == player.pos.Y) // プレイヤーが1つ下の階にいたら
                 {
