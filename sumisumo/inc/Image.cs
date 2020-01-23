@@ -33,7 +33,11 @@ namespace sumisumo
         public static int gameclear;                     // ゲームクリア画面の背景
         public static int laststageclear;                // 全クリ画面
         public static int titlelogo;                     // タイトルのロゴ
-        public static int gamestart;                     // ゲームスタートボタン        
+        public static int gamestart;                     // ゲームスタートボタン  
+        public static int stage_name_1;                     // ゲームスタートボタン  
+        public static int stage_name_2;                     // ゲームスタートボタン  
+        public static int stage_name_3;                     // ゲームスタートボタン  
+        
         public static void Load()
         {
             player = DX.LoadGraph("res/Image/player.png");
@@ -49,7 +53,7 @@ namespace sumisumo
             play_bg = DX.LoadGraph("res/Image/background.png");
             goMenu = DX.LoadGraph("res/Image/goMain.png");
             cursor = DX.LoadGraph("res/Image/cursor.png");
-            stageselect_bg = DX.LoadGraph("res/Image/stageselect_bg.png");
+            stageselect_bg = DX.LoadGraph("res/Image/background1.png");
             DX.LoadDivGraph("res/Image/suuji16x32_02.png", number.Length, 12, 1, 16, 32, number);
 
             heart = DX.LoadGraph("res/Image/heart.png");
@@ -70,6 +74,10 @@ namespace sumisumo
             laststageclear = DX.LoadGraph("res/Image/laststageclear.png");
             titlelogo = DX.LoadGraph("res/Image/titlelogo.png");
             gamestart = DX.LoadGraph("res/Image/gamestart.png");
+
+            stage_name_1 = DX.LoadGraph("res/Image/stage_name_1.png");
+            stage_name_2 = DX.LoadGraph("res/Image/stage_name_2.png");
+            stage_name_3 = DX.LoadGraph("res/Image/stage_name_3.png");
         }
     }
 }
