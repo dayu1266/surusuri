@@ -41,45 +41,45 @@ namespace sumisumo
         
         public static void Load()
         {
-            player = DX.LoadGraph("res/Image/player.png");
-            guardman = DX.LoadGraph("res/Image/guardman.png");
+            player             = DX.LoadGraph("res/Image/player.png");
+            guardman           = DX.LoadGraph("res/Image/guardman.png");
             DX.LoadDivGraph("res/Image/policeanim.png", police.Length, 4, 1, 100, 140, police);
-            people = DX.LoadGraph("res/Image/people.png");
+            people             = DX.LoadGraph("res/Image/people.png");
 
             DX.LoadDivGraph("res/Image/test_zentaman.png", test_zentaman.Length, 4, 6, 60, 70, test_zentaman);
-            test_playerShot = DX.LoadGraph("res/Image/test_player_shot.png");
-            test_shiitake = DX.LoadGraph("res/Image/test_shiitake.png");
+            test_playerShot    = DX.LoadGraph("res/Image/test_player_shot.png");
+            test_shiitake      = DX.LoadGraph("res/Image/test_shiitake.png");
             DX.LoadDivGraph("res/Image/test_mapchip.png", test_mapchip.Length, 16, 8, 32, 32, test_mapchip);
 
-            play_bg = DX.LoadGraph("res/Image/background.png");
-            gotitle = DX.LoadGraph("res/Image/gotitle.png");
-            retry = DX.LoadGraph("res/Image/retry.png");
-            cursor = DX.LoadGraph("res/Image/cursor.png");
-            stageselect_bg = DX.LoadGraph("res/Image/background1.png");
+            play_bg            = DX.LoadGraph("res/Image/background.png");
+            gotitle            = DX.LoadGraph("res/Image/gotitle.png");
+            retry              = DX.LoadGraph("res/Image/retry.png");
+            cursor             = DX.LoadGraph("res/Image/cursor.png");
+            stageselect_bg     = DX.LoadGraph("res/Image/background1.png");
             DX.LoadDivGraph("res/Image/suuji16x32_02.png", number.Length, 12, 1, 16, 32, number);
 
-            heart = DX.LoadGraph("res/Image/heart.png");
+            heart              = DX.LoadGraph("res/Image/heart.png");
             DX.LoadDivGraph("res/Image/surinukeCooltime.png", cooltimeGauge.Length, 5, 7, 48, 48, cooltimeGauge);
 
-            fireHydrant = DX.LoadGraph("res/Image/gimmick_hydrant.png");
-            dressingRoom_open = DX.LoadGraph("res/Image/dressingRoom_open.png");
+            fireHydrant        = DX.LoadGraph("res/Image/gimmick_hydrant.png");
+            dressingRoom_open  = DX.LoadGraph("res/Image/dressingRoom_open.png");
             dressingRoom_close = DX.LoadGraph("res/Image/dressingRoom_close.png");
-            gimmicksign = DX.LoadGraph("res/Image/gimmicksign.png");
+            gimmicksign        = DX.LoadGraph("res/Image/gimmicksign.png");
 
-            downStairs = DX.LoadGraph("res/Image/downstairs.png");
-            upStairs = DX.LoadGraph("res/Image/upstairs.png");
+            downStairs         = DX.LoadGraph("res/Image/downstairs.png");
+            upStairs           = DX.LoadGraph("res/Image/upstairs.png");
 
-            stage1_buck = DX.LoadGraph("res/Image/stage1_back.png");
-            stage2_buck = DX.LoadGraph("res/Image/stage2_back.png");
-            stage3_buck = DX.LoadGraph("res/Image/stage3_back.png");
-            gameclear = DX.LoadGraph("res/Image/gameclear.png");           
-            laststageclear = DX.LoadGraph("res/Image/laststageclear.png");
-            titlelogo = DX.LoadGraph("res/Image/titlelogo.png");
-            gamestart = DX.LoadGraph("res/Image/gamestart.png");
-　　　　　　gameover = DX.LoadGraph("res/Image/gameover_bg.png");
-            stage_name_1 = DX.LoadGraph("res/Image/stage_name_1.png");
-            stage_name_2 = DX.LoadGraph("res/Image/stage_name_2.png");
-            stage_name_3 = DX.LoadGraph("res/Image/stage_name_3.png");
+            stage1_buck        = DX.LoadGraph("res/Image/stage1_back.png");
+            stage2_buck        = DX.LoadGraph("res/Image/stage2_back.png");
+            stage3_buck        = DX.LoadGraph("res/Image/stage3_back.png");
+            gameclear          = DX.LoadGraph("res/Image/gameclear.png");           
+            laststageclear     = DX.LoadGraph("res/Image/laststageclear.png");
+            titlelogo          = DX.LoadGraph("res/Image/titlelogo.png");
+            gamestart          = DX.LoadGraph("res/Image/gamestart.png");
+　　　　　　gameover                 = DX.LoadGraph("res/Image/gameover_bg.png");
+            stage_name_1       = DX.LoadGraph("res/Image/stage_name_1.png");
+            stage_name_2       = DX.LoadGraph("res/Image/stage_name_2.png");
+            stage_name_3       = DX.LoadGraph("res/Image/stage_name_3.png");
         }
     }
 }

@@ -14,6 +14,7 @@ namespace sumisumo
         bool flag;
         public override void Init()
         {
+            Sound.BgmPlay(Sound.bgm_gameclearBGM);
         }
 
         public override void Update()

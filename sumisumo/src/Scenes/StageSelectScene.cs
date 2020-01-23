@@ -11,7 +11,7 @@ namespace sumisumo
     class StageSelectScene : Scene
     {
         // ステージレベル
-        private int stageLevel = 1;
+        int stageLevel = 1;
 
         public override void Init()
         {
@@ -24,6 +24,7 @@ namespace sumisumo
                 if (Input.GetButtonDown(DX.PAD_INPUT_RIGHT))
                 {
                     stageLevel++;
+                    Sound.SePlay(Sound.se_switch);
                 }
             }
             else if (stageLevel == 2)
@@ -31,10 +32,12 @@ namespace sumisumo
                 if (Input.GetButtonDown(DX.PAD_INPUT_LEFT))
                 {
                     stageLevel--;
+                    Sound.SePlay(Sound.se_switch);
                 }
                 else if (Input.GetButtonDown(DX.PAD_INPUT_RIGHT))
                 {
                     stageLevel++;
+                    Sound.SePlay(Sound.se_switch);
                 }
             }
             else if (stageLevel == 3)
@@ -42,6 +45,7 @@ namespace sumisumo
                 if (Input.GetButtonDown(DX.PAD_INPUT_LEFT))
                 {
                     stageLevel--;
+                    Sound.SePlay(Sound.se_switch);
                 }
             }
 
@@ -49,6 +53,7 @@ namespace sumisumo
             {
                 Game.SetStageLevel(stageLevel);
                 Game.ChangeScene(new PlayScene());
+                Sound.SePlay(Sound.se_decision);
             }
         }
 
