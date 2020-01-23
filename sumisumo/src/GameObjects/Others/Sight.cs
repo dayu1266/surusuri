@@ -49,7 +49,7 @@ namespace sumisumo
             {
                 pos = obj.pos;
                 if (typeof(Player) == obj.GetType()) pos.X -= 115;
-                else pos.X -= 75;
+                else pos.X -= 90;
             }
         }
 
