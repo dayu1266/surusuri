@@ -34,8 +34,7 @@ namespace sumisumo
         }
 
         public override void Draw()
-        {
-            
+        {          
             DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2, 0.8f, 0, Image.gameover, 0);
             resultCursor.Draw();
             DX.DrawGraph(260, 570, Image.gotitle, 0);

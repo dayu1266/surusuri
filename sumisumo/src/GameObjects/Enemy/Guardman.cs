@@ -80,6 +80,11 @@ namespace sumisumo
                     alert = false;
                 }
             }
+
+            if (player.isHiding)
+            {
+                find = false;
+            }
         }
         void MoveX()
         {
