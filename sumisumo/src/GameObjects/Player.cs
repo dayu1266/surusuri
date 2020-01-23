@@ -364,6 +364,7 @@ namespace sumisumo
 
             Camera.DrawGraph(Camera.cameraPos.X + 198, Camera.cameraPos.Y + 11, Image.cooltimeGauge[counter]);
         }
+
         void StairUp()
         {
             pos.X += 160;
@@ -381,7 +382,10 @@ namespace sumisumo
         void Damage()
         {
             hp--;
-
+            if (hp <= 0)
+            {
+                Die();
+            }
             //無敵時間発動
             mutekiTimer = mutekijikan;
         }

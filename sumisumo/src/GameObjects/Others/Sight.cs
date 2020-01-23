@@ -25,8 +25,8 @@ namespace sumisumo
             imageHeight = 140;
 
             // 親により視野の広さを変える（）
-            if (typeof(Player) == obj.GetType()) imageWidth = 100;
-            else imageWidth = 60;
+            if (typeof(Player) == obj.GetType()) imageWidth = 130;
+            else imageWidth = 100;
 
             hitboxOffsetLeft = 0;
             hitboxOffsetRight = 0;
@@ -72,7 +72,6 @@ namespace sumisumo
                 }
             }
 
-
             // 親が警備員で相手がプレイヤーなら
             if ((typeof(Guardman) == obj.GetType()) && other is Player)
             {
@@ -86,9 +85,9 @@ namespace sumisumo
             // 親が一般ピーポーで相手がプレイヤーなら
             if ((typeof(People) == obj.GetType()) && other is Player)
             {
-                    target = other;
-                    People people = obj as People;
-                    people.see_player = true;            
+                target = other;
+                People people = obj as People;
+                people.see_player = true;            
             }
         }
 
