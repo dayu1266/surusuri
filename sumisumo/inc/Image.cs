@@ -13,7 +13,7 @@ namespace sumisumo
         public static int[] test_zentaman = new int[22]; // ゼンタマン
         public static int[] test_mapchip = new int[128]; // マップチップ(地形・背景)画像
         public static int play_bg;                       // プレイ画面の背景
-        public static int goMenu;                        // メインメニューに戻る
+        public static int gotitle;                       // タイトルに戻る
         public static int retry;                         // リトライ
         public static int stageselect_bg;                //ステージ選択画面の背景
         public static int nextStage;                     // 次のステージへ
@@ -33,7 +33,8 @@ namespace sumisumo
         public static int gameclear;                     // ゲームクリア画面の背景
         public static int laststageclear;                // 全クリ画面
         public static int titlelogo;                     // タイトルのロゴ
-        public static int gamestart;                     // ゲームスタートボタン        
+        public static int gamestart;                     // ゲームスタートボタン     
+        public static int gameover;                      // ゲームオーバー
         public static void Load()
         {
             player = DX.LoadGraph("res/Image/player.png");
@@ -47,7 +48,8 @@ namespace sumisumo
             DX.LoadDivGraph("res/Image/test_mapchip.png", test_mapchip.Length, 16, 8, 32, 32, test_mapchip);
 
             play_bg = DX.LoadGraph("res/Image/background.png");
-            goMenu = DX.LoadGraph("res/Image/goMain.png");
+            gotitle = DX.LoadGraph("res/Image/gotitle.png");
+            retry = DX.LoadGraph("res/Image/retry.png");
             cursor = DX.LoadGraph("res/Image/cursor.png");
             stageselect_bg = DX.LoadGraph("res/Image/stageselect_bg.png");
             DX.LoadDivGraph("res/Image/suuji16x32_02.png", number.Length, 12, 1, 16, 32, number);
@@ -66,10 +68,11 @@ namespace sumisumo
             stage1_buck = DX.LoadGraph("res/Image/stage1_back.png");
             stage2_buck = DX.LoadGraph("res/Image/stage2_back.png");
             stage3_buck = DX.LoadGraph("res/Image/stage3_back.png");
-            gameclear = DX.LoadGraph("res/Image/gameclear.png");
+            gameclear = DX.LoadGraph("res/Image/gameclear.png");           
             laststageclear = DX.LoadGraph("res/Image/laststageclear.png");
             titlelogo = DX.LoadGraph("res/Image/titlelogo.png");
             gamestart = DX.LoadGraph("res/Image/gamestart.png");
+　　　　　　gameover = DX.LoadGraph("res/Image/gameover_bg.png");
         }
     }
 }

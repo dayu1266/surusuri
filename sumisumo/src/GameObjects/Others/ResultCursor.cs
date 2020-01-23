@@ -14,9 +14,12 @@ namespace sumisumo
         private int posX = 210; // カーソルのX座標
         private int posY = 575; // カーソルのY座標
         private int flashTimar;
+        private float moveInterval = 5.0f;
+        private float moveTimer = 0.0f;
         public void Update()
         {
             flashTimar++;
+            moveTimer ++;
             
             if (Game.GetStageLevel() == 3)
             {
@@ -24,16 +27,18 @@ namespace sumisumo
                 moveflag = true;
             }
             // 右ボタン入力でカーソルを下に移動
-            else if (Input.GetButtonDown(DX.PAD_INPUT_RIGHT) && !moveflag)
+            else if (Input.GetButtonDown(DX.PAD_INPUT_RIGHT) && !moveflag && moveTimer > moveInterval)
             {
+                moveTimer = 0;
                 flashTimar = 0;
                 moveflag = true;
                 posX = 700;
                 Sound.SePlay(Sound.se_switch);
             }
             // 左ボタン入力でカーソルを上に移動
-            else if(Input.GetButtonDown(DX.PAD_INPUT_LEFT) && moveflag)
+            else if(Input.GetButtonDown(DX.PAD_INPUT_LEFT) && moveflag && moveTimer > moveInterval)
             {
+                moveTimer = 0;
                 flashTimar = 0;
                 moveflag = false;
                 posX = 210;

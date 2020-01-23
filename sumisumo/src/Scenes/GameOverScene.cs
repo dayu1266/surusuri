@@ -35,10 +35,11 @@ namespace sumisumo
 
         public override void Draw()
         {
+            
+            DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2, 0.8f, 0, Image.gameover, 0);
             resultCursor.Draw();
-            DX.DrawString(0, 0, "GameOverSceneです。ボタン押下でTitleSceneへ。", DX.GetColor(255, 255, 255));
-            DX.DrawGraph(120, 300, Image.goMenu,0);
-            DX.DrawGraph(120, 450, Image.retry,0);
+            DX.DrawGraph(260, 570, Image.gotitle, 0);
+            DX.DrawGraph(760, 570, Image.retry, 0);
         }
     }
 }
