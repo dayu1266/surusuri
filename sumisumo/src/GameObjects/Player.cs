@@ -338,11 +338,25 @@ namespace sumisumo
             // プレイヤーの向きに応じてワープ座標を決める
             if (direction == Direction.Right)
             {
-                pos.X += 180;
+                if (pos.X >= 3093 - 180)
+                {
+                    pos.X = 3093;
+                }
+                else
+                {
+                    pos.X += 180;
+                }
             }
             if (direction == Direction.Left)
             {
-                pos.X -= 180;
+                if (pos.X <= 719 + 180)
+                {
+                    pos.X = 719;
+                }
+                else
+                {
+                    pos.X -= 180;
+                }
             }
         }
 
