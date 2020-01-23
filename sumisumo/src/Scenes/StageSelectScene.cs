@@ -54,7 +54,23 @@ namespace sumisumo
 
         public override void Draw()
         {
-            DX.DrawString(250, 250, stageLevel.ToString(), DX.GetColor(255, 0, 0));
+            DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2, 1, 0, Image.stageselect_bg, 1);
+
+            if (stageLevel == 1)
+            {
+                DX.DrawRotaGraph((int)Screen.Size.X/2, (int)Screen.Size.Y / 2, 0.5, 0, Image.stage1_buck, 1);
+                DX.DrawRotaGraph((int)Screen.Size.X/2, (int)Screen.Size.Y / 2 , 1, 0, Image.stage_name_1, 1);
+            }
+            else if (stageLevel == 2)
+            {
+                DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2, 0.5, 0, Image.stage2_buck, 1);
+                DX.DrawRotaGraph((int)Screen.Size.X/2, (int)Screen.Size.Y / 2 , 1, 0, Image.stage_name_2, 1);
+            }
+            else if (stageLevel == 3)
+            {
+                DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2, 0.5, 0, Image.stage3_buck, 1);
+                DX.DrawRotaGraph((int)Screen.Size.X/2, (int)Screen.Size.Y / 2, 1, 0, Image.stage_name_3, 1);
+            }
         }
     }
 }
