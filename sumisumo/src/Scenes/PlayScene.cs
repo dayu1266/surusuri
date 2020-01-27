@@ -166,15 +166,16 @@ namespace sumisumo
             {
                 DX.DrawRotaGraph(1140 + (16 * i), 32, 1.0f, 0, Image.number[money[i] - '0'], 1);
             }
+            #if DEBUG
             DX.DrawStringF(Screen.Size.X/2, 330, player.pos.X.ToString() + "," + player.pos.Y.ToString(), DX.GetColor(255, 255, 255));
-
+            #endif
             //DX.DrawString(1060, 26, "/", DX.GetColor(0, 0, 0));
             //for (int i = 0; i < targetAmout.ToString().Length; i++)
             //{
             //    DX.DrawRotaGraph(1080 + (16 * i), 32, 0.3f, 0, Image.number[targetAmout.ToString()[i] - '0'], 1);
             //}
 
-            #if DEBUG // Debugのみ実行される
+#if DEBUG // Debugのみ実行される
             // 当たり判定のデバッグ表示
             foreach (GameObject go in gameObjects)
             {

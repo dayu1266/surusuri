@@ -34,13 +34,15 @@ namespace sumisumo
         int turnCounter;        // 
         int turn = 0;           // 
         int floor;              // 今何階にいるか
+        bool beforeSearch;      // 逃走経路検索前か
+        GameObject nearStair;   // 一番近い階段
 
         public bool see_player = false; // 視界内にプレイヤーがいるかどうか
         int count = 0;
 
         PeopleState state;      // 一般人のステート
-        Vector2     velocity;   // 移動速度
-        Direction   Direction;  // 移動方向
+        Vector2 velocity;   // 移動速度
+        Direction Direction;  // 移動方向
 
         Player player;
 
@@ -63,8 +65,10 @@ namespace sumisumo
             dontMoveFream = 0;
             turnFream = 0;
             state = PeopleState.Normal;
+            beforeSearch = true;
 
             playScene.gameObjects.Add(new Sight(playScene, this, pos));
+            nearStair = null;
         }
 
         public override void Update()
@@ -99,18 +103,19 @@ namespace sumisumo
 
         void MoveX()
         {
-            if (state == PeopleState.Escape) // 逃げモードなら
+            if (state == PeopleState.Escape) // 逃走モードなら
             {
-                if(pos.X > 3000) //　右側のの階段より右にいるなら左に進む
+                RouteSeach(); // 一番近い階段を探す
+                if (pos.X > nearStair.pos.X ) // 一番近い階段が自分より左にあったら
                 {
-                    velocity.X = -Speed;
+                    velocity.X = -Speed; // 左に進む
                     direction = Direction.Left;
                 }
                 else // それ以外は右に進む
                 {
                     velocity.X = Speed;
                     direction = Direction.Right;
-                }       
+                }
             }
             else
             {
@@ -264,7 +269,7 @@ namespace sumisumo
             {
                 isDead = true;
 
-            } 
+            }
         }
 
         public override void Draw()
@@ -283,10 +288,33 @@ namespace sumisumo
         }
 
         public void Suri_toSee()
-        {           
+        {
             state = PeopleState.Escape;
             Speed = 6.0f;
             Sound.SePlay(Sound.se_scream_woman);
+        }
+
+        void RouteSeach()
+        {
+            if (beforeSearch) // 逃走経路検索前だったら
+            {
+                for (int i = 0; i < playScene.gameObjects.Count(); i++)
+                {
+                    if (playScene.gameObjects[i].GetType() == typeof(UpStairs)
+                        || playScene.gameObjects[i].GetType() == typeof(DownStairs))
+                    {
+                        if(nearStair == null) // まだ階段をひとつも見つけていなかったら
+                        {
+                            nearStair = playScene.gameObjects[i]; // 最初に見つけた階段をセット
+                        }
+                        else if (Vector2.DistanceSquared(pos, nearStair.pos) > Vector2.DistanceSquared(pos, playScene.gameObjects[i].pos))
+                        { // 今までに見つけた階段との距離より新しく見つけた階段との距離のほうが短かったら
+                            nearStair = playScene.gameObjects[i]; // 一番近い階段を入れ替える
+                        }
+                    }
+                }
+                beforeSearch = false; // ループが終了したら検索完了
+            }         
         }
     }
 }
