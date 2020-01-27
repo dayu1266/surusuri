@@ -22,23 +22,24 @@ namespace sumisumo
         public static int heart;                         // ハート
         public static int downStairs;                    // 下り階段
         public static int upStairs;                      // 上り階段
-        public static int stage1_buck;                   // ステージ1の背景
-        public static int stage2_buck;                   // ステージ2の背景
-        public static int stage3_buck;                   // ステージ3の背景
+        public static int stage1_back;                   // ステージ1の背景
+        public static int stage2_back;                   // ステージ2の背景
+        public static int stage3_back;                   // ステージ3の背景
+        public static int stage1_stageSelct;             // ステージセレクト
+        public static int stage2_stageSelct;             // ステージセレクト
+        public static int stage3_stageSelct;             // ステージセレクト
         public static int fireHydrant;                   // 消火栓
         public static int dressingRoom_open;             // 試着室(開)
         public static int dressingRoom_close;            // 試着室(閉)
         public static int gimmicksign;                   // ギミック発見マーク
         public static int[] cooltimeGauge = new int[31]; // クールタイムゲージ
         public static int gameclear;                     // ゲームクリア画面の背景
+        public static int gameover;                     // ゲームクリア画面の背景
         public static int laststageclear;                // 全クリ画面
-        public static int titlelogo;                     // タイトルのロゴ; 
-        public static int gameover;                      // ゲームオーバー
-        public static int gamestart;                     // ゲームスタートボタン  
-        public static int stage_name_1;                     // ゲームスタートボタン  
-        public static int stage_name_2;                     // ゲームスタートボタン  
-        public static int stage_name_3;                     // ゲームスタートボタン  
-        
+        public static int titlelogo;                     // タイトルのロゴ
+        public static int gamestart;                     // ゲームスタートボタン   
+        public static int selectArrowR;
+        public static int selectArrowL;
         public static void Load()
         {
             player             = DX.LoadGraph("res/Image/player.png");
@@ -69,17 +70,22 @@ namespace sumisumo
             downStairs         = DX.LoadGraph("res/Image/downstairs.png");
             upStairs           = DX.LoadGraph("res/Image/upstairs.png");
 
-            stage1_buck        = DX.LoadGraph("res/Image/stage1_back.png");
-            stage2_buck        = DX.LoadGraph("res/Image/stage2_back.png");
-            stage3_buck        = DX.LoadGraph("res/Image/stage3_back.png");
-            gameclear          = DX.LoadGraph("res/Image/gameclear.png");           
-            laststageclear     = DX.LoadGraph("res/Image/laststageclear.png");
-            titlelogo          = DX.LoadGraph("res/Image/titlelogo.png");
-            gamestart          = DX.LoadGraph("res/Image/gamestart.png");
-　　　　　　gameover                 = DX.LoadGraph("res/Image/gameover_bg.png");
-            stage_name_1       = DX.LoadGraph("res/Image/stage_name_1.png");
-            stage_name_2       = DX.LoadGraph("res/Image/stage_name_2.png");
-            stage_name_3       = DX.LoadGraph("res/Image/stage_name_3.png");
+            stage1_back = DX.LoadGraph("res/Image/stage1_back.png");
+            stage2_back = DX.LoadGraph("res/Image/stage2_back.png");
+            stage3_back = DX.LoadGraph("res/Image/stage3_back.png");
+
+            gameclear = DX.LoadGraph("res/Image/gameclear.png");
+            gameover = DX.LoadGraph("res/Image/gameover_bg.png");
+            laststageclear = DX.LoadGraph("res/Image/laststageclear.png");
+            titlelogo = DX.LoadGraph("res/Image/titlelogo.png");
+            gamestart = DX.LoadGraph("res/Image/gamestart.png");
+
+            stage1_stageSelct = DX.LoadGraph("res/Image/stage1.png");
+            stage2_stageSelct = DX.LoadGraph("res/Image/stage2.png");
+            stage3_stageSelct = DX.LoadGraph("res/Image/stage3.png");
+
+            selectArrowR = DX.LoadGraph("res/Image/selectArrowR.png");
+            selectArrowL = DX.LoadGraph("res/Image/selectArrowL.png");
         }
     }
 }

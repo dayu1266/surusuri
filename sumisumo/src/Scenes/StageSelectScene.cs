@@ -10,11 +10,29 @@ namespace sumisumo
 {
     class StageSelectScene : Scene
     {
+        enum State
+        {
+            stop,
+            move
+        }
+
         // ステージレベル
-        int stageLevel = 1;
+        private int stageLevel = 1;
+        private int stage1Pos;
+        private int stage2Pos;
+        private int stage3Pos;
+        private int moveTarget;
+
+        State state;
 
         public override void Init()
         {
+            state = State.stop;
+
+            stage1Pos = 120;
+            moveTarget = 120;
+            stage2Pos = 240 + 1200;
+            stage3Pos = 300 + 2400;
         }
 
         public override void Update()
@@ -24,6 +42,7 @@ namespace sumisumo
                 if (Input.GetButtonDown(DX.PAD_INPUT_RIGHT))
                 {
                     stageLevel++;
+                    moveTarget -= 1200;
                     Sound.SePlay(Sound.se_switch);
                 }
             }
@@ -32,11 +51,13 @@ namespace sumisumo
                 if (Input.GetButtonDown(DX.PAD_INPUT_LEFT))
                 {
                     stageLevel--;
+                    moveTarget += 1200;
                     Sound.SePlay(Sound.se_switch);
                 }
                 else if (Input.GetButtonDown(DX.PAD_INPUT_RIGHT))
                 {
                     stageLevel++;
+                    moveTarget -= 1200;
                     Sound.SePlay(Sound.se_switch);
                 }
             }
@@ -45,8 +66,28 @@ namespace sumisumo
                 if (Input.GetButtonDown(DX.PAD_INPUT_LEFT))
                 {
                     stageLevel--;
+                    moveTarget += 1200;
                     Sound.SePlay(Sound.se_switch);
                 }
+            }
+
+            if (stage1Pos == moveTarget)
+            {
+                state = State.stop;
+            }
+            else if (stage1Pos >= moveTarget)
+            {
+                stage1Pos -= 100;
+                stage2Pos -= 100;
+                stage3Pos -= 100;
+                state = State.move;
+            }
+            else if (stage1Pos <= moveTarget)
+            {
+                stage1Pos += 100;
+                stage2Pos += 100;
+                stage3Pos += 100;
+                state = State.move;
             }
 
             if (Input.GetButtonDown(DX.PAD_INPUT_1))
@@ -59,22 +100,24 @@ namespace sumisumo
 
         public override void Draw()
         {
-            DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2, 1, 0, Image.stageselect_bg, 1);
+            DX.DrawGraph(0, 0, Image.play_bg, 1); // 背景の描画
 
-            if (stageLevel == 1)
+            DX.DrawGraph(stage1Pos, 50, Image.stage1_stageSelct, 1);
+            DX.DrawGraph(stage2Pos, 0, Image.stage2_stageSelct, 1);
+            DX.DrawGraph(stage3Pos, 60, Image.stage3_stageSelct, 1);
+
+            if (stageLevel == 1 && state == State.stop)
             {
-                DX.DrawRotaGraph((int)Screen.Size.X/2, (int)Screen.Size.Y / 2, 0.5, 0, Image.stage1_buck, 1);
-                DX.DrawRotaGraph((int)Screen.Size.X/2, (int)Screen.Size.Y / 2 , 1, 0, Image.stage_name_1, 1);
+                DX.DrawGraph((int)Screen.Size.X - 220, 180, Image.selectArrowR, 1);
             }
-            else if (stageLevel == 2)
+            else if (stageLevel == 2 && state == State.stop)
             {
-                DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2, 0.5, 0, Image.stage2_buck, 1);
-                DX.DrawRotaGraph((int)Screen.Size.X/2, (int)Screen.Size.Y / 2 , 1, 0, Image.stage_name_2, 1);
+                DX.DrawGraph(50, 180, Image.selectArrowL, 1);
+                DX.DrawGraph((int)Screen.Size.X - 220, 180, Image.selectArrowR, 1);
             }
-            else if (stageLevel == 3)
+            else if (stageLevel == 3 && state == State.stop)
             {
-                DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2, 0.5, 0, Image.stage3_buck, 1);
-                DX.DrawRotaGraph((int)Screen.Size.X/2, (int)Screen.Size.Y / 2, 1, 0, Image.stage_name_3, 1);
+                DX.DrawGraph(50, 180, Image.selectArrowL, 1);
             }
         }
     }

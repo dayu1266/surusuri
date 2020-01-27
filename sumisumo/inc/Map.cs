@@ -191,15 +191,15 @@ namespace sumisumo
             int stageLv= Game.GetStageLevel();
             if (stageLv == 1)
             {
-                Camera.DrawGraph(736, 320, Image.stage1_buck);
+                Camera.DrawGraph(736, 320, Image.stage1_back);
             }
             else if (stageLv == 2)
             {
-                Camera.DrawGraph(736, 320, Image.stage2_buck);
+                Camera.DrawGraph(736, 320, Image.stage2_back);
             }
             else if (stageLv == 3)
             {
-                Camera.DrawGraph(736, 320, Image.stage3_buck);
+                Camera.DrawGraph(736, 320, Image.stage3_back);
             }
 
             // 画面内のマップのみ描画するようにする
