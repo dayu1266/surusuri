@@ -14,7 +14,6 @@ namespace sumisumo
         // 各オブジェクトの参照
         GameObject obj;
         static GameObject target;
-        Direction direction;
         int imageHandle;
         bool flip;
 
@@ -84,6 +83,11 @@ namespace sumisumo
                 {
                     obj.suri = false;
                 }
+            }
+
+            // 親がプレイヤーで相手がなら
+            if ((typeof(Player) == obj.GetType()) && other is Guardman && playScene.state == PlayScene.State.OnAlert)
+            {       
             }
 
             // 親が警備員で相手がプレイヤーなら
