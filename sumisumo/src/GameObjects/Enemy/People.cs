@@ -109,7 +109,7 @@ namespace sumisumo
                 {
                     RouteSeach(); // 一番近い階段を探す
                 }
-                if (pos.X > nearStair.pos.X ) // 一番近い階段が自分より左にあったら
+                if (pos.X > nearStair.pos.X) // 一番近い階段が自分より左にあったら
                 {
                     velocity.X = -Speed; // 左に進む
                     direction = Direction.Left;
@@ -277,13 +277,18 @@ namespace sumisumo
 
         public override void Draw()
         {
+<<<<<<< HEAD
             // 左右反転するか？（左向きなら反転する）
             bool flip = direction == Direction.Left;
 
             Camera.DrawGraph(pos.X, pos.Y, Image.people,flip);
             #if DEBUG
+=======
+            Camera.DrawGraph(pos.X, pos.Y, Image.people);
+#if DEBUG
+>>>>>>> 2e63bec1c60b002c8086917c08fb0475bcd3ed8a
             DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示
-            #endif
+#endif
         }
         public override void Buzzer()
         {
@@ -301,23 +306,28 @@ namespace sumisumo
         }
 
         void RouteSeach()
-        {            
-                for (int i = 0; i < playScene.gameObjects.Count(); i++)
+        {
+            for (int i = 0; i < playScene.gameObjects.Count(); i++)
+            {
+                if (playScene.gameObjects[i].GetType() == typeof(UpStairs)
+                    || playScene.gameObjects[i].GetType() == typeof(DownStairs))
                 {
-                    if (playScene.gameObjects[i].GetType() == typeof(UpStairs)
-                        || playScene.gameObjects[i].GetType() == typeof(DownStairs))
+                    if (nearStair == null) // まだ階段をひとつも見つけていなかったら
                     {
-                        if(nearStair == null) // まだ階段をひとつも見つけていなかったら
-                        {
-                            nearStair = playScene.gameObjects[i]; // 最初に見つけた階段をセット
-                        }
-                        else if (Vector2.DistanceSquared(pos, nearStair.pos) > Vector2.DistanceSquared(pos, playScene.gameObjects[i].pos))
-                        { // 今までに見つけた階段との距離より新しく見つけた階段との距離のほうが短かったら
-                            nearStair = playScene.gameObjects[i]; // 一番近い階段を入れ替える
-                        }
+                        nearStair = playScene.gameObjects[i]; // 最初に見つけた階段をセット
                     }
+                    else if (Vector2.DistanceSquared(pos, nearStair.pos) > Vector2.DistanceSquared(pos, playScene.gameObjects[i].pos)
+                           && pos.Y * 2 > playScene.gameObjects[i].pos.Y && pos.Y > playScene.gameObjects[i].pos.Y)
+                    { // 今までに見つけた階段との距離より新しく見つけた階段との距離のほうが短かったら
+                        nearStair = playScene.gameObjects[i]; // 一番近い階段を入れ替える
+                    }
+                    //else if (Vector2.DistanceSquared(pos, nearStair.pos) > Vector2.DistanceSquared(pos, playScene.gameObjects[i].pos))
+                    //{ // 今までに見つけた階段との距離より新しく見つけた階段との距離のほうが短かったら
+                    //    nearStair = playScene.gameObjects[i]; // 一番近い階段を入れ替える
+                    //}
+                }
                 beforeSearch = false; // ループが終了したら検索完了
-            }         
+            }
         }
     }
 }
