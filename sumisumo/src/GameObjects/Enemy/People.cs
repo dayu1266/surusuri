@@ -105,7 +105,10 @@ namespace sumisumo
         {
             if (state == PeopleState.Escape) // 逃走モードなら
             {
-                RouteSeach(); // 一番近い階段を探す
+                if (beforeSearch) // 逃走経路検索前だったら
+                {
+                    RouteSeach(); // 一番近い階段を探す
+                }
                 if (pos.X > nearStair.pos.X ) // 一番近い階段が自分より左にあったら
                 {
                     velocity.X = -Speed; // 左に進む
@@ -295,9 +298,7 @@ namespace sumisumo
         }
 
         void RouteSeach()
-        {
-            if (beforeSearch) // 逃走経路検索前だったら
-            {
+        {            
                 for (int i = 0; i < playScene.gameObjects.Count(); i++)
                 {
                     if (playScene.gameObjects[i].GetType() == typeof(UpStairs)
@@ -312,7 +313,6 @@ namespace sumisumo
                             nearStair = playScene.gameObjects[i]; // 一番近い階段を入れ替える
                         }
                     }
-                }
                 beforeSearch = false; // ループが終了したら検索完了
             }         
         }
