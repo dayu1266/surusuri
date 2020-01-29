@@ -151,7 +151,7 @@ namespace sumisumo
             // 正面すり抜け
             if (Input.GetButtonDown(DX.PAD_INPUT_1) && surinukeLock <= 0)
             {
-                frontSurinuke();
+                FrontSurinuke();
                 surinukeLock = initSurinukeLock;
                 Sound.SePlay(Sound.se_surinuke);
             }
@@ -271,6 +271,7 @@ namespace sumisumo
                 //無敵じゃなければダメージを受ける
                 if (mutekiTimer <= 0 && other.find)
                 {
+                    Damage();
                     if(direction == Direction.Right)
                     {
                         pos.X += 300.0f;
@@ -330,7 +331,7 @@ namespace sumisumo
             floor--;
         }
 
-        void frontSurinuke()
+        void FrontSurinuke()
         {
             // すり抜けが行われた
             surinuke = true;
@@ -338,7 +339,7 @@ namespace sumisumo
             // スリができる状態なら
             if (suri == true)
             {
-                SurinukeBoolChange(Sight.getTarget());
+                SurinukeBoolChange(Sight.GetTarget());
                 curMoney += Random.Range(1, 5) * 100;
             }
 

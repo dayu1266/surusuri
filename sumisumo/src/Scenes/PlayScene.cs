@@ -26,13 +26,13 @@ namespace sumisumo
         // 全GameObjectを一括管理するリスト
         public List<GameObject> gameObjects = new List<GameObject>();
 
-        private string stageName;                   // ステージの名前
+        private readonly string stageName;                   // ステージの名前
         public State state        = State.Active;  // PlaySceneの状態
         int timeToGameOver        = 120;           // ゲームオーバーになるまでの時間（フレーム）
 
         public bool isGoal        = false;         // ゴールしたかどうか
         bool clearSE              = false;         // クリア可能SEを流すとTRUEになる
-        public int targetAmout    = 1000;          // 目標金額
+        public int targetAmout    = 2000;          // 目標金額
 
         bool OnAlertOnce = false;
 
@@ -40,6 +40,7 @@ namespace sumisumo
         {
             int stageLv = Game.GetStageLevel();
             stageName = "stage" + stageLv.ToString();
+            targetAmout *= stageLv;
 
             // インスタンス生成
             map = new Map(this, stageName);
@@ -118,7 +119,7 @@ namespace sumisumo
             Camera.LookAt(player.pos.X, player.pos.Y);
 
             // isGoalがTrueになったらSEを流す
-            if(player.curMoney > targetAmout && clearSE == false)
+            if(player.curMoney >= targetAmout && clearSE == false)
             {
                 Sound.SePlay(Sound.se_gameclear);
                 clearSE = true;
@@ -164,7 +165,8 @@ namespace sumisumo
             string money = player.curMoney.ToString("000000");
             for (int i = 0; i < money.Length; i++)
             {
-                DX.DrawRotaGraph(1140 + (16 * i), 32, 1.0f, 0, Image.number[money[i] - '0'], 1);
+                //DX.DrawRotaGraph(1140 + (16 * i), 32, 1.0f, 0, Image.number[money[i] - '0'], 1);
+                DX.DrawRotaGraph((int)Screen.Size.X - (int)Screen.Size.X / 12 + (16 * i), 32, 1.0f, 0, Image.number[money[i] - '0'], 1);
             }
             #if DEBUG
             DX.DrawStringF(Screen.Size.X/2, 330, player.pos.X.ToString() + "," + player.pos.Y.ToString(), DX.GetColor(255, 255, 255));
@@ -175,7 +177,7 @@ namespace sumisumo
             //    DX.DrawRotaGraph(1080 + (16 * i), 32, 0.3f, 0, Image.number[targetAmout.ToString()[i] - '0'], 1);
             //}
 
-#if DEBUG // Debugのみ実行される
+            #if DEBUG // Debugのみ実行される
             // 当たり判定のデバッグ表示
             foreach (GameObject go in gameObjects)
             {

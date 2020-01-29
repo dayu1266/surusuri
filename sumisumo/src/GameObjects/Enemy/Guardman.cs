@@ -30,7 +30,6 @@ namespace sumisumo
         bool floorDown;         // 下の階への移動
         bool beforeSearch;       // 階段を見つける前か
 
-
         Vector2 velocity;       // 移動速度
         Direction Direction;    // 移動方向
 

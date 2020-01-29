@@ -92,7 +92,7 @@ namespace sumisumo
         }
 
         // 親のSight中に入ったGameObjectを取得する
-        static public GameObject getTarget()
+        static public GameObject GetTarget()
         {
             return target;
         }
