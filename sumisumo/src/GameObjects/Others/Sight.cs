@@ -42,14 +42,13 @@ namespace sumisumo
             // 向いている方向により視界のポジションを変える
             if (direction == Direction.Right)
             {
-                pos = obj.pos;
-                pos.X += 45;
+                pos.X = obj.GetRight();
+                pos.Y = obj.GetTop() - 11.0f;
             }
             if (direction == Direction.Left)
             {
-                pos = obj.pos;
-                if (typeof(Player) == obj.GetType()) pos.X -= 115;
-                else pos.X -= 90;
+                pos.X = obj.GetLeft() - imageWidth;
+                pos.Y = obj.GetTop() - 11.0f;
             }
         }
 
@@ -88,7 +87,7 @@ namespace sumisumo
             {
                 target = other;
                 People people = obj as People;
-                people.see_player = true;            
+                people.see_player = true;
             }
         }
 
