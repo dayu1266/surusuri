@@ -277,18 +277,13 @@ namespace sumisumo
 
         public override void Draw()
         {
-<<<<<<< HEAD
             // 左右反転するか？（左向きなら反転する）
             bool flip = direction == Direction.Left;
-
             Camera.DrawGraph(pos.X, pos.Y, Image.people,flip);
+            
             #if DEBUG
-=======
-            Camera.DrawGraph(pos.X, pos.Y, Image.people);
-#if DEBUG
->>>>>>> 2e63bec1c60b002c8086917c08fb0475bcd3ed8a
             DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示
-#endif
+            #endif
         }
         public override void Buzzer()
         {
