@@ -40,6 +40,8 @@ namespace sumisumo
         public static int gamestart;                     // ゲームスタートボタン   
         public static int selectArrowR;
         public static int selectArrowL;
+        public static int sight;                         // 視界
+        public static int enemysight;                         // 視界
         public static void Load()
         {
             player             = DX.LoadGraph("res/Image/player.png");
@@ -86,6 +88,8 @@ namespace sumisumo
 
             selectArrowR = DX.LoadGraph("res/Image/selectArrowR.png");
             selectArrowL = DX.LoadGraph("res/Image/selectArrowL.png");
+            sight = DX.LoadGraph("res/Image/sight.png");
+            enemysight = DX.LoadGraph("res/Image/enemysight.png");
         }
     }
 }

@@ -21,8 +21,12 @@ namespace sumisumo
         {
             resultCursor.Update();
             flag = resultCursor.moveflag; //フラグの取得
-
-            if (Input.GetButtonDown(DX.PAD_INPUT_1) && !flag)
+            if (Game.GetStageLevel() == 3)
+            {
+                resultCursor.posX = 450;
+                resultCursor.moveflag = true;
+            }
+            else if (Input.GetButtonDown(DX.PAD_INPUT_1) && !flag)
             {
                 Game.SetStageLevel(Game.GetStageLevel() + 1);
                 Sound.SePlay(Sound.se_decision);

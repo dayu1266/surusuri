@@ -141,11 +141,13 @@ namespace sumisumo
                 {
                     float prePosX = velocity.X; // 1フレーム前の速度を保存
                     velocity.X = RunSpeed;// 1フレーム前の速度より今の速度がのほうが速い、つまり振り向いた
+                    direction = Direction.Right;
                 }
                 else
                 {
                     float prePosX = velocity.X;
                     velocity.X = -RunSpeed;
+                    direction = Direction.Left;
                 }
             }
 
@@ -282,11 +284,11 @@ namespace sumisumo
 
         public override void Buzzer()
         {
-            if (pos.Y + 225 == player.pos.Y) // プレイヤーが1つ下の階にいたら
+            if (pos.Y + 225 >= player.pos.Y) // プレイヤーが1つ下の階にいたら
             {
                 floorDown = true;
             }
-            else if (pos.Y - 223 == player.pos.Y) // 1つ上の階にいたら
+            else if (pos.Y - 223 <= player.pos.Y) // 1つ上の階にいたら
             {
                 floorUp = true;
             }

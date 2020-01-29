@@ -11,8 +11,8 @@ namespace sumisumo
     public class ResultCursor
     {
         public bool moveflag = false; // 最初の位置から移動しているか
-        private int posX = 210; // カーソルのX座標
-        private int posY = 575; // カーソルのY座標
+        public int posX = 210; // カーソルのX座標
+        public int posY = 575; // カーソルのY座標
         private int flashTimar;
         private float moveInterval = 5.0f;
         private float moveTimer = 0.0f;
@@ -21,13 +21,8 @@ namespace sumisumo
             flashTimar++;
             moveTimer ++;
             
-            if (Game.GetStageLevel() == 3)
-            {
-                posX = 450;
-                moveflag = true;
-            }
             // 右ボタン入力でカーソルを下に移動
-            else if (Input.GetButtonDown(DX.PAD_INPUT_RIGHT) && !moveflag && moveTimer > moveInterval)
+            if (Input.GetButtonDown(DX.PAD_INPUT_RIGHT) && !moveflag && moveTimer > moveInterval)
             {
                 moveTimer = 0;
                 flashTimar = 0;

@@ -27,12 +27,14 @@ namespace sumisumo
 
         bool floorUp;           // 上の階への移動
         bool floorDown;         // 下の階への移動
+        bool beforeSearch;       // 階段を見つける前か
 
         Vector2 velocity;       // 移動速度
         Direction Direction;    // 移動方向
 
         PlayScene playScene;    // playSceneの参照
         Player player;          // playerの参照
+        GameObject nearStair;  // 一番近い階段を保存する
 
         public Police(PlayScene playScene, Vector2 pos) : base(playScene)
         {
@@ -49,9 +51,11 @@ namespace sumisumo
             hitboxOffsetRight = 17;
             hitboxOffsetTop = 9;
             hitboxOffsetBottom = 9;
+            beforeSearch = true;
 
             hp = initialHp;
             find = true;
+            nearStair = null;
 
             playScene.gameObjects.Add(new Sight(playScene, this, pos));
         }
@@ -68,40 +72,36 @@ namespace sumisumo
         {
             if (floorUp) // 階段を上りたかったら
             {
-                if (pos.X < 1070)                // 左側の階段より左
+                if (beforeSearch) // まだ階段を探してなかったら
                 {
-                    velocity.X = WalkSpeed;     // 右に進む
+                    SeachUpStair(); // 1番近い上り階段を探す
                 }
-                else if (pos.X < 2000)          // 真ん中より左
+                if (pos.X < nearStair.pos.X) // 1番近い階段が自分より右にあったら
                 {
-                    velocity.X = -WalkSpeed;    // 左に進む
+                    velocity.X = WalkSpeed; // 右に進む
+                    direction = Direction.Right;
                 }
-                else if (pos.X < 2750)          // 右側の階段より左側にいるかつ真ん中より右
+                else // それ以外は
                 {
-                    velocity.X = WalkSpeed;     // 右に進む
-                }
-                else                            // 右側の階段より右
-                {
-                    velocity.X = -WalkSpeed;    // 左に進む
+                    velocity.X = -WalkSpeed; // 左に進む
+                    direction = Direction.Left;
                 }
             }
-            else if (floorDown)
+            else if (floorDown) // 階段を下りたかったら
             {
-                if (pos.X < 1250)              // 左側の階段より左
+                if (beforeSearch) // まだ階段を探す前だったら
                 {
-                    velocity.X = WalkSpeed;   // 右に進む
+                    SeachDownStair(); // 1番近い下り階段を探す
                 }
-                else if (pos.X < 2000)        // 真ん中より左
+                if (pos.X < nearStair.pos.X)
                 {
-                    velocity.X = -WalkSpeed;  // 左に進む
+                    velocity.X = WalkSpeed;
+                    direction = Direction.Right;
                 }
-                else if (pos.X < 2950)        // 右側の階段より左側にいるかつ真ん中より右
+                else
                 {
-                    velocity.X = WalkSpeed;   // 右に進む
-                }
-                else                          // 右側の階段より右
-                {
-                    velocity.X = -WalkSpeed;  // 左に進む
+                    velocity.X = -WalkSpeed;
+                    direction = Direction.Left;
                 }
             }
             else if (find)
@@ -119,11 +119,13 @@ namespace sumisumo
                 {
                     float prePosX = velocity.X; // 1フレーム前の速度を保存
                     velocity.X = RunSpeed;// 1フレーム前の速度より今の速度がのほうが速い、つまり振り向いた
+                    direction = Direction.Right;
                 }
                 else
                 {
                     float prePosX = velocity.X;
                     velocity.X = -RunSpeed;
+                    direction = Direction.Left;
                 }
             }
 
@@ -222,11 +224,11 @@ namespace sumisumo
 
         public override void Buzzer()
         {
-            if (pos.Y + 225 == player.pos.Y) // プレイヤーが1つ下の階にいたら
+            if (pos.Y + 225 >= player.pos.Y) // プレイヤーが1つ下の階にいたら
             {
                 floorDown = true;
             }
-            else if (pos.Y - 223 == player.pos.Y) // 1つ上の階にいたら
+            else if (pos.Y - 223 <= player.pos.Y) // 1つ上の階にいたら
             {
                 floorUp = true;
             }
@@ -242,6 +244,44 @@ namespace sumisumo
             pos.X -= 160;
             pos.Y += 224;
             floorDown = false;
+        }
+        // 1番近い下り階段を探す
+        void SeachDownStair()
+        {
+            for (int i = 0; i < playScene.gameObjects.Count(); i++)
+            {
+                if (playScene.gameObjects[i].GetType() == typeof(DownStairs))
+                {
+                    if (nearStair == null) // まだ階段をひとつも見つけていなかったら
+                    {
+                        nearStair = playScene.gameObjects[i]; // 最初に見つけた階段をセット
+                    }
+                    else if (Vector2.DistanceSquared(pos, nearStair.pos) > Vector2.DistanceSquared(pos, playScene.gameObjects[i].pos))
+                    { // 今までに見つけた階段との距離より新しく見つけた階段との距離のほうが短かったら
+                        nearStair = playScene.gameObjects[i]; // 一番近い階段を入れ替える
+                    }
+                }
+                beforeSearch = false; // ループが終了したら検索完了
+            }
+        }
+        // 1番近い上り階段を探す
+        void SeachUpStair()
+        {
+            for (int i = 0; i < playScene.gameObjects.Count(); i++)
+            {
+                if (playScene.gameObjects[i].GetType() == typeof(UpStairs))
+                {
+                    if (nearStair == null) // まだ階段をひとつも見つけていなかったら
+                    {
+                        nearStair = playScene.gameObjects[i]; // 最初に見つけた階段をセット
+                    }
+                    else if (Vector2.DistanceSquared(pos, nearStair.pos) > Vector2.DistanceSquared(pos, playScene.gameObjects[i].pos))
+                    { // 今までに見つけた階段との距離より新しく見つけた階段との距離のほうが短かったら
+                        nearStair = playScene.gameObjects[i]; // 一番近い階段を入れ替える
+                    }
+                }
+                beforeSearch = false; // ループが終了したら検索完了
+            }
         }
     }
 }

@@ -15,18 +15,29 @@ namespace sumisumo
         GameObject obj;
         static GameObject target;
         Direction direction;
+        int imageHandle;
+        bool flip;
 
         public Sight(PlayScene playScene, GameObject gameObject, Vector2 pos) : base(playScene)
         {
             this.pos = pos;
             obj = gameObject;
             this.playScene = playScene;
+            flip = false;
 
             imageHeight = 140;
 
             // 親により視野の広さを変える（）
-            if (typeof(Player) == obj.GetType()) imageWidth = 130;
-            else imageWidth = 70;
+            if (typeof(Player) == obj.GetType())
+            {
+                imageWidth = 130;
+                imageHandle = Image.sight;
+            }
+            else
+            {
+                imageWidth = 70;
+                imageHandle = Image.enemysight;
+            }
 
             hitboxOffsetLeft = 0;
             hitboxOffsetRight = 0;
@@ -44,16 +55,19 @@ namespace sumisumo
             {
                 pos.X = obj.GetRight();
                 pos.Y = obj.GetTop() - 11.0f;
+                flip = false;
             }
             if (direction == Direction.Left)
             {
                 pos.X = obj.GetLeft() - imageWidth;
                 pos.Y = obj.GetTop() - 11.0f;
+                flip = true;
             }
         }
 
         public override void Draw()
         {
+            Camera.DrawGraph(pos.X, pos.Y, imageHandle, flip);
         }
 
         public override void OnCollision(GameObject other)
