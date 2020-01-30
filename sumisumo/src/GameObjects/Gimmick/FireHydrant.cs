@@ -1,7 +1,6 @@
-﻿using System;
-using System.Numerics;
-using DxLibDLL;
+﻿using DxLibDLL;
 using QimOLib;
+using System.Numerics;
 
 namespace sumisumo
 {

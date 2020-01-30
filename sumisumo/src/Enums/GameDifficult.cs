@@ -1,5 +1,4 @@
-﻿
-namespace sumisumo
+﻿namespace sumisumo
 {
     // ゲームの難易度に応じてEnemyの挙動などを変えたい場合に使う
     public enum GameDifficult
