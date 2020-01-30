@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Numerics;
-using QimOLib;
-using DxLibDLL;
+﻿using System.Numerics;
 
 namespace sumisumo
 {
@@ -14,6 +7,7 @@ namespace sumisumo
         // 各オブジェクトの参照
         GameObject obj;
         static GameObject target;
+
         int imageHandle;
         bool flip;
 
