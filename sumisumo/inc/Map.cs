@@ -11,6 +11,7 @@ namespace sumisumo
     {
         public const int None           = -1;   // 何も無いマス
         public const int Wall           = 0;    // 壁
+        public const int Streetlight    = 0;
 
         public const int Width = 120;  // マップデータの横のマス数
         public int Height;   // マップデータの縦のマス数
@@ -220,8 +221,15 @@ namespace sumisumo
                     int id = terrain[x, y];
 
                     if (id == None) continue; // 描画しない
-
-                    Camera.DrawGraph(x * CellSize, y * CellSize, Image.test_mapchip[id]);
+                    else if (id == 0)
+                    {
+                        Camera.DrawGraph(x * CellSize, y * CellSize, Image.test_mapchip[id]);
+                    }
+                    else if (id == 1)
+                    {
+                        Camera.DrawGraph(x * CellSize, y * CellSize, Image.streetlight);
+                    }
+                   
                 }
             }
         }

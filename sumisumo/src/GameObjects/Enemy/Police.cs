@@ -97,11 +97,11 @@ namespace sumisumo
             }
             else if (find)
             {
-                if (pos.Y + 225 == player.pos.Y) // プレイヤーが1つ下の階にいたら
+                if (pos.Y + 225 <= player.pos.Y) // プレイヤーが1つ下の階にいたら
                 {
                     floorDown = true;
                 }
-                else if (pos.Y - 223 == player.pos.Y) // 1つ上の階にいたら
+                else if (pos.Y - 223 >= player.pos.Y) // 1つ上の階にいたら
                 {
                     floorUp = true;
                 }
@@ -215,11 +215,11 @@ namespace sumisumo
 
         public override void Buzzer()
         {
-            if (pos.Y + 225 >= player.pos.Y) // プレイヤーが1つ下の階にいたら
+            if (pos.Y + 225 == player.pos.Y) // プレイヤーが1つ下の階にいたら
             {
                 floorDown = true;
             }
-            else if (pos.Y - 223 <= player.pos.Y) // 1つ上の階にいたら
+            else if (pos.Y - 223 == player.pos.Y) // 1つ上の階にいたら
             {
                 floorUp = true;
             }
@@ -229,12 +229,16 @@ namespace sumisumo
             pos.X += 160;
             pos.Y -= 224;
             floorUp = false;
+            beforeSearch = true;
+            nearStair = null;
         }
         void StairDown() // 階段を降りる
         {
             pos.X -= 160;
             pos.Y += 224;
             floorDown = false;
+            beforeSearch = true;
+            nearStair = null;
         }
         // 1番近い下り階段を探す
         void SeachDownStair()

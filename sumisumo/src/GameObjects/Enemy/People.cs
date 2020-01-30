@@ -309,7 +309,7 @@ namespace sumisumo
                         nearStair = playScene.gameObjects[i]; // 最初に見つけた階段をセット
                     }
                     else if (Vector2.DistanceSquared(pos, nearStair.pos) > Vector2.DistanceSquared(pos, playScene.gameObjects[i].pos)
-                           && pos.Y * 2 > playScene.gameObjects[i].pos.Y && pos.Y > playScene.gameObjects[i].pos.Y)
+                           && pos.Y - 64 < playScene.gameObjects[i].pos.Y && pos.Y > playScene.gameObjects[i].pos.Y)
                     { // 今までに見つけた階段との距離より新しく見つけた階段との距離のほうが短かったら
                         nearStair = playScene.gameObjects[i]; // 一番近い階段を入れ替える
                     }
