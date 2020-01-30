@@ -62,6 +62,11 @@ namespace sumisumo
                 pos.Y = obj.GetTop() - 11.0f;
                 flip = true;
             }
+
+            if (obj.isDead)
+            {
+                isDead = true;
+            }
         }
 
         public override void Draw()
