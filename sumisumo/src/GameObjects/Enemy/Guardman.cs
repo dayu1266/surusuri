@@ -31,9 +31,6 @@ namespace sumisumo
         bool beforeSearch;       // 階段を見つける前か
 
         Vector2 velocity;       // 移動速度
-        Direction Direction;    // 移動方向
-
-        PlayScene playScene;    // playSceneの参照
         Player player;          // playerの参照
         GameObject nearStair;  // 一番近い階段を保存する
 

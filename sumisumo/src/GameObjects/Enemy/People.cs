@@ -33,7 +33,6 @@ namespace sumisumo
         int changecount;        // 動いている時間のカウント（歩くか止まるかをチェンジするためのカウント）
         int turnCounter;        // 
         int turn = 0;           // 
-        int floor;              // 今何階にいるか
         bool beforeSearch;      // 逃走経路検索前か
         GameObject nearStair;   // 一番近い階段
 
@@ -42,8 +41,6 @@ namespace sumisumo
 
         PeopleState state;      // 一般人のステート
         Vector2 velocity;   // 移動速度
-        Direction Direction;  // 移動方向
-
         Player player;
 
         public People(PlayScene playScene, Vector2 pos) : base(playScene)

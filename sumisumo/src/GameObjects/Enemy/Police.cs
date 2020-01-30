@@ -18,21 +18,12 @@ namespace sumisumo
 
         const int View = 180;                       // 視野
 
-        int count;              // 猶予時間のカウント
-        float Amount;           // 移動量
-        float dontMoveFream;    // 動いてはいけない時間（単位：フレーム）
         public int hp;          // HP
-        int randMove;           // 動く方向（ランダムで決定）
-        int changecount;        // 動いている時間のカウント（歩くか止まるかをチェンジするためのカウント）
-
         bool floorUp;           // 上の階への移動
         bool floorDown;         // 下の階への移動
         bool beforeSearch;       // 階段を見つける前か
 
         Vector2 velocity;       // 移動速度
-        Direction Direction;    // 移動方向
-
-        PlayScene playScene;    // playSceneの参照
         Player player;          // playerの参照
         GameObject nearStair;  // 一番近い階段を保存する
 
