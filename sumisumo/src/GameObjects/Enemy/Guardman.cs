@@ -129,10 +129,12 @@ namespace sumisumo
             {
                 if (pos.Y + 225 == player.pos.Y) // プレイヤーが1つ下の階にいたら
                 {
+                    floorUp = false;
                     floorDown = true;
                 }
                 else if (pos.Y - 223 == player.pos.Y) // 1つ上の階にいたら
                 {
+                    floorDown = false;
                     floorUp = true;
                 }
                 if (Math.Pow(playScene.player.pos.X - pos.X, 2) < 8) velocity.X = 0;
@@ -286,11 +288,11 @@ namespace sumisumo
 
         public override void Buzzer()
         {
-            if (pos.Y + 225 >= player.pos.Y) // プレイヤーが1つ下の階にいたら
+            if (pos.Y + 225 == player.pos.Y) // プレイヤーが1つ下の階にいたら
             {
                 floorDown = true;
             }
-            else if (pos.Y - 223 <= player.pos.Y) // 1つ上の階にいたら
+            else if (pos.Y - 223 == player.pos.Y) // 1つ上の階にいたら
             {
                 floorUp = true;
             }
