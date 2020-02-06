@@ -86,6 +86,7 @@
     <Compile Include="src\GameObjects\Others\Sight.cs" />
     <Compile Include="src\GameObjects\Player.cs" />
     <Compile Include="src\GameObjects\Others\ResultCursor.cs" />
+    <Compile Include="src\GameObjects\UI\GetMoneyUi.cs" />
     <Compile Include="src\Scenes\GameClearScene.cs" />
     <Compile Include="src\Scenes\GameOverScene.cs" />
     <Compile Include="src\Scenes\LoadScene.cs" />
