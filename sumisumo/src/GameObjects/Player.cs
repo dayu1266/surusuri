@@ -340,7 +340,9 @@ namespace sumisumo
             if (suri == true)
             {
                 SurinukeBoolChange(Sight.GetTarget());
-                curMoney += Random.Range(1, 5) * 100;
+                int getMoney = Random.Range(1, 5) * 100;
+                playScene.gameObjects.Add(new GetMoneyUi(playScene, pos, getMoney));
+                curMoney += getMoney;
             }
 
             // プレイヤーの向きに応じてワープ座標を決める
