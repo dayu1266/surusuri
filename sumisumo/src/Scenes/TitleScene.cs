@@ -31,13 +31,13 @@ namespace sumisumo
             if (state == State.Scroll)
             {
                 logoPosY += 2;
-                if (logoPosY >= 250)
+                if (logoPosY >= (int)Screen.Size.Y / 2 - 150)
                 {
                     state = State.Ready;
                 }
                 if (Input.GetButtonDown(DX.PAD_INPUT_1))
                 {
-                    logoPosY = 250;
+                    logoPosY = (int)Screen.Size.Y / 2 - 150;
                 }
             }
             if (state == State.Ready)
@@ -66,11 +66,11 @@ namespace sumisumo
             DX.DrawRotaGraph((int)Screen.Size.X / 2, logoPosY, 6, 0, Image.titlelogo, 1); // ロゴの描画
             if (state == State.Ready && flashTimer / 16 % 2 == 0)
             {
-                DX.DrawRotaGraph((int)Screen.Size.X / 2, 600, 4, 0, Image.gamestart, 1); // スタートボタンの描画
+                DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2 + 250, 4, 0, Image.gamestart, 1); // スタートボタンの描画
             }
-            if(state == State.Flash && flashTimer / 2 % 6 == 0)
+            if (state == State.Flash && flashTimer / 2 % 6 == 0)
             {
-                DX.DrawRotaGraph((int)Screen.Size.X / 2, 600, 4, 0, Image.gamestart, 1);
+                DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2 + 250, 4, 0, Image.gamestart, 1);
             }
         }
     }
