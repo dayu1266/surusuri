@@ -43,6 +43,7 @@ namespace sumisumo
         public static int sight;                         // 視界
         public static int enemysight;                    // 敵の視界
         public static int streetlight;                   // 街灯
+        public static int alerteffect;                   // 警戒モード時のエフェクト
         public static void Load()
         {
             player             = DX.LoadGraph("res/Image/player.png");
@@ -92,6 +93,7 @@ namespace sumisumo
             sight = DX.LoadGraph("res/Image/sight.png");
             enemysight = DX.LoadGraph("res/Image/enemysight.png");
             streetlight = DX.LoadGraph("res/Image/streetlight.png");
+            alerteffect = DX.LoadGraph("res/Image/alerteffect.png");
         }
     }
 }

@@ -146,6 +146,8 @@ namespace sumisumo
             // マップの描画
             map.DrawTerrain();
 
+            if (state == State.OnAlert) DX.DrawGraph(0, 0, Image.alerteffect, DX.TRUE);
+
             // 全オブジェクトの描画
             foreach (GameObject go in gameObjects)
             {
@@ -172,6 +174,8 @@ namespace sumisumo
             //{
             //    DX.DrawRotaGraph(1080 + (16 * i), 32, 0.3f, 0, Image.number[targetAmout.ToString()[i] - '0'], 1);
             //}
+
+
 
             #if DEBUG // Debugのみ実行される
             // 当たり判定のデバッグ表示
