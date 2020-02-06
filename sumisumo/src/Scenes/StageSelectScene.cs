@@ -24,10 +24,10 @@ namespace sumisumo
         {
             state = State.stop;
 
-            stage1Pos = 120;
-            moveTarget = 120;
-            stage2Pos = 240 + 2400;
-            stage3Pos = 300 + 4800;
+            stage1Pos = (int)Screen.Size.X / 2 - 530;
+            moveTarget = (int)Screen.Size.X / 2 - 530;
+            stage2Pos = (int)Screen.Size.X / 2 - 430 + 2400;
+            stage3Pos = (int)Screen.Size.X / 2 - 340 + 4800;
         }
 
         public override void Update()
@@ -97,9 +97,9 @@ namespace sumisumo
         {
             DX.DrawGraph(0, 0, Image.play_bg, 1); // 背景の描画
 
-            DX.DrawGraph(stage1Pos, (int)Screen.Size.Y / 2, Image.stage1_stageSelct, 1);
-            DX.DrawGraph(stage2Pos, (int)Screen.Size.Y / 2, Image.stage2_stageSelct, 1);
-            DX.DrawGraph(stage3Pos, (int)Screen.Size.Y / 2, Image.stage3_stageSelct, 1);
+            DX.DrawGraph(stage1Pos, (int)Screen.Size.Y / 2 - 300, Image.stage1_stageSelct, 1);
+            DX.DrawGraph(stage2Pos, (int)Screen.Size.Y / 2 - 380, Image.stage2_stageSelct, 1);
+            DX.DrawGraph(stage3Pos, (int)Screen.Size.Y / 2 - 350, Image.stage3_stageSelct, 1);
 
             if (stageLevel == 1 && state == State.stop)
             {

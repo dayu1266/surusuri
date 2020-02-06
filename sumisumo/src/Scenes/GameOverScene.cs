@@ -3,7 +3,7 @@ using QimOLib;
 
 namespace sumisumo
 {
-    public class GameOverScene: Scene
+    public class GameOverScene : Scene
     {
         ResultCursor resultCursor = new ResultCursor();
         bool flag;
@@ -16,7 +16,7 @@ namespace sumisumo
         {
             resultCursor.Update();
             flag = resultCursor.moveflag;
-            
+
             if (Input.GetButtonDown(DX.PAD_INPUT_1) && !flag)
             {
                 Sound.SePlay(Sound.se_decision);
@@ -30,11 +30,11 @@ namespace sumisumo
         }
 
         public override void Draw()
-        {          
-            DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2, 0.8f, 0, Image.gameover, 0);
+        {
+            DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2 - 100, 0.8f, 0, Image.gameover, 0);
             resultCursor.Draw();
-            DX.DrawGraph(260, 570, Image.gotitle, 0);
-            DX.DrawGraph(760, 570, Image.retry, 0);
+            DX.DrawGraph((int)Screen.Size.X / 2 + 200, (int)Screen.Size.Y / 2 + 200, Image.gotitle, 0);
+            DX.DrawGraph((int)Screen.Size.X / 2 - 550, (int)Screen.Size.Y / 2 + 200, Image.retry, 0);
         }
     }
 }
