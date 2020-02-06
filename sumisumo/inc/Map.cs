@@ -13,7 +13,7 @@ namespace sumisumo
         public const int Wall           = 0;    // 壁
         public const int Streetlight    = 0;
 
-        public const int Width = 120;  // マップデータの横のマス数
+        public int Width = 120;  // マップデータの横のマス数
         public int Height;   // マップデータの縦のマス数
         public const int CellSize = 32; // マップの1マスのピクセル数
 
@@ -31,11 +31,13 @@ namespace sumisumo
             }
             else if (stageName == "stage2")
             {
-                Height = 54;
+                Width = 140;
+                Height = 66;
             }
             else if (stageName == "stage3")
             {
-                Height = 68;
+                Width = 140;
+                Height = 85;
             }
 
             LoadTerrain("res/Map/" + stageName + "_terrain.csv");
@@ -196,11 +198,11 @@ namespace sumisumo
             }
             else if (stageLv == 2)
             {
-                Camera.DrawGraph(736, 320, Image.stage2_back);
+                Camera.DrawGraph(1056, 320, Image.stage2_back);
             }
             else if (stageLv == 3)
             {
-                Camera.DrawGraph(736, 320, Image.stage3_back);
+                Camera.DrawGraph(1024, 320, Image.stage3_back);
             }
 
             // 画面内のマップのみ描画するようにする

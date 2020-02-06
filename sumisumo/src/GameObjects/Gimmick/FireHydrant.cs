@@ -34,7 +34,7 @@ namespace sumisumo
 
         public override void Draw()
         {
-            Camera.DrawGraph(pos.X, pos.Y, Image.fireHydrant);
+            Camera.DrawGraph(pos.X, pos.Y - 8, Image.fireHydrant);
             if (state == UseState.Before && discovery) // 使用前かつ発見されているなら
             {
                 Camera.DrawGraph(pos.X + 64, pos.Y - 32, Image.gimmicksign); // ビックリマークを表示する
