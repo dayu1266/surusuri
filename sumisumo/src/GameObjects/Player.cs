@@ -33,11 +33,14 @@ namespace sumisumo
         public int hp;                      // HP
 
         public int floor = 1;   // 今いる階層
-        int floorMax;       // 最上層
-        int floorMin = 1;   // 最下層
+        readonly int floorMax;       // 最上層
+        const int floorMin = 1;   // 最下層
         int mutekiTimer = 0;
+        int animcount = 1;
 
         float stairInterval = 0.0f;     // 
+
+        public bool Guardman_isDead = false;
 
         public Player(PlayScene playScene, Vector2 pos) : base(playScene)
         {
@@ -60,6 +63,7 @@ namespace sumisumo
             isHiding = false;
 
             int stageLv = Game.GetStageLevel();
+
             // プレイヤーの生成
             if (stageLv == 1)
             {
@@ -111,6 +115,7 @@ namespace sumisumo
             stairInterval--;
 
             suri = false;
+            Guardman_isDead = false;
 
             mutekiTimer--;
         }
@@ -245,18 +250,18 @@ namespace sumisumo
                     if (velocity.X == 0) // 移動していない場合
                     {
                         // Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[0], flip);
-                        Camera.DrawGraph(pos.X, pos.Y, Image.player, flip); // 仮リソース
+                        Camera.DrawGraph(pos.X, pos.Y, Image.player[0], flip); // 仮リソース
                     }
                     else // 移動している場合
                     {
                         //Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[5], flip);
-                        Camera.DrawGraph(pos.X, pos.Y, Image.player, flip); // 仮リソース
+                        Camera.DrawGraph(pos.X, pos.Y, Image.player[animcount], flip); // 仮リソース
                     }
                 }
                 else if (state == State.Jump) // ジャンプ中の場合
                 {
                     // Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[14], flip);
-                    Camera.DrawGraph(pos.X, pos.Y, Image.player, flip); // 仮リソース
+                    Camera.DrawGraph(pos.X, pos.Y, Image.player[0], flip); // 仮リソース
                 }
             }
 
@@ -310,14 +315,8 @@ namespace sumisumo
         // ゴール処理
         public void IsGoal()
         {
-            if (curMoney > playScene.targetAmout)// 所持金が目標金額を超えていたら
-            {
-                playScene.isGoal = true;
-            }
-            else // 超えていなかったら
-            {
-                // 何もしない
-            }
+            // 所持金が目標金額を超えていたら
+            if (curMoney > playScene.targetAmout) playScene.isGoal = true;
         }
 
         public void FloorUp()
@@ -343,6 +342,13 @@ namespace sumisumo
                 int getMoney = Random.Range(1, 5) * 100;
                 playScene.gameObjects.Add(new GetMoneyUi(playScene, pos, getMoney));
                 curMoney += getMoney;
+            }
+
+            // 警備員を倒す処理
+            if (Guardman_isDead)
+            {
+                GameObject go = Sight.GetTarget();
+                go.isDead = true;
             }
 
             // プレイヤーの向きに応じてワープ座標を決める
@@ -378,6 +384,7 @@ namespace sumisumo
         public void Apeear() // 出てくる
         {
             isHiding = false;
+            playScene.gameObjects.Add(new Sight(playScene, this, pos));
         }
 
         private void GaugeDrawer()

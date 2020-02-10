@@ -164,8 +164,9 @@ namespace sumisumo
             for (int i = 0; i < money.Length; i++)
             {
                 //DX.DrawRotaGraph(1140 + (16 * i), 32, 1.0f, 0, Image.number[money[i] - '0'], 1);
-                DX.DrawRotaGraph((int)Screen.Size.X - (int)Screen.Size.X / 19 + (16 * i), 32, 1.0f, 0, Image.number[money[i] - '0'], 1);
+                DX.DrawRotaGraph((int)Screen.Size.X - (int)Screen.Size.X / 15 + (16 * i), 32, 1.0f, 0, Image.number[money[i] - '0'], DX.TRUE);
             }
+            DX.DrawRotaGraph((int)Screen.Size.X - (int)Screen.Size.X / 18 + 80, 32, 1.0f, 0, Image.yen, DX.TRUE);
             #if DEBUG
             DX.DrawStringF(Screen.Size.X/2, 330, player.pos.X.ToString() + "," + player.pos.Y.ToString(), DX.GetColor(255, 255, 255));
             #endif

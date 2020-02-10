@@ -4,15 +4,14 @@ using System.Numerics;
 
 namespace sumisumo
 {
+    // 警備員クラス
     public class Guardman : GameObject
     {
         const float WalkSpeed = 3f;                 // 歩く速度
         const float RunSpeed = 6.5f;                  // 走るスピード
-        const float MaxFallSpeed = 12f;             // 最大落下速度
         const int initialHp = 1;                    // 警備員のHP
         const int initialAmount = 200;              // 移動量のベース
         const int initialdontMoveFream = 3 * 60;    // 停止フレーム
-        const int View = 130;                       // 視野
 
         int count;              // 猶予時間のカウント
         float Amount;           // 移動量
@@ -29,6 +28,7 @@ namespace sumisumo
         Player player;          // playerの参照
         GameObject nearStair;  // 一番近い階段を保存する
 
+        // インスタンス
         public Guardman(PlayScene playScene, Vector2 pos) : base(playScene)
         {
             this.playScene = playScene;
@@ -52,6 +52,8 @@ namespace sumisumo
             playScene.gameObjects.Add(new Sight(playScene, this, pos));
             nearStair = null;
         }
+
+        // アップデート
         public override void Update()
         {
             MoveX();
@@ -81,6 +83,8 @@ namespace sumisumo
                 find = false;
             }
         }
+
+        // 横の移動処理
         void MoveX()
         {
             if (floorUp) // 階段を上りたかったら
@@ -132,13 +136,13 @@ namespace sumisumo
                 if (Math.Pow(playScene.player.pos.X - pos.X, 2) < 8) velocity.X = 0;
                 else if (playScene.player.pos.X > pos.X)
                 {
-                    float prePosX = velocity.X; // 1フレーム前の速度を保存
+                    //float prePosX = velocity.X; // 1フレーム前の速度を保存
                     velocity.X = RunSpeed;// 1フレーム前の速度より今の速度がのほうが速い、つまり振り向いた
                     direction = Direction.Right;
                 }
                 else
                 {
-                    float prePosX = velocity.X;
+                    //float prePosX = velocity.X;
                     velocity.X = -RunSpeed;
                     direction = Direction.Left;
                 }
@@ -153,7 +157,7 @@ namespace sumisumo
                     dontMoveFream = initialdontMoveFream;
 
                     // ランダムで移動方向を決定
-                    int tmp = randMove;
+                    // int tmp = randMove;
                     randMove = QimOLib.Random.Range(1, 3);
                     if (changecount == 0) randMove = 2;
 
@@ -250,6 +254,7 @@ namespace sumisumo
             }
         }
 
+        // コリジョン
         public override void OnCollision(GameObject other)
         {
             if (floorUp && other is UpStairs) // 上の階に行きたくて、上り階段に当たったら
@@ -262,22 +267,25 @@ namespace sumisumo
             }
         }
 
+        // 死にました
         public void Die()
         {
             isDead = true;
         }
 
+        // 描画
         public override void Draw()
         {
             // 左右反転するか？（左向きなら反転する）
             bool flip = direction == Direction.Left;
 
-            Camera.DrawGraph(pos.X, pos.Y, Image.guardman, !flip);
+            Camera.DrawGraph(pos.X, pos.Y, Image.guardman[0], !flip);
             #if DEBUG
             //DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示
             #endif
         }
 
+        // 消火栓ギミックの対応
         public override void Buzzer()
         {
             if (pos.Y + 225 == player.pos.Y) // プレイヤーが1つ下の階にいたら
@@ -289,7 +297,9 @@ namespace sumisumo
                 floorUp = true;
             }
         }
-        void StairUp() // 階段を上る
+
+        // 階段を上る
+        void StairUp() 
         {
             pos.X += 160;
             pos.Y -= 224;
@@ -297,7 +307,9 @@ namespace sumisumo
             beforeSearch = true;
             nearStair = null;
         }
-        void StairDown() // 階段を降りる
+
+        // 階段を降りる
+        void StairDown() 
         {
             pos.X -= 160;
             pos.Y += 224;
@@ -325,6 +337,7 @@ namespace sumisumo
                 beforeSearch = false; // ループが終了したら検索完了
             }
         }
+
         // 1番近い上り階段を探す
         void SeachUpStair()
         {

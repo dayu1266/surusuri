@@ -20,12 +20,12 @@ namespace sumisumo
             if (Input.GetButtonDown(DX.PAD_INPUT_1) && !flag)
             {
                 Sound.SePlay(Sound.se_decision);
-                Game.ChangeScene(new TitleScene());
+                Game.ChangeScene(new PlayScene());
             }
             else if (Input.GetButtonDown(DX.PAD_INPUT_1) && flag)
             {
                 Sound.SePlay(Sound.se_decision);
-                Game.ChangeScene(new PlayScene());
+                Game.ChangeScene(new TitleScene());
             }
         }
 
@@ -33,8 +33,8 @@ namespace sumisumo
         {
             DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2 - 100, 0.8f, 0, Image.gameover, 0);
             resultCursor.Draw();
-            DX.DrawGraph((int)Screen.Size.X / 2 + 200, (int)Screen.Size.Y / 2 + 200, Image.gotitle, 0);
-            DX.DrawGraph((int)Screen.Size.X / 2 - 550, (int)Screen.Size.Y / 2 + 200, Image.retry, 0);
+            DX.DrawGraph((int)Screen.Size.X / 2 + 200, (int)Screen.Size.Y / 2 + 200, Image.gotitle, 1);
+            DX.DrawGraph((int)Screen.Size.X / 2 - 550, (int)Screen.Size.Y / 2 + 200, Image.retry, 1);
         }
     }
 }
