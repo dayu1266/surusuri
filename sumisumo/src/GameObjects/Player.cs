@@ -39,6 +39,8 @@ namespace sumisumo
 
         float stairInterval = 0.0f;     // 
 
+        public bool Guardman_isDead = false;
+
         public Player(PlayScene playScene, Vector2 pos) : base(playScene)
         {
             this.pos.X = pos.X;
@@ -60,6 +62,7 @@ namespace sumisumo
             isHiding = false;
 
             int stageLv = Game.GetStageLevel();
+
             // プレイヤーの生成
             if (stageLv == 1)
             {
@@ -111,6 +114,7 @@ namespace sumisumo
             stairInterval--;
 
             suri = false;
+            Guardman_isDead = false;
 
             mutekiTimer--;
         }
@@ -310,14 +314,8 @@ namespace sumisumo
         // ゴール処理
         public void IsGoal()
         {
-            if (curMoney > playScene.targetAmout)// 所持金が目標金額を超えていたら
-            {
-                playScene.isGoal = true;
-            }
-            else // 超えていなかったら
-            {
-                // 何もしない
-            }
+            // 所持金が目標金額を超えていたら
+            if (curMoney > playScene.targetAmout) playScene.isGoal = true;
         }
 
         public void FloorUp()
@@ -343,6 +341,13 @@ namespace sumisumo
                 int getMoney = Random.Range(1, 5) * 100;
                 playScene.gameObjects.Add(new GetMoneyUi(playScene, pos, getMoney));
                 curMoney += getMoney;
+            }
+
+            // 警備員を倒す処理
+            if (Guardman_isDead)
+            {
+                GameObject go = Sight.GetTarget();
+                go.isDead = true;
             }
 
             // プレイヤーの向きに応じてワープ座標を決める

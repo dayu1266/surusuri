@@ -2,6 +2,7 @@
 
 namespace sumisumo
 {
+    // 沼の視野クラス
     public class Sight : GameObject
     {
         // 各オブジェクトの参照
@@ -86,7 +87,10 @@ namespace sumisumo
 
             // 親がプレイヤーで相手がなら
             if ((typeof(Player) == obj.GetType()) && other is Guardman && playScene.state == PlayScene.State.OnAlert)
-            {       
+            {
+                target = other;
+                
+                (obj as Player).Guardman_isDead = true;
             }
 
             // 親が警備員で相手がプレイヤーなら

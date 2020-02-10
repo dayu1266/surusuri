@@ -3,11 +3,14 @@ using System.Numerics;
 
 namespace sumisumo
 {
+    // 一般人のステート
     enum PeopleState
     {
         Normal,
         Escape,
     }
+
+    // 一般人クラス
     public class People : GameObject
     {
         const float WalkSpeed = 2f;                 // 歩きの速度
@@ -23,18 +26,19 @@ namespace sumisumo
         public int hp;          // HP
         int randMove;           // 動く方向
         int changecount;        // 動いている時間のカウント（歩くか止まるかをチェンジするためのカウント）
-        //int turnCounter;        // 
-        //int turn = 0;           // 
+        int turnCounter;        // 
+        int turn = 0;           // 
         bool beforeSearch;      // 逃走経路検索前か
         GameObject nearStair;   // 一番近い階段
 
         public bool see_player = false; // 視界内にプレイヤーがいるかどうか
-        int count = 0;
+        int count = 0;                  // 
 
-        PeopleState state;      // 一般人のステート
+        PeopleState state;  // 一般人のステート
         Vector2 velocity;   // 移動速度
-        Player player;
+        Player player;      // プレイヤーの参照
 
+        // インスタンス
         public People(PlayScene playScene, Vector2 pos) : base(playScene)
         {
             this.pos.X = pos.X;
@@ -60,6 +64,7 @@ namespace sumisumo
             nearStair = null;
         }
 
+        // アップデート
         public override void Update()
         {
             if (see_player) count = 0;
@@ -90,6 +95,7 @@ namespace sumisumo
             if (playScene.state == PlayScene.State.OnAlert) turnFream++;
         }
 
+        // 横の移動処理
         void MoveX()
         {
             if (state == PeopleState.Escape) // 逃走モードなら
@@ -239,21 +245,23 @@ namespace sumisumo
             }
         }
 
-        //void TurnAround()
-        //{
-        //    turnCounter++;
-        //    if (turnCounter > 20)
-        //    {
-        //        turn++;
-        //        turnCounter = 0;
-        //    }
-        //    if (turn >= 2)
-        //    {
-        //        turn = 0;
-        //        turnFream = 0;
-        //    }
-        //}
+        // 使わない場合消してください
+        void TurnAround()
+        {
+            turnCounter++;
+            if (turnCounter > 20)
+            {
+                turn++;
+                turnCounter = 0;
+            }
+            if (turn >= 2)
+            {
+                turn = 0;
+                turnFream = 0;
+            }
+        }
 
+        // コリジョン
         public override void OnCollision(GameObject other)
         {
             // 逃げ状態で階段に当たったら死ぬ
@@ -264,6 +272,7 @@ namespace sumisumo
             }
         }
 
+        // 描画
         public override void Draw()
         {
             // 左右反転するか？（左向きなら反転する）
@@ -274,6 +283,8 @@ namespace sumisumo
             //DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示
             #endif
         }
+
+        // 消火栓
         public override void Buzzer()
         {
             if (pos.Y - playScene.player.pos.Y == -7) // プレイヤーと同じ高さにいたら
@@ -282,6 +293,7 @@ namespace sumisumo
             }
         }
 
+        // スリを視界内で見たとき
         public void Suri_toSee()
         {
             state = PeopleState.Escape;
@@ -289,6 +301,7 @@ namespace sumisumo
             Sound.SePlay(Sound.se_scream_woman);
         }
 
+        // 逃げ道（階段への道）を探す
         void RouteSeach()
         {
             for (int i = 0; i < playScene.gameObjects.Count(); i++)

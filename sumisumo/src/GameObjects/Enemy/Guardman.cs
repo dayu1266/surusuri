@@ -4,6 +4,7 @@ using System.Numerics;
 
 namespace sumisumo
 {
+    // 警備員クラス
     public class Guardman : GameObject
     {
         const float WalkSpeed = 3f;                 // 歩く速度
@@ -27,6 +28,7 @@ namespace sumisumo
         Player player;          // playerの参照
         GameObject nearStair;  // 一番近い階段を保存する
 
+        // インスタンス
         public Guardman(PlayScene playScene, Vector2 pos) : base(playScene)
         {
             this.playScene = playScene;
@@ -50,6 +52,8 @@ namespace sumisumo
             playScene.gameObjects.Add(new Sight(playScene, this, pos));
             nearStair = null;
         }
+
+        // アップデート
         public override void Update()
         {
             MoveX();
@@ -79,6 +83,8 @@ namespace sumisumo
                 find = false;
             }
         }
+
+        // 横の移動処理
         void MoveX()
         {
             if (floorUp) // 階段を上りたかったら
@@ -248,6 +254,7 @@ namespace sumisumo
             }
         }
 
+        // コリジョン
         public override void OnCollision(GameObject other)
         {
             if (floorUp && other is UpStairs) // 上の階に行きたくて、上り階段に当たったら
@@ -260,11 +267,13 @@ namespace sumisumo
             }
         }
 
+        // 死にました
         public void Die()
         {
             isDead = true;
         }
 
+        // 描画
         public override void Draw()
         {
             // 左右反転するか？（左向きなら反転する）
@@ -276,6 +285,7 @@ namespace sumisumo
             #endif
         }
 
+        // 消火栓ギミックの対応
         public override void Buzzer()
         {
             if (pos.Y + 225 == player.pos.Y) // プレイヤーが1つ下の階にいたら
@@ -287,7 +297,9 @@ namespace sumisumo
                 floorUp = true;
             }
         }
-        void StairUp() // 階段を上る
+
+        // 階段を上る
+        void StairUp() 
         {
             pos.X += 160;
             pos.Y -= 224;
@@ -295,7 +307,9 @@ namespace sumisumo
             beforeSearch = true;
             nearStair = null;
         }
-        void StairDown() // 階段を降りる
+
+        // 階段を降りる
+        void StairDown() 
         {
             pos.X -= 160;
             pos.Y += 224;
@@ -323,6 +337,7 @@ namespace sumisumo
                 beforeSearch = false; // ループが終了したら検索完了
             }
         }
+
         // 1番近い上り階段を探す
         void SeachUpStair()
         {
