@@ -36,7 +36,7 @@ namespace sumisumo
         readonly int floorMax;       // 最上層
         const int floorMin = 1;   // 最下層
         int mutekiTimer = 0;
-        int animcount = 1;
+        int animcount = 20;
 
         float stairInterval = 0.0f;     // 
 
@@ -85,6 +85,13 @@ namespace sumisumo
         {
             // すり抜けの更新
             surinuke = false;
+
+            if (velocity.X != 0)
+            {
+                animcount += 3;
+                if (animcount > 80)
+                    animcount = 20;
+            }
 
             if (!isHiding)
             {
@@ -255,7 +262,7 @@ namespace sumisumo
                     else // 移動している場合
                     {
                         //Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[5], flip);
-                        Camera.DrawGraph(pos.X, pos.Y, Image.player[animcount], flip); // 仮リソース
+                        Camera.DrawGraph(pos.X, pos.Y, Image.player[animcount / 20], flip); // 仮リソース
                     }
                 }
                 else if (state == State.Jump) // ジャンプ中の場合

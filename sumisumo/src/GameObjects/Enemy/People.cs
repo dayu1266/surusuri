@@ -30,6 +30,9 @@ namespace sumisumo
         int turn = 0;           // 
         bool beforeSearch;      // 逃走経路検索前か
         GameObject nearStair;   // 一番近い階段
+        int runAnimCount = 50;
+        int walkAnimCount = 10;
+        int seibetu;
 
         public bool see_player = false; // 視界内にプレイヤーがいるかどうか
         int count = 0;                  // 
@@ -59,6 +62,7 @@ namespace sumisumo
             turnFream = 0;
             state = PeopleState.Normal;
             beforeSearch = true;
+            seibetu = QimOLib.Random.Range(1, 2);
 
             playScene.gameObjects.Add(new Sight(playScene, this, pos));
             nearStair = null;
@@ -83,6 +87,23 @@ namespace sumisumo
                 else
                 {
                     see_player = false;
+                }
+            }
+
+            if (state == PeopleState.Escape)
+            {
+                runAnimCount++;
+                if (runAnimCount > 90)
+                {
+                    runAnimCount = 50;
+                }
+            }
+            else if (velocity.X != 0)
+            {
+                walkAnimCount++;
+                if (walkAnimCount > 30)
+                {
+                    walkAnimCount = 10;
                 }
             }
 
@@ -277,7 +298,38 @@ namespace sumisumo
         {
             // 左右反転するか？（左向きなら反転する）
             bool flip = direction == Direction.Left;
-            Camera.DrawGraph(pos.X, pos.Y, Image.people,flip);
+            if (seibetu == 1)
+            {
+                if (state == PeopleState.Escape)
+                {
+                    Camera.DrawGraph(pos.X, pos.Y, Image.man[runAnimCount / 10], flip);
+                }
+                else if (velocity.X != 0)
+                {
+                    Camera.DrawGraph(pos.X, pos.Y, Image.man[walkAnimCount / 10], flip);
+                }
+                else
+                {
+                    Camera.DrawGraph(pos.X, pos.Y, Image.man[0], flip);
+                }
+            }
+            else if (seibetu == 2)
+            {
+                if (state == PeopleState.Escape)
+                {
+                    Camera.DrawGraph(pos.X, pos.Y, Image.woman[runAnimCount / 10], flip);
+                }
+                else if (velocity.X != 0)
+                {
+                    Camera.DrawGraph(pos.X, pos.Y, Image.woman[walkAnimCount / 10], flip);
+                }
+                else
+                {
+                    Camera.DrawGraph(pos.X, pos.Y, Image.woman[0], flip);
+                }
+            }
+           
+
             
             #if DEBUG
             //DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示

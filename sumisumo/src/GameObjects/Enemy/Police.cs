@@ -7,13 +7,21 @@ namespace sumisumo
     public class Police : GameObject
     {
         const float WalkSpeed = 3f;                 // 歩く速度
-        const float RunSpeed = 7f;                  // 走るスピード
-        const float MaxFallSpeed = 12f;             // 最大落下速度
+        const float RunSpeed = 6.5f;                  // 走るスピード
         const int initialHp = 1;                    // 警備員のHP
+        const int initialAmount = 200;              // 移動量のベース
+        const int initialdontMoveFream = 3 * 60;    // 停止フレーム
 
+        int count;              // 猶予時間のカウント
+        float Amount;           // 移動量
+        float dontMoveFream;    // 動いてはいけない時間（単位：フレーム）
+        public int hp;          // HP
+        int randMove;           // 動く方向（ランダムで決定）
+        int changecount;        // 動いている時間のカウント（歩くか止まるかをチェンジするためのカウント）
+        int runAnimCount = 50;
+        int walkAnimCount = 10;
         const int View = 180;                       // 視野
 
-        public int hp;          // HP
         bool floorUp;           // 上の階への移動
         bool floorDown;         // 下の階への移動
         bool beforeSearch;       // 階段を見つける前か
@@ -40,7 +48,9 @@ namespace sumisumo
             beforeSearch = true;
 
             hp = initialHp;
-            find = true;
+            Amount = initialAmount;
+            dontMoveFream = 0;
+            find = false;
             nearStair = null;
 
             playScene.gameObjects.Add(new Sight(playScene, this, pos));
@@ -49,6 +59,22 @@ namespace sumisumo
         {
             MoveX();
             MoveY();
+            if (find)
+            {
+                runAnimCount++;
+                if (runAnimCount > 90)
+                {
+                    runAnimCount = 50;
+                }
+            }
+            else if (velocity.X != 0)
+            {
+                walkAnimCount++;
+                if (walkAnimCount > 30)
+                {
+                    walkAnimCount = 10;
+                }
+            }
             if (player.isHiding)
             {
                 find = false;
@@ -112,6 +138,43 @@ namespace sumisumo
                     float prePosX = velocity.X;
                     velocity.X = -RunSpeed;
                     direction = Direction.Left;
+                }
+            }
+            else
+            {
+                if (dontMoveFream <= 0)
+                {
+                    // 初期値代入
+                    Amount = initialAmount;
+                    dontMoveFream = initialdontMoveFream;
+
+                    // ランダムで移動方向を決定
+                    // int tmp = randMove;
+                    randMove = QimOLib.Random.Range(1, 3);
+                    if (changecount == 0) randMove = 2;
+
+                    // 移動方向によりキャラの向きを変える
+                    if (randMove == 1) direction = Direction.Left;
+                    else direction = Direction.Right;
+
+                    // 移動量を決定
+                    int randAmount = QimOLib.Random.Range(1, 4);
+                    Amount = initialAmount * randAmount;
+                }
+
+                changecount++;
+
+                // Amount が0以上なら動く
+                if (Amount > 0)
+                {
+                    velocity.X = WalkSpeed;
+                    Amount -= velocity.X;
+                    if (randMove == 1) velocity.X *= -1;
+                }
+                else
+                {
+                    velocity.X = 0;
+                    dontMoveFream--;
                 }
             }
 
@@ -202,10 +265,23 @@ namespace sumisumo
 
         public override void Draw()
         {
-            Camera.DrawGraph(pos.X, pos.Y - 10.0f, Image.police[0]);
-            #if DEBUG
+            // 左右反転するか？（左向きなら反転する）
+            bool flip = direction == Direction.Left;
+            if (find)
+            {
+                Camera.DrawGraph(pos.X, pos.Y, Image.police[runAnimCount / 10], flip);
+            }
+            else if (velocity.X != 0)
+            {
+                Camera.DrawGraph(pos.X, pos.Y, Image.police[walkAnimCount / 10], flip);
+            }
+            else
+            {
+                Camera.DrawGraph(pos.X, pos.Y, Image.police[0], flip);
+            }
+#if DEBUG
             //DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示
-            #endif
+#endif
         }
 
         public override void Buzzer()
