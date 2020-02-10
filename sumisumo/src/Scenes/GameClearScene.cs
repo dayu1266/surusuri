@@ -38,11 +38,11 @@ namespace sumisumo
         {          
             if (Game.GetStageLevel() == 3)
             {
-                DX.DrawGraph(0, 0, Image.laststageclear, 0);
+                DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2, 1.0f, 0, Image.laststageclear, 0);
             }
             else
             {
-                DX.DrawGraph(0, 0, Image.gameclear, 0);
+                DX.DrawRotaGraph((int)Screen.Size.X / 2, (int)Screen.Size.Y / 2, 1.0f, 0, Image.gameclear, 0);
             }
             resultCursor.Draw();
         }
