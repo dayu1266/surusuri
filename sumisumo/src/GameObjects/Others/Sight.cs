@@ -62,6 +62,12 @@ namespace sumisumo
             {
                 isDead = true;
             }
+
+            // プレイヤーが試着室に隠れた場合視界を消す
+            if (typeof(Player) == obj.GetType() && (obj as Player).isHiding)
+            {
+                isDead = true;
+            }
         }
 
         public override void Draw()

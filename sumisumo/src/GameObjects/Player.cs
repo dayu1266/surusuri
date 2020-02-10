@@ -383,6 +383,7 @@ namespace sumisumo
         public void Apeear() // 出てくる
         {
             isHiding = false;
+            playScene.gameObjects.Add(new Sight(playScene, this, pos));
         }
 
         private void GaugeDrawer()
