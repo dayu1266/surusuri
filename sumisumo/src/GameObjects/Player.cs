@@ -146,14 +146,14 @@ namespace sumisumo
             }
 
             // 上下すり抜け
-            if (Input.GetButtonDown(DX.PAD_INPUT_UP) && floor < floorMax && surinukeLock <= 0)
+            if (Input.GetButtonDown(DX.PAD_INPUT_UP) && floor < floorMax && this.pos.X >= 1039 && surinukeLock <= 0)
             {
                 FloorUp();
                 surinukeLock = initSurinukeLock;
                 Sound.SePlay(Sound.se_surinuke);
             }
 
-            if (Input.GetButtonDown(DX.PAD_INPUT_DOWN) && floor > floorMin && surinukeLock <= 0)
+            if (Input.GetButtonDown(DX.PAD_INPUT_DOWN) && floor > floorMin && this.pos.X >= 1039 && surinukeLock <= 0)
             {
                 FloorDown();
                 surinukeLock = initSurinukeLock;
@@ -279,16 +279,16 @@ namespace sumisumo
         public override void OnCollision(GameObject other)
         {
             if (playScene.state == PlayScene.State.OnAlert && (other is Guardman || other is Police) && !isHiding)
-            {     
+            {
                 //無敵じゃなければダメージを受ける
                 if (mutekiTimer <= 0 && other.find)
                 {
                     Damage();
-                    if(direction == Direction.Right)
+                    if (direction == Direction.Right)
                     {
                         pos.X += 300.0f;
                     }
-                    else if(direction == Direction.Left)
+                    else if (direction == Direction.Left)
                     {
                         pos.X -= 300.0f;
                     }
@@ -361,9 +361,9 @@ namespace sumisumo
             // プレイヤーの向きに応じてワープ座標を決める
             if (direction == Direction.Right)
             {
-                if (pos.X >= 3093 - 180)
+                if (pos.X >= 3413 - 180)
                 {
-                    pos.X = 3093;
+                    pos.X = 3413;
                 }
                 else
                 {
@@ -372,9 +372,9 @@ namespace sumisumo
             }
             if (direction == Direction.Left)
             {
-                if (pos.X <= 719 + 180)
+                if (pos.X <= 1039 + 180)
                 {
-                    pos.X = 719;
+                    pos.X = 1039;
                 }
                 else
                 {

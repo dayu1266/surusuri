@@ -13,7 +13,7 @@ namespace sumisumo
         public const int Wall           = 0;    // 壁
         public const int Streetlight    = 0;
 
-        public int Width = 120;  // マップデータの横のマス数
+        public const int Width = 140;  // マップデータの横のマス数
         public int Height;   // マップデータの縦のマス数
         public const int CellSize = 32; // マップの1マスのピクセル数
 
@@ -27,17 +27,14 @@ namespace sumisumo
 
             if (stageName == "stage1")
             {
-                Width = 140;
                 Height = 44;
             }
             else if (stageName == "stage2")
             {
-                Width = 140;
                 Height = 66;
             }
             else if (stageName == "stage3")
             {
-                Width = 140;
                 Height = 85;
             }
 
