@@ -323,7 +323,10 @@ namespace sumisumo
         public void IsGoal()
         {
             // 所持金が目標金額を超えていたら
-            if (curMoney > playScene.targetAmout) playScene.isGoal = true;
+            if (curMoney >= playScene.targetAmout)
+            {
+                playScene.isGoal = true;
+            }
         }
 
         public void FloorUp()
@@ -346,7 +349,7 @@ namespace sumisumo
             if (suri == true)
             {
                 SurinukeBoolChange(Sight.GetTarget());
-                int getMoney = Random.Range(1, 5) * 100;
+                int getMoney = Random.Range(3, 7) * 100;
                 playScene.gameObjects.Add(new GetMoneyUi(playScene, pos, getMoney));
                 curMoney += getMoney;
                 Sound.SePlay(Sound.se_get_coin);
