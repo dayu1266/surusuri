@@ -27,7 +27,8 @@ namespace sumisumo
 
             if (stageName == "stage1")
             {
-                Height = 40;
+                Width = 140;
+                Height = 44;
             }
             else if (stageName == "stage2")
             {
@@ -194,7 +195,7 @@ namespace sumisumo
             int stageLv= Game.GetStageLevel();
             if (stageLv == 1)
             {
-                Camera.DrawGraph(736, 320, Image.stage1_back);
+                Camera.DrawGraph(1056, 128, Image.stage1_back);
             }
             else if (stageLv == 2)
             {
