@@ -108,6 +108,15 @@ namespace sumisumo
                     obj.find = true;
                 }
             }
+            // 親が警備員で相手がプレイヤーなら
+            if ((typeof(Police) == obj.GetType()) && other is Player)
+            {
+                obj.alert = true;
+                if (playScene.state == PlayScene.State.OnAlert)
+                {
+                    obj.find = true;
+                }
+            }
 
             // 親が一般ピーポーで相手がプレイヤーなら
             if ((typeof(People) == obj.GetType()) && other is Player)
