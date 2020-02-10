@@ -28,7 +28,7 @@ namespace sumisumo
 
         public bool isGoal        = false;         // ゴールしたかどうか
         bool clearSE              = false;         // クリア可能SEを流すとTRUEになる
-        public int targetAmout    = 2000;          // 目標金額
+        public int targetAmout    = 1000;          // 目標金額
 
         bool OnAlertOnce = false;
 
@@ -160,7 +160,7 @@ namespace sumisumo
             }
 
             // プレイヤーの所持金表示
-            string money = player.curMoney.ToString("000000");
+            string money = player.curMoney.ToString("00000");
             for (int i = 0; i < money.Length; i++)
             {
                 //DX.DrawRotaGraph(1140 + (16 * i), 32, 1.0f, 0, Image.number[money[i] - '0'], 1);
