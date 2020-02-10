@@ -61,7 +61,7 @@ namespace sumisumo
             MoveY();
             if (find)
             {
-                runAnimCount++;
+                runAnimCount += 2;
                 if (runAnimCount > 90)
                 {
                     runAnimCount = 50;

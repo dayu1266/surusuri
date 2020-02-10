@@ -62,7 +62,7 @@ namespace sumisumo
             turnFream = 0;
             state = PeopleState.Normal;
             beforeSearch = true;
-            seibetu = QimOLib.Random.Range(1, 2);
+            seibetu = QimOLib.Random.Range(1, 3);
 
             playScene.gameObjects.Add(new Sight(playScene, this, pos));
             nearStair = null;
@@ -92,7 +92,7 @@ namespace sumisumo
 
             if (state == PeopleState.Escape)
             {
-                runAnimCount++;
+                runAnimCount += 2;
                 if (runAnimCount > 90)
                 {
                     runAnimCount = 50;
