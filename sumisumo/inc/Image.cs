@@ -4,10 +4,12 @@ namespace sumisumo
 {
     public static class Image
     {
-        public static int player;                        // プレイヤー
-        public static int guardman;                      // 警備員
-        public static int[] police = new int[4];         // 警察官
+        public static int[] player = new int[5];        // プレイヤー
+        public static int[] guardman = new int[10];      // 警備員
+        public static int[] police = new int[10];        // 警察官
         public static int people;                        // 一般人
+        public static int[] man = new int[10];           // 一般男性
+        public static int[] woman = new int[10];         // 一般女性
         public static int test_shiitake;                 // しいたけ
         public static int test_playerShot;               // プレイヤーの弾
         public static int[] test_zentaman = new int[22]; // ゼンタマン
@@ -19,6 +21,7 @@ namespace sumisumo
         public static int nextStage;                     // 次のステージへ
         public static int cursor;                        // カーソル
         public static int[] number = new int[12];        // 数字のフォント
+        public static int yen;                           // 円
         public static int heart;                         // ハート
         public static int downStairs;                    // 下り階段
         public static int upStairs;                      // 上り階段
@@ -34,7 +37,7 @@ namespace sumisumo
         public static int gimmicksign;                   // ギミック発見マーク
         public static int[] cooltimeGauge = new int[31]; // クールタイムゲージ
         public static int gameclear;                     // ゲームクリア画面の背景
-        public static int gameover;                     // ゲームクリア画面の背景
+        public static int gameover;                      // ゲームクリア画面の背景
         public static int laststageclear;                // 全クリ画面
         public static int titlelogo;                     // タイトルのロゴ
         public static int gamestart;                     // ゲームスタートボタン   
@@ -44,12 +47,16 @@ namespace sumisumo
         public static int enemysight;                    // 敵の視界
         public static int streetlight;                   // 街灯
         public static int alerteffect;                   // 警戒モード時のエフェクト
+
         public static void Load()
         {
-            player             = DX.LoadGraph("res/Image/player.png");
-            guardman           = DX.LoadGraph("res/Image/guardman.png");
-            DX.LoadDivGraph("res/Image/policeanim.png", police.Length, 4, 1, 100, 140, police);
-            people             = DX.LoadGraph("res/Image/people.png");
+            DX.LoadDivGraph("res/Image/player.png", player.Length, 5, 1, 90, 140, player);
+            DX.LoadDivGraph("res/Image/guardman.png", guardman.Length, 5, 2, 90, 140, guardman);
+            DX.LoadDivGraph("res/Image/police.png", police.Length, 5, 2, 90, 140, police);
+            people = DX.LoadGraph("res/Image/people.png");
+            DX.LoadDivGraph("res/Image/man.png", man.Length, 5, 2, 90, 140, man);
+            DX.LoadDivGraph("res/Image/woman.png", woman.Length, 5, 2, 90, 140, woman);
+
 
             DX.LoadDivGraph("res/Image/test_zentaman.png", test_zentaman.Length, 4, 6, 60, 70, test_zentaman);
             test_playerShot    = DX.LoadGraph("res/Image/test_player_shot.png");
@@ -62,6 +69,7 @@ namespace sumisumo
             cursor             = DX.LoadGraph("res/Image/cursor.png");
             stageselect_bg     = DX.LoadGraph("res/Image/background1.png");
             DX.LoadDivGraph("res/Image/suuji16x32_02.png", number.Length, 12, 1, 16, 32, number);
+            yen = DX.LoadGraph("res/Image/yen.png");
 
             heart              = DX.LoadGraph("res/Image/heart.png");
             DX.LoadDivGraph("res/Image/surinukeCooltime.png", cooltimeGauge.Length, 5, 7, 48, 48, cooltimeGauge);

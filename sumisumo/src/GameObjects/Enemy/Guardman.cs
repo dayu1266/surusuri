@@ -272,7 +272,7 @@ namespace sumisumo
             // 左右反転するか？（左向きなら反転する）
             bool flip = direction == Direction.Left;
 
-            Camera.DrawGraph(pos.X, pos.Y, Image.guardman, !flip);
+            Camera.DrawGraph(pos.X, pos.Y, Image.guardman[0], !flip);
             #if DEBUG
             //DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示
             #endif

@@ -36,6 +36,7 @@ namespace sumisumo
         int floorMax;       // 最上層
         int floorMin = 1;   // 最下層
         int mutekiTimer = 0;
+        int animcount = 1;
 
         float stairInterval = 0.0f;     // 
 
@@ -245,18 +246,18 @@ namespace sumisumo
                     if (velocity.X == 0) // 移動していない場合
                     {
                         // Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[0], flip);
-                        Camera.DrawGraph(pos.X, pos.Y, Image.player, flip); // 仮リソース
+                        Camera.DrawGraph(pos.X, pos.Y, Image.player[0], flip); // 仮リソース
                     }
                     else // 移動している場合
                     {
                         //Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[5], flip);
-                        Camera.DrawGraph(pos.X, pos.Y, Image.player, flip); // 仮リソース
+                        Camera.DrawGraph(pos.X, pos.Y, Image.player[1], flip); // 仮リソース
                     }
                 }
                 else if (state == State.Jump) // ジャンプ中の場合
                 {
                     // Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[14], flip);
-                    Camera.DrawGraph(pos.X, pos.Y, Image.player, flip); // 仮リソース
+                    Camera.DrawGraph(pos.X, pos.Y, Image.player[0], flip); // 仮リソース
                 }
             }
 
