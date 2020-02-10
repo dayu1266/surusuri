@@ -2,6 +2,7 @@
 
 namespace sumisumo
 {
+    // 沼の視野クラス
     public class Sight : GameObject
     {
         // 各オブジェクトの参照
@@ -61,6 +62,12 @@ namespace sumisumo
             {
                 isDead = true;
             }
+
+            // プレイヤーが試着室に隠れた場合視界を消す
+            if (typeof(Player) == obj.GetType() && (obj as Player).isHiding)
+            {
+                isDead = true;
+            }
         }
 
         public override void Draw()
@@ -86,7 +93,10 @@ namespace sumisumo
 
             // 親がプレイヤーで相手がなら
             if ((typeof(Player) == obj.GetType()) && other is Guardman && playScene.state == PlayScene.State.OnAlert)
-            {       
+            {
+                target = other;
+                
+                (obj as Player).Guardman_isDead = true;
             }
 
             // 親が警備員で相手がプレイヤーなら
