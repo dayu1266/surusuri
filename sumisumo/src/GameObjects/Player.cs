@@ -284,14 +284,14 @@ namespace sumisumo
                 if (mutekiTimer <= 0 && other.find)
                 {
                     Damage();
-                    if (direction == Direction.Right)
-                    {
-                        pos.X += 300.0f;
-                    }
-                    else if (direction == Direction.Left)
-                    {
-                        pos.X -= 300.0f;
-                    }
+                    //if (direction == Direction.Right)
+                    //{
+                    //    pos.X += 300.0f;
+                    //}
+                    //else if (direction == Direction.Left)
+                    //{
+                    //    pos.X -= 300.0f;
+                    //}
                 }
             }
             if (Input.GetButtonDown(DX.PAD_INPUT_2))
