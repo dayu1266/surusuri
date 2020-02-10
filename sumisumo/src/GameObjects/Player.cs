@@ -14,7 +14,7 @@ namespace sumisumo
             Jump, // ジャンプ中
         }
 
-        const float WalkSpeed = 6f;    // 歩きの速度
+        const float WalkSpeed = 7f;    // 歩きの速度
         const float Gravity = 0.6f;  // 重力
         const float MaxFallSpeed = 12f;   // 最大落下速度
         const int initSurinukeLock = 90;
