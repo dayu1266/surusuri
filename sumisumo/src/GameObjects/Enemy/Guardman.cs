@@ -8,11 +8,9 @@ namespace sumisumo
     {
         const float WalkSpeed = 3f;                 // 歩く速度
         const float RunSpeed = 6.5f;                  // 走るスピード
-        const float MaxFallSpeed = 12f;             // 最大落下速度
         const int initialHp = 1;                    // 警備員のHP
         const int initialAmount = 200;              // 移動量のベース
         const int initialdontMoveFream = 3 * 60;    // 停止フレーム
-        const int View = 130;                       // 視野
 
         int count;              // 猶予時間のカウント
         float Amount;           // 移動量
@@ -132,13 +130,13 @@ namespace sumisumo
                 if (Math.Pow(playScene.player.pos.X - pos.X, 2) < 8) velocity.X = 0;
                 else if (playScene.player.pos.X > pos.X)
                 {
-                    float prePosX = velocity.X; // 1フレーム前の速度を保存
+                    //float prePosX = velocity.X; // 1フレーム前の速度を保存
                     velocity.X = RunSpeed;// 1フレーム前の速度より今の速度がのほうが速い、つまり振り向いた
                     direction = Direction.Right;
                 }
                 else
                 {
-                    float prePosX = velocity.X;
+                    //float prePosX = velocity.X;
                     velocity.X = -RunSpeed;
                     direction = Direction.Left;
                 }
@@ -153,7 +151,7 @@ namespace sumisumo
                     dontMoveFream = initialdontMoveFream;
 
                     // ランダムで移動方向を決定
-                    int tmp = randMove;
+                    // int tmp = randMove;
                     randMove = QimOLib.Random.Range(1, 3);
                     if (changecount == 0) randMove = 2;
 

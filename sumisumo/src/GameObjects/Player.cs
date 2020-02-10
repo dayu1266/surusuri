@@ -33,8 +33,8 @@ namespace sumisumo
         public int hp;                      // HP
 
         public int floor = 1;   // 今いる階層
-        int floorMax;       // 最上層
-        int floorMin = 1;   // 最下層
+        readonly int floorMax;       // 最上層
+        const int floorMin = 1;   // 最下層
         int mutekiTimer = 0;
 
         float stairInterval = 0.0f;     // 

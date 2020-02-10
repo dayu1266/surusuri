@@ -11,11 +11,9 @@ namespace sumisumo
     public class People : GameObject
     {
         const float WalkSpeed = 2f;                 // 歩きの速度
-        const float MaxFallSpeed = 12f;             // 最大落下速度
         const int initialHp = 1;                    // 一般人のHP
         const int initialAmount = 200;              // 移動量のベース
         const int initialdontMoveFream = 3 * 60;    // 停止フレーム
-        const int View = 130;                       // 視野
         const int turnInterval = 90;                // 回転するまでのインターバル（単位：）
 
         float Speed;            // スピード
@@ -25,8 +23,8 @@ namespace sumisumo
         public int hp;          // HP
         int randMove;           // 動く方向
         int changecount;        // 動いている時間のカウント（歩くか止まるかをチェンジするためのカウント）
-        int turnCounter;        // 
-        int turn = 0;           // 
+        //int turnCounter;        // 
+        //int turn = 0;           // 
         bool beforeSearch;      // 逃走経路検索前か
         GameObject nearStair;   // 一番近い階段
 
@@ -241,20 +239,20 @@ namespace sumisumo
             }
         }
 
-        void TurnAround()
-        {
-            turnCounter++;
-            if (turnCounter > 20)
-            {
-                turn++;
-                turnCounter = 0;
-            }
-            if (turn >= 2)
-            {
-                turn = 0;
-                turnFream = 0;
-            }
-        }
+        //void TurnAround()
+        //{
+        //    turnCounter++;
+        //    if (turnCounter > 20)
+        //    {
+        //        turn++;
+        //        turnCounter = 0;
+        //    }
+        //    if (turn >= 2)
+        //    {
+        //        turn = 0;
+        //        turnFream = 0;
+        //    }
+        //}
 
         public override void OnCollision(GameObject other)
         {
