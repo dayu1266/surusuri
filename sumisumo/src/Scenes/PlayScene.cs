@@ -44,7 +44,7 @@ namespace sumisumo
             // プレイヤーの生成
             if (stageLv == 1)
             {
-                player = new Player(this, new Vector2(920, 800));
+                player = new Player(this, new Vector2(1160, 640));
             }
             else if (stageLv == 2)
             {
