@@ -56,7 +56,7 @@ namespace sumisumo
             hitboxOffsetTop = 9;
             hitboxOffsetBottom = 10;
 
-            curMoney = 1000;
+            curMoney = 0;
 
             hp = initialHp;
             surinukeLock = initSurinukeLock;
