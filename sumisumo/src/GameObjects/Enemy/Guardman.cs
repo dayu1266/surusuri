@@ -19,6 +19,8 @@ namespace sumisumo
         public int hp;          // HP
         int randMove;           // 動く方向（ランダムで決定）
         int changecount;        // 動いている時間のカウント（歩くか止まるかをチェンジするためのカウント）
+        int runAnimCount = 50;
+        int walkAnimCount = 10;
 
         bool floorUp;           // 上の階への移動
         bool floorDown;         // 下の階への移動
@@ -58,6 +60,23 @@ namespace sumisumo
         {
             MoveX();
             MoveY();
+
+            if (find)
+            {
+                runAnimCount++;
+                if (runAnimCount > 90)
+                {
+                    runAnimCount = 50;
+                }
+            }
+            else if (velocity.X != 0)
+            {
+                walkAnimCount++;
+                if (walkAnimCount > 30)
+                {
+                    walkAnimCount = 10;
+                }
+            }
 
             if (alert) count = 0;
             else if (!alert) count++;
@@ -279,10 +298,21 @@ namespace sumisumo
             // 左右反転するか？（左向きなら反転する）
             bool flip = direction == Direction.Left;
 
-            Camera.DrawGraph(pos.X, pos.Y, Image.guardman[0], !flip);
-            #if DEBUG
+            if (find)
+            {
+                Camera.DrawGraph(pos.X, pos.Y, Image.guardman[runAnimCount / 10], flip);
+            }
+            else if (velocity.X != 0)
+            {
+                Camera.DrawGraph(pos.X, pos.Y, Image.guardman[walkAnimCount / 10], flip);
+            }
+            else
+            {
+                Camera.DrawGraph(pos.X, pos.Y, Image.guardman[0], flip);
+            }
+#if DEBUG
             //DX.DrawStringF(pos.X - Camera.cameraPos.X, pos.Y - Camera.cameraPos.Y - 12, pos.X.ToString() + "," + pos.Y.ToString(), DX.GetColor(255, 100, 255)); // デバッグ用座標表示
-            #endif
+#endif
         }
 
         // 消火栓ギミックの対応
