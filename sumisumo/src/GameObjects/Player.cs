@@ -255,7 +255,7 @@ namespace sumisumo
                     else // 移動している場合
                     {
                         //Camera.DrawGraph(pos.X, pos.Y, Image.test_zentaman[5], flip);
-                        Camera.DrawGraph(pos.X, pos.Y, Image.player[1], flip); // 仮リソース
+                        Camera.DrawGraph(pos.X, pos.Y, Image.player[animcount], flip); // 仮リソース
                     }
                 }
                 else if (state == State.Jump) // ジャンプ中の場合

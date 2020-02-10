@@ -155,7 +155,7 @@
     <Content Include="res\Image\enemysight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="res\Image\gameclear.png">
+    <Content Include="res\Image\gameclear .png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="res\Image\gameover_bg.png">
