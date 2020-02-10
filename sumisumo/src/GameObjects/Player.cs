@@ -349,6 +349,7 @@ namespace sumisumo
                 int getMoney = Random.Range(1, 5) * 100;
                 playScene.gameObjects.Add(new GetMoneyUi(playScene, pos, getMoney));
                 curMoney += getMoney;
+                Sound.SePlay(Sound.se_get_coin);
             }
 
             // 警備員を倒す処理

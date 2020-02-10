@@ -20,6 +20,7 @@ namespace sumisumo
         public static int se_surinuke;
         public static int se_switch;
         public static int se_whistle;
+        public static int se_get_coin;
 
         public static void Load()
         {
@@ -39,6 +40,7 @@ namespace sumisumo
             se_surinuke       = DX.LoadSoundMem("res/Sound/SE/surinuke.mp3");
             se_switch         = DX.LoadSoundMem("res/Sound/SE/swtch.mp3");
             se_whistle        = DX.LoadSoundMem("res/Sound/SE/whistle.mp3");
+            se_get_coin = DX.LoadSoundMem("res/Sound/SE/coin05.mp3");
 
         }
         public static void BgmPlay(string handle)
